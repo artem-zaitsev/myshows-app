@@ -32,16 +32,19 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="REGISTER"
+            android:textAlignment="center"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/login_btn"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:text="LOG IN"
-            android:textSize="20sp" />
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:gravity="center"/>
     </LinearLayout>
 
 </RelativeLayout>
