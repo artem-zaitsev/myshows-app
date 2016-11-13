@@ -5,17 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class LaunchActivity extends AppCompatActivity implements View.OnClickListener{
+public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button registerButton;
     private Button loginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        registerButton = (Button)findViewById(R.id.register_btn);
-        loginButton = (Button)findViewById(R.id.login_btn);
+        registerButton = (Button) findViewById(R.id.register_btn);
+        loginButton = (Button) findViewById(R.id.login_btn);
 
         loginButton.setOnClickListener(this);
     }
