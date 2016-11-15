@@ -21,11 +21,12 @@
 
     <LinearLayout
         android:id="@+id/buttons_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="50dp"
+        android:padding="10dp">
 
         <Button
             android:id="@+id/register_btn"
@@ -33,7 +34,8 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_up"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/login_btn"
@@ -44,7 +46,8 @@
             android:text="@string/sign_in"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_weight="1"/>
     </LinearLayout>
 
 </RelativeLayout>
