@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
 
-    static final int NUM_PAGES = 3;
+    static final int NUM_PAGES = 2;
     private Button registerButton;
     private Button loginButton;
 
@@ -61,7 +61,12 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public Fragment getItem(int position) {
-            return new WelcomeFragment();
+            Fragment fragment = new WelcomeFragment();
+            Bundle args = new Bundle();
+            // Put a position of item, i.e number of page.
+            args.putInt(WelcomeFragment.ARG_KEY, position );
+            fragment.setArguments(args);
+            return fragment;
         }
 
         @Override

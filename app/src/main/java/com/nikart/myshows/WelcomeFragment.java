@@ -11,10 +11,26 @@ import android.view.ViewGroup;
  */
 
 public class WelcomeFragment extends Fragment {
+    static final String ARG_KEY = "welcome";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_welcome,container,false);
+        View rootView;
+        Bundle bundle = getArguments();
+        int num_of_page = bundle.getInt(ARG_KEY);
+        switch (num_of_page) {
+            case 0: {
+                rootView = inflater.inflate(R.layout.fragment_welcome, container, false);
+                break;
+            }
+            case 1: {
+                rootView = inflater.inflate(R.layout.fragment_promo, container, false);
+                break;
+            }
+            default:
+                rootView = inflater.inflate(R.layout.fragment_promo, container, false);
+        }
+        return rootView;
     }
 }
