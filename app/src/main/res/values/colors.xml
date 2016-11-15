@@ -6,4 +6,6 @@
     <color name="primary_text_material_light">#fafafa</color>
     <color name="primary_text">#e7fafafa</color>
     <color name="secondary_text">#bdbdbd</color>
+    <color name="secondary_text_material_dark">#fafafa</color>
+    <color name="primary_text_material_dark">#616161</color>
 </resources>
