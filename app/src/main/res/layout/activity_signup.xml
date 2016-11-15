@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Sign up"
+        android:text="@string/sign_up"
         android:textSize="24sp"/>
 
     <EditText
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="text" />
 
     <EditText
@@ -34,7 +34,7 @@
         android:layout_below="@+id/reg_username_edittext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:hint="E-mail"
+        android:hint="@string/email"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -44,7 +44,7 @@
         android:layout_below="@+id/reg_email_edittext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 
     <EditText
@@ -54,7 +54,7 @@
         android:layout_below="@id/reg_password_edittext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:hint="Confirm your password"
+        android:hint="@string/password_confirm"
         android:inputType="textPassword" />
 
     <Button
@@ -64,5 +64,5 @@
         android:layout_below="@id/reg_password_confirm_edittext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="SIGN UP" />
+        android:text="@string/sign_up" />
 </RelativeLayout>

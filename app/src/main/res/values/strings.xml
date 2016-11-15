@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">MyShows</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="email">E-mail</string>
+    <string name="password_confirm">Confirm the password</string>
 </resources>
