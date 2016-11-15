@@ -31,6 +31,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         loginButton = (Button) findViewById(R.id.login_btn);
 
         loginButton.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
 
         mPager = (ViewPager) findViewById(R.id.launch_pager);
         mPagerAdapter = new WelcomePagesSlideAdapter(getSupportFragmentManager());
@@ -39,13 +40,16 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        /*switch (view){
-            case registerButton : {
+        switch (view.getId()){
+            case R.id.login_btn: {
+                LoginActivity.start(this);
                 break;
             }
-        }*/
-
-        LoginActivity.start(this);
+            case R.id.register_btn: {
+                SignupActivity.start(this);
+                break;
+            }
+        }
     }
 
     // Делаем внутренний класс для адаптера фрагментов. Возможно нужно
