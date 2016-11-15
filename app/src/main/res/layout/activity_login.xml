@@ -16,7 +16,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="myshows.ru"
-        android:textSize="24sp"/>
+        android:textSize="24sp" />
+
     <EditText
         android:id="@+id/login_edittext"
         android:layout_width="200dp"
@@ -24,7 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:hint="Login"
-        />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/password_edittext"
@@ -34,9 +35,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:hint="Password"
-
-        android:inputType="textPassword"
-        />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/sign_in_btn"
@@ -45,6 +44,5 @@
         android:layout_below="@id/password_edittext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="SIGN IN"
-        />
+        android:text="SIGN IN" />
 </RelativeLayout>
