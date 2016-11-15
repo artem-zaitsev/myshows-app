@@ -40,7 +40,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.login_btn: {
                 LoginActivity.start(this);
                 break;

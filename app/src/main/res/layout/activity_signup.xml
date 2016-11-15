@@ -52,7 +52,7 @@
         android:layout_below="@id/reg_password_edittext"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
-        android:hint="Password"
+        android:hint="Confirm your password"
 
         android:inputType="textPassword"
         />
