@@ -58,28 +58,35 @@
         android:padding="12dp">
 
         <ImageButton
+            android:id="@+id/vk_auth_btn"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:background="@color/background"
             android:scaleType="fitCenter"
-            android:src="@drawable/social_vk" />
+            android:src="@drawable/social_vk"
+            android:contentDescription="vk.com"
+            />
 
         <ImageButton
+            android:id="@+id/fb_auth_btn"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:background="@color/background"
             android:scaleType="centerCrop"
-            android:src="@drawable/social_facebook" />
+            android:src="@drawable/social_facebook"
+            android:contentDescription="facebook.com"/>
 
         <ImageButton
+            android:id="@+id/twitter_auth_btn"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:background="@color/background"
             android:scaleType="fitCenter"
-            android:src="@drawable/social_twitter" />
+            android:src="@drawable/social_twitter"
+            android:contentDescription="twitter.com"/>
     </LinearLayout>
 </RelativeLayout>

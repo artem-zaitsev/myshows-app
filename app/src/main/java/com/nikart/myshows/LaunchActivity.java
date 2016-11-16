@@ -14,7 +14,7 @@ import android.widget.Button;
 
 public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
 
-    static final int NUM_PAGES = 2;
+    static private final int NUM_PAGES = 2;
     private Button registerButton;
     private Button loginButton;
 
