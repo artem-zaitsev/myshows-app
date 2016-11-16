@@ -2,9 +2,11 @@ package com.nikart.myshows;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +38,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         mPager = (ViewPager) findViewById(R.id.launch_pager);
         mPagerAdapter = new WelcomePagesSlideAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+
     }
 
     @Override
@@ -54,7 +57,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
 
     // Делаем внутренний класс для адаптера фрагментов. Возможно нужно
     // сделать FragmentAdapter, так как страниц всего 3.
-    private class WelcomePagesSlideAdapter extends FragmentStatePagerAdapter {
+    private class WelcomePagesSlideAdapter extends FragmentPagerAdapter {
         WelcomePagesSlideAdapter(FragmentManager supportFragmentManager) {
             super(supportFragmentManager);
         }
@@ -64,7 +67,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
             Fragment fragment = new WelcomeFragment();
             Bundle args = new Bundle();
             // Put a position of item, i.e number of page.
-            args.putInt(WelcomeFragment.ARG_KEY, position );
+            args.putInt(WelcomeFragment.ARG_KEY, position);
             fragment.setArguments(args);
             return fragment;
         }
