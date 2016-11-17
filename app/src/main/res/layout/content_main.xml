@@ -21,12 +21,43 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/activity_main_viewpager"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/toolbar_height">
 
-    </android.support.v4.view.ViewPager>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/activity_main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <android.support.design.widget.TabLayout
+                android:id="@+id/main_activity_vw_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top">
 
+                <android.support.design.widget.TabItem
+                    android:id="@+id/item1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MY SHOWS"
+                    android:textColor = "@color/primary_text_material_light"/>
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MY EPISODES"
+                    android:textColor = "@color/primary_text_material_light"/>
+
+                <android.support.design.widget.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NEWS"
+                    android:textColor = "@color/primary_text_material_light"/>
+            </android.support.design.widget.TabLayout>
+
+        </android.support.v4.view.ViewPager>
+
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

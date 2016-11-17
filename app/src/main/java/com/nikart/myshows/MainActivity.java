@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -61,6 +62,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Tabs????
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.main_activity_vw_tabs);
+        /*tabLayout.addTab(tabLayout.newTab().setText("MY SHOWS"));
+        tabLayout.addTab(tabLayout.newTab().setText("MY EPISODES"));
+        tabLayout.addTab(tabLayout.newTab().setText("NEWS"));*/
+        tabLayout.setupWithViewPager(mainActivityPager);
     }
 
     /* Тут реализуем метод интерфейса. Особо не реализован))
