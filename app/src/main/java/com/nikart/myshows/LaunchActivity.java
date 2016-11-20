@@ -47,7 +47,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             }
             case R.id.register_btn: {
-                SignupActivity.start(this);
+                SignUpActivity.start(this);
                 break;
             }
         }

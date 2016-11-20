@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     static void start(Context context) {
-        Intent intent = new Intent(context, SignupActivity.class);
+        Intent intent = new Intent(context, SignUpActivity.class);
         context.startActivity(intent);
     }
 
