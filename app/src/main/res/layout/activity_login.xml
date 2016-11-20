@@ -77,7 +77,7 @@
             android:background="@color/background"
             android:contentDescription="vk.com"
             android:scaleType="fitCenter"
-            android:src="@drawable/social_vk" />
+            android:src="@drawable/social_vk_auth_btn"/>
 
         <ImageButton
             android:id="@+id/fb_auth_btn"
