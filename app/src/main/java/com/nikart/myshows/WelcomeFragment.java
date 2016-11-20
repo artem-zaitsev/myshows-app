@@ -13,6 +13,15 @@ import android.view.ViewGroup;
 public class WelcomeFragment extends Fragment {
     static final String ARG_KEY = "welcome";
 
+    public static Fragment welcomeFragmentCreate(int position) {
+        Fragment fragment = new WelcomeFragment();
+        Bundle args = new Bundle();
+        // Put a position of item, i.e number of page.
+        args.putInt(ARG_KEY, position);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

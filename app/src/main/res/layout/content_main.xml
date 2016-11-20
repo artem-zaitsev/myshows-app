@@ -42,6 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MY SHOWS"
+
                     android:textColor = "@color/primary_text_material_light"/>
 
                 <android.support.design.widget.TabItem

@@ -12,10 +12,11 @@
 
     <android.support.v4.view.ViewPager
         android:id="@+id/launch_pager"
-        android:layout_width="200dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp">
+        android:paddingTop="50dp"
+        android:layout_marginBottom="100dp">
 
     </android.support.v4.view.ViewPager>
 

@@ -9,7 +9,7 @@ import android.widget.Button;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button signinButton;
+    private Button signInButton;
 
     static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -21,8 +21,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        signinButton = (Button) findViewById(R.id.sign_in_btn);
-        signinButton.setOnClickListener(this);
+        signInButton = (Button) findViewById(R.id.sign_in_btn);
+        signInButton.setOnClickListener(this);
     }
 
     @Override

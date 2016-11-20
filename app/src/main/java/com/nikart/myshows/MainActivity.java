@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     final private static int NUM_PAGES = 3;
 
-    private ViewPager mainActivityPager;
-    private PagerAdapter mainActivityPagerAdapter;
+    private ViewPager pager;
+    private PagerAdapter pagerAdapter;
     private DrawerLayout drawer;
-    private Toolbar myToolbar;
+    private Toolbar toolbar;
 
     static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myToolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
-        setSupportActionBar(myToolbar);
+        toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
+        setSupportActionBar(toolbar);
 
-        mainActivityPager = (ViewPager) findViewById(R.id.activity_main_viewpager);
-        mainActivityPagerAdapter = new MainActivityFragmentPagerAdapter(getSupportFragmentManager());
-        mainActivityPager.setAdapter(mainActivityPagerAdapter);
+        pager = (ViewPager) findViewById(R.id.activity_main_viewpager);
+        pagerAdapter = new MainActivityFragmentPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(pagerAdapter);
 
         /* Делаем drawer
         *  и сеттим на навигэйшнВью слушатель( пока нафиг не нужен, тк
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
         *  */
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
@@ -65,10 +65,11 @@ public class MainActivity extends AppCompatActivity
 
         //Tabs????
         TabLayout tabLayout = (TabLayout) findViewById(R.id.main_activity_vw_tabs);
-        /*tabLayout.addTab(tabLayout.newTab().setText("MY SHOWS"));
-        tabLayout.addTab(tabLayout.newTab().setText("MY EPISODES"));
-        tabLayout.addTab(tabLayout.newTab().setText("NEWS"));*/
-        tabLayout.setupWithViewPager(mainActivityPager);
+
+        tabLayout.getTabAt(0).setText("MY SHOWS");
+        tabLayout.getTabAt(1).setText("MY EPISODES");
+        tabLayout.getTabAt(2).setText("NEWS");
+        tabLayout.setupWithViewPager(pager);
     }
 
     /* Тут реализуем метод интерфейса. Особо не реализован))

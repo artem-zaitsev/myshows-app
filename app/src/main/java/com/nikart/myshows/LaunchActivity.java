@@ -19,10 +19,10 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     private Button loginButton;
 
     //Pager
-    private ViewPager mPager;
+    private ViewPager pager;
 
     //PagerAdapter
-    private PagerAdapter mPagerAdapter;
+    private PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,9 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         loginButton.setOnClickListener(this);
         registerButton.setOnClickListener(this);
 
-        mPager = (ViewPager) findViewById(R.id.launch_pager);
-        mPagerAdapter = new WelcomePagesSlideAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
+        pager = (ViewPager) findViewById(R.id.launch_pager);
+        pagerAdapter = new WelcomePagesSlideAdapter(getSupportFragmentManager());
+        pager.setAdapter(pagerAdapter);
 
     }
 
@@ -49,7 +49,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             }
             case R.id.register_btn: {
-                SignupActivity.start(this);
+                SignUpActivity.start(this);
                 break;
             }
         }
@@ -64,12 +64,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = new WelcomeFragment();
-            Bundle args = new Bundle();
-            // Put a position of item, i.e number of page.
-            args.putInt(WelcomeFragment.ARG_KEY, position);
-            fragment.setArguments(args);
-            return fragment;
+            return WelcomeFragment.welcomeFragmentCreate(position);
         }
 
         @Override
