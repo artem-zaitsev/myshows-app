@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:design="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context="com.nikart.mainscreen.MainActivity">
 
@@ -21,44 +22,19 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/toolbar_height">
+        android:id="@+id/main_activity_fragment_container"
+        android:name="com.nikart.mainscreen.MyShowsFragment"
+        tools:layout="@layout/fragment_no_content" />
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/activity_main_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+       <android.support.design.widget.BottomNavigationView
+        android:id="@+id/main_activity_bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        design:menu="@menu/bottom_nav_menu"
+        android:layout_gravity="start|bottom">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/main_activity_vw_tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top">
-
-                <android.support.design.widget.TabItem
-                    android:id="@+id/item1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MY SHOWS"
-
-                    android:textColor = "@color/primary_text_material_light"/>
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="MY EPISODES"
-                    android:textColor = "@color/primary_text_material_light"/>
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="NEWS"
-                    android:textColor = "@color/primary_text_material_light"/>
-            </android.support.design.widget.TabLayout>
-
-        </android.support.v4.view.ViewPager>
-
-    </LinearLayout>
+    </android.support.design.widget.BottomNavigationView>
 </android.support.design.widget.CoordinatorLayout>
