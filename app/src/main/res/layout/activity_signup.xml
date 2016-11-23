@@ -18,69 +18,21 @@
         android:text="@string/sign_up"
         android:textSize="24sp" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/reg_username_edittext"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/signup_pager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:hint="@string/username">
+        android:paddingTop="50dp"
+        android:layout_marginBottom="100dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/reg_email_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/reg_username_edittext"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:hint="@string/email">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textEmailAddress" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/reg_password_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/reg_email_edittext"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:hint="@string/password">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/reg_password_confirm_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/reg_password_edittext"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:hint="@string/password_confirm">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textPassword" />
-    </android.support.design.widget.TextInputLayout>
-
+    </android.support.v4.view.ViewPager>
 
     <Button
         android:id="@+id/sign_up_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/reg_password_confirm_edittext"
+        android:layout_below="@id/signup_pager"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:text="@string/sign_up" />

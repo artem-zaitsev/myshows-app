@@ -12,8 +12,6 @@ import android.widget.Button;
 
 import com.nikart.myshows.R;
 import com.nikart.signinscreen.LoginActivity;
-import com.nikart.signinscreen.PromoFragment;
-import com.nikart.signinscreen.WelcomeFragment;
 import com.nikart.signupscreen.SignUpActivity;
 
 public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
