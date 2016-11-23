@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.nikart.myshows.LaunchActivity">
+    tools:context="com.nikart.launchscreen.LaunchActivity">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/launch_pager"
@@ -27,7 +27,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
-        android:padding="10dp">
+        android:padding="10dp"
+        style="?android:attr/buttonBarStyle">
 
         <Button
             android:id="@+id/register_btn"
@@ -36,7 +37,8 @@
             android:text="@string/sign_up"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            style="?android:attr/buttonBarButtonStyle"/>
 
         <Button
             android:id="@+id/login_btn"
@@ -48,7 +50,8 @@
             android:textAlignment="center"
             android:textSize="20sp"
             android:gravity="center"
-            android:layout_weight="2"/>
+            android:layout_weight="2"
+            style="?android:attr/buttonBarButtonStyle"/>
     </LinearLayout>
 
 </RelativeLayout>

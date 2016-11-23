@@ -1,4 +1,4 @@
-package com.nikart.myshows;
+package com.nikart.launchscreen;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.nikart.myshows.R;
+import com.nikart.signinscreen.LoginActivity;
+import com.nikart.signinscreen.PromoFragment;
+import com.nikart.signinscreen.WelcomeFragment;
+import com.nikart.signupscreen.SignUpActivity;
 
 public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.nikart.myshows;
+package com.nikart.signinscreen;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.nikart.mainscreen.MainActivity;
+import com.nikart.myshows.R;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button signInButton;
 
-    static void start(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }

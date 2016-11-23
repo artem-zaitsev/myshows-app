@@ -1,4 +1,4 @@
-package com.nikart.myshows;
+package com.nikart.mainscreen;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,12 +18,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.nikart.myshows.R;
+
 /*
 *  Реализуем NavigationDrawer
 *  Нужны дополнительные layouts, в них вынесем туллбар,контент, drawer
  */
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     final private static int NUM_PAGES = 3;
 
     private ViewPager pager;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout drawer;
     private Toolbar toolbar;
 
-    static void start(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
