@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.nikart.myshows.R;
 
 /*
- * Created by Artem Zaitsev on 15.11.2016.
+ * Fragment with logo
  */
 
 public class WelcomeFragment extends Fragment {
