@@ -1,4 +1,4 @@
-package com.nikart.signupscreen;
+package com.nikart.auth.signupscreen;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.nikart.launchscreen.LaunchActivity;
-import com.nikart.launchscreen.PromoFragment;
-import com.nikart.launchscreen.WelcomeFragment;
 import com.nikart.myshows.R;
 
 public class SignUpActivity extends AppCompatActivity {

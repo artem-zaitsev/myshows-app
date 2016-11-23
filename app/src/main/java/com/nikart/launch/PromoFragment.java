@@ -1,4 +1,4 @@
-package com.nikart.launchscreen;
+package com.nikart.launch;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

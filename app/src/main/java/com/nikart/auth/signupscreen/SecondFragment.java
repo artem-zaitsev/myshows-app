@@ -1,4 +1,4 @@
-package com.nikart.signupscreen;
+package com.nikart.auth.signupscreen;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
