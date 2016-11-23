@@ -1,4 +1,4 @@
-package com.nikart.auth.signinscreen;
+package com.nikart.auth.signin;
 
 import android.content.Context;
 import android.content.Intent;

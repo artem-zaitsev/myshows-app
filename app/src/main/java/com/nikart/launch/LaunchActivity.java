@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nikart.myshows.R;
-import com.nikart.auth.signinscreen.LoginActivity;
-import com.nikart.auth.signupscreen.SignUpActivity;
+import com.nikart.auth.signin.LoginActivity;
+import com.nikart.auth.signup.SignUpActivity;
 
 public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
 

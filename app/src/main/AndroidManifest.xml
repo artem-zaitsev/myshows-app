@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.nikart.auth.signinscreen.LoginActivity"
+            android:name="com.nikart.auth.signin.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name="com.nikart.auth.signupscreen.SignUpActivity"
+            android:name="com.nikart.auth.signup.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity

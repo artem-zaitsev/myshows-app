@@ -1,4 +1,4 @@
-package com.nikart.auth.signupscreen;
+package com.nikart.auth.signup;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +12,10 @@ import com.nikart.myshows.R;
  * Created by Nikita on 23.11.2016.
  */
 
-public class FirstFragment extends Fragment {
+public class SecondFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_signup_first, container, false);
+        return inflater.inflate(R.layout.fragment_signup_second, container, false);
     }
 }

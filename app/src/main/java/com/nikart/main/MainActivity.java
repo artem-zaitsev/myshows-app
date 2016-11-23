@@ -23,7 +23,6 @@ import com.nikart.myshows.R;
 *  Нужны дополнительные layouts, в них вынесем туллбар,контент, drawer
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    final private static int NUM_PAGES = 3;
 
     private DrawerLayout drawer;
     private Toolbar toolbar;
@@ -58,42 +57,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        showsFragment = new MyShowsFragment();
+        /*showsFragment = new MyShowsFragment();
         episodesFragment = new MyEpisodesFragment();
-        accountFragment = new AccountFragment();
+        accountFragment = new AccountFragment();*/
 
-        // тестим нажатие на элемент меню
-        BottomNavigationView bottomNavigationView = (BottomNavigationView)findViewById(R.id.main_activity_bottom_nav);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                switch(item.getItemId()) {
-                    case R.id.menu_item_my_shows : {
-                        transaction.replace(R.id.main_activity_fragment_container, showsFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                        return true;
-                    }
-                    case R.id.menu_item_my_episodes: {
-                        transaction.replace(R.id.main_activity_fragment_container, episodesFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                        return true;
-                    }
-                    case R.id.menu_item_account: {
-                        transaction.replace(R.id.main_activity_fragment_container, accountFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
-                        return true;
-                    }
-                    default: {
-                        return false;
-                    }
-                }
-
-            }
-        });
     }
 
     /* Тут реализуем метод интерфейса. Особо не реализован))
