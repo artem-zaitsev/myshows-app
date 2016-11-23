@@ -62,8 +62,21 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public Fragment getItem(int position) {
-            return WelcomeFragment.welcomeFragmentCreate(position);
-        }
+            Fragment fragment;
+            switch (position) {
+                case 0: {
+                    fragment = new WelcomeFragment();
+                    break;
+                }
+                case 1: {
+                    fragment = new PromoFragment();
+                    break;
+                }
+                default:
+                    fragment = new WelcomeFragment();
+                }
+            return fragment;
+            }
 
         @Override
         public int getCount() {
