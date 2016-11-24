@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Fragment showsFragment;
     private Fragment episodesFragment;
     private Fragment accountFragment;
+    private FragmentTransaction transaction;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -57,10 +58,46 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*showsFragment = new MyShowsFragment();
+        showsFragment = new MyShowsFragment();
         episodesFragment = new MyEpisodesFragment();
-        accountFragment = new AccountFragment();*/
+        accountFragment = new AccountFragment();
+        /*transaction = getSupportFragmentManager()
+                .beginTransaction();
+        transaction.add(R.id.main_container, showsFragment);
+        transaction.commit();*/
 
+        BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.main_activity_bottom_nav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case (R.id.menu_item_my_shows):{
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.main_container,
+                                showsFragment);
+                        transaction.commit();
+                        return true;
+                    }
+                    case (R.id.menu_item_my_episodes): {
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.main_container,
+                                episodesFragment);
+                        transaction.commit();
+                        return true;
+                    }
+                    case (R.id.menu_item_account):{
+                        transaction = getSupportFragmentManager().beginTransaction();
+                        transaction.replace(R.id.main_container,
+                                accountFragment);
+                        transaction.commit();
+                        return true;
+                    }
+                    default: return false;
+                }
+
+            }
+        });
     }
 
     /* Тут реализуем метод интерфейса. Особо не реализован))
