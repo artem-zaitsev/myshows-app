@@ -24,6 +24,9 @@ import android.view.View;
 
 import com.nikart.myshows.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 *  Реализуем NavigationDrawer
 *  Нужны дополнительные layouts, в них вынесем туллбар,контент, drawer
@@ -31,10 +34,8 @@ import com.nikart.myshows.R;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private Fragment showsFragment;
-    private Fragment episodesFragment;
-    private Fragment accountFragment;
-    private Fragment currentFragment; // current current
+    FragmentController controller;
+    List<Fragment> fragmentList;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -49,60 +50,21 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         setSupportActionBar(toolbar);
 
-        showsFragment = new MyShowsFragment();
-        episodesFragment = new MyEpisodesFragment();
-        accountFragment = new AccountFragment();
-
-
-        // тут костыль(наверно) для инициализации первого фрагмента
-        // как showsFragment.
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.main_container,showsFragment, showsFragment.toString()).commit();
-        currentFragment = showsFragment;
+        //тестим некотрые фичи с контроллером
+        // делаем лист из фрагиентов
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new MyShowsFragment());
+        fragmentList.add(new MyEpisodesFragment());
+        fragmentList.add(new AccountFragment());
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.main_activity_bottom_nav);
-        bottomNavigationView.performClick();
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //тестим контроллер
+        controller = new FragmentController(this, fragmentList);
+        controller.initFragment();
+        controller.setupWithBottomNavigation(bottomNavigationView);
 
-                switch (item.getItemId()) {
-                    case (R.id.menu_item_my_shows): {
-                        openFragment(showsFragment);
-                        return true;
-                    }
-                    case (R.id.menu_item_my_episodes): {
-                        openFragment(episodesFragment);
-                        return true;
-                    }
-                    case (R.id.menu_item_account): {
-                        openFragment(accountFragment);
-                        return true;
-                    }
-                    default:
-                        return false;
-                }
-            }
-        });
-    }
-
-
-    /* Пока не делал отдельный класс-контроллер.
-    ** Такой метод работает. (Артем)
-    ** В качестве тегов использовал просто инфу о фрагменте.
-     */
-    private void openFragment(Fragment nextFragment) {
-        FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
-        if (nextFragment.getTag()!= null ||
-                getSupportFragmentManager().findFragmentByTag(nextFragment.getTag()) != null) {
-            tr.hide(currentFragment).show(nextFragment).commit();
-        } else {
-            tr.hide(currentFragment).add(R.id.main_container,nextFragment,nextFragment.toString()).commit();
-        }
-        currentFragment = nextFragment;
-        Log.d("TAG","Current Fragment :" );
     }
 
     /*
