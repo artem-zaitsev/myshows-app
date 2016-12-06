@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Artem
  */
 
-class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewHolder> {
+public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewHolder> {
     private List<Episode> episodesList;
 
     EpisodesAdapter(List<Episode> episodesList) {
@@ -32,9 +32,9 @@ class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewH
     public void onBindViewHolder(EpisodesViewHolder holder, int position) {
         Episode ep = episodesList.get(position);
         holder.episodeTitleTextView.setText(ep.getTitle());
-        holder.seasonTitleTextView.setText(ep.getSeason());
+        holder.seasonTitleTextView.setText(String.valueOf(ep.getSeasonNumber()));
         holder.showTitleTextView.setText(ep.getShowTitle());
-        holder.dateTextView.setText(ep.getStartDate().toString());
+        holder.dateTextView.setText(ep.getAirDate().toString());
     }
 
     @Override

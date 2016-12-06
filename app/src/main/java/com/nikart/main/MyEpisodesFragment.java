@@ -20,9 +20,9 @@ import java.util.List;
  */
 
 public class MyEpisodesFragment extends Fragment {
-    RecyclerView recyclerView;
-    EpisodesAdapter adapter;
-    RecyclerView.LayoutManager manager;
+    private RecyclerView recyclerView;
+    private EpisodesAdapter adapter;
+    private RecyclerView.LayoutManager manager;
 
     // Приделан RecyclerView.
     @Override

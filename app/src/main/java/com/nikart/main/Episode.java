@@ -6,9 +6,10 @@ import java.util.Date;
  * Created by Artem
  */
 
-class Episode {
-    private String title, season, showTitle;
-    private Date startDate;
+public class Episode {
+    private String title, showTitle;
+    private int seasonNumber;
+    private Date airDate;
 
     // Конструктор с сгенерированными эпизодами.
     Episode() {
@@ -24,19 +25,19 @@ class Episode {
                 "The Big Bang",
                 "?????"
         };
-        this.season = "1";
-        this.startDate = new Date(10102016);
+        this.seasonNumber = 1;
+        this.airDate = new Date(10102016);
         int random1 = (int)(Math.random()*12 / 4);
         int random2 = (int)(Math.random()*12 / 4);
         this.title = titles[random1];
         this.showTitle = shows[random2];
     }
 
-    public Episode(String title, String season, String showTitle, Date startDate) {
+    public Episode(String title, int seasonNumber, String showTitle, Date airDate) {
         this.title = title;
-        this.season = season;
+        this.seasonNumber = seasonNumber;
         this.showTitle = showTitle;
-        this.startDate = startDate;
+        this.airDate = airDate;
     }
 
     public String getTitle() {
@@ -47,12 +48,12 @@ class Episode {
         this.title = title;
     }
 
-    public String getSeason() {
-        return season;
+    public int getSeasonNumber() {
+        return seasonNumber;
     }
 
-    public void setSeason(String season) {
-        this.season = season;
+    public void setSeasonNumber(int seasonNumber) {
+        this.seasonNumber = seasonNumber;
     }
 
     public String getShowTitle() {
@@ -63,11 +64,11 @@ class Episode {
         this.showTitle = showTitle;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Date getAirDate() {
+        return airDate;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setAirDate(Date airDate) {
+        this.airDate = airDate;
     }
 }
