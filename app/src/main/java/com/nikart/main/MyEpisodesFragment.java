@@ -20,7 +20,6 @@ import java.util.List;
  */
 
 public class MyEpisodesFragment extends Fragment {
-    private List<Episode> episodes;
     RecyclerView recyclerView;
     EpisodesAdapter adapter;
     RecyclerView.LayoutManager manager;
@@ -30,7 +29,8 @@ public class MyEpisodesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootVew = inflater.inflate(R.layout.fragment_my_episodes, container, false);
-        episodes = new ArrayList<>();
+
+        List<Episode> episodes = new ArrayList<>();
         for (int i = 0; i<40; i++){
             episodes.add(i,new Episode());
         }

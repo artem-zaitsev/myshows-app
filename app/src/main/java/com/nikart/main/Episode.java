@@ -7,8 +7,8 @@ import java.util.Date;
  */
 
 class Episode {
-    private String title, season, show_title;
-    private Date start_date;
+    private String title, season, showTitle;
+    private Date startDate;
 
     // Конструктор с сгенерированными эпизодами.
     Episode() {
@@ -25,18 +25,18 @@ class Episode {
                 "?????"
         };
         this.season = "1";
-        this.start_date = new Date(10102016);
+        this.startDate = new Date(10102016);
         int random1 = (int)(Math.random()*12 / 4);
         int random2 = (int)(Math.random()*12 / 4);
         this.title = titles[random1];
-        this.show_title = shows[random2];
+        this.showTitle = shows[random2];
     }
 
-    public Episode(String title, String season, String show_title, Date start_date) {
+    public Episode(String title, String season, String showTitle, Date startDate) {
         this.title = title;
         this.season = season;
-        this.show_title = show_title;
-        this.start_date = start_date;
+        this.showTitle = showTitle;
+        this.startDate = startDate;
     }
 
     public String getTitle() {
@@ -56,18 +56,18 @@ class Episode {
     }
 
     public String getShowTitle() {
-        return show_title;
+        return showTitle;
     }
 
-    public void setShowTitle(String show_title) {
-        this.show_title = show_title;
+    public void setShowTitle(String showTitle) {
+        this.showTitle = showTitle;
     }
 
     public Date getStartDate() {
-        return start_date;
+        return startDate;
     }
 
-    public void setStartDate(Date start_date) {
-        this.start_date = start_date;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 }

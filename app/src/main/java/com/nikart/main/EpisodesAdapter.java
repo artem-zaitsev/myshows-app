@@ -11,13 +11,13 @@ import com.nikart.myshows.R;
 import java.util.List;
 
 /**
- * Created by key on 01.12.2016.
+ * Created by Artem
  */
 
-public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewHolder> {
+class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewHolder> {
     private List<Episode> episodesList;
 
-    public EpisodesAdapter(List<Episode> episodesList) {
+    EpisodesAdapter(List<Episode> episodesList) {
         this.episodesList = episodesList;
     }
 
@@ -31,10 +31,10 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
     @Override
     public void onBindViewHolder(EpisodesViewHolder holder, int position) {
         Episode ep = episodesList.get(position);
-        holder.title.setText(ep.getTitle());
-        holder.season.setText(ep.getSeason());
-        holder.show.setText(ep.getShowTitle());
-        holder.date.setText(ep.getStartDate().toString());
+        holder.episodeTitleTextView.setText(ep.getTitle());
+        holder.seasonTitleTextView.setText(ep.getSeason());
+        holder.showTitleTextView.setText(ep.getShowTitle());
+        holder.dateTextView.setText(ep.getStartDate().toString());
     }
 
     @Override
@@ -42,14 +42,14 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
         return episodesList.size();
     }
 
-    public class EpisodesViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, season, show, date;
-        public EpisodesViewHolder(View itemView) {
+    class EpisodesViewHolder extends RecyclerView.ViewHolder {
+        TextView episodeTitleTextView, seasonTitleTextView, showTitleTextView, dateTextView;
+        EpisodesViewHolder(View itemView) {
             super(itemView);
-            title = (TextView)itemView.findViewById(R.id.episode_title);
-            season = (TextView)itemView.findViewById(R.id.episode_season);
-            show = (TextView)itemView.findViewById(R.id.episode_show_title);
-            date = (TextView)itemView.findViewById(R.id.episode_date);
+            episodeTitleTextView = (TextView)itemView.findViewById(R.id.episode_title);
+            seasonTitleTextView = (TextView)itemView.findViewById(R.id.episode_season);
+            showTitleTextView = (TextView)itemView.findViewById(R.id.episode_show_title);
+            dateTextView = (TextView)itemView.findViewById(R.id.episode_date);
         }
     }
 }
