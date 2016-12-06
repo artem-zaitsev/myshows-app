@@ -12,7 +12,7 @@ public class Episode {
     private Date airDate;
 
     // Конструктор с сгенерированными эпизодами.
-    Episode() {
+    public Episode() {
         String[] titles = new String[]{
                 "Promo",
                 "Something new",
