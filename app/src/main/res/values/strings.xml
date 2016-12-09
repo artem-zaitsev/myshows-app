@@ -9,6 +9,7 @@
     <string name="password">Password</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
+    <string name="next">Next</string>
     <string name="email">E-mail</string>
     <string name="password_confirm">Confirm the password</string>
     <string name="empty_content">There is nothing, yet…</string>
