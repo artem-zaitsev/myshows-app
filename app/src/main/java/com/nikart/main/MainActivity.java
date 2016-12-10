@@ -20,8 +20,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    NavigationController controller;
-    List<Fragment> fragmentList;
+    private NavigationController controller;
+    private List<Fragment> fragmentList;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);

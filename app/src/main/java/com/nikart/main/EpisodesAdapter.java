@@ -12,6 +12,8 @@ import java.util.List;
 
 /**
  * Created by Artem
+ *  Class for RecyclerView with episodes. There are
+ *  showTitle, airDate, seasonNumber and title(or number) of episode.
  */
 
 public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewHolder> {

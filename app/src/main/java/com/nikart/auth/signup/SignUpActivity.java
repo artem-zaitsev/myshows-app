@@ -20,8 +20,9 @@ import com.nikart.myshows.R;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button signUpButton, nextButton;
+    private Button signUpButton, nextButton, backButton;
     private SignUpView firstSignUpView, secondSignUpView;
+    private LinearLayout linearLayoutWithButtons;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, SignUpActivity.class);
@@ -37,9 +38,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         signUpButton.setOnClickListener(this);
         nextButton = (Button) findViewById(R.id.sign_up_next_btn);
         nextButton.setOnClickListener(this);
+        backButton = (Button) findViewById(R.id.sign_up_back_btn);
+        backButton.setOnClickListener(this);
 
         firstSignUpView  = (SignUpView) findViewById(R.id.first_sign_up_view);
         secondSignUpView = (SignUpView) findViewById(R.id.second_sign_up_view);
+        linearLayoutWithButtons = (LinearLayout) findViewById(R.id.sign_up_bttns);
+
     }
 
     @Override
@@ -53,6 +58,14 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 firstSignUpView.setVisibility(View.INVISIBLE);
                 secondSignUpView.setVisibility(View.VISIBLE);
                 nextButton.setVisibility(View.INVISIBLE);
+                linearLayoutWithButtons.setVisibility(View.VISIBLE);
+                break;
+            }
+            case R.id.sign_up_back_btn: {
+                firstSignUpView.setVisibility(View.VISIBLE);
+                secondSignUpView.setVisibility(View.INVISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
+                linearLayoutWithButtons.setVisibility(View.INVISIBLE);
                 break;
             }
         }
