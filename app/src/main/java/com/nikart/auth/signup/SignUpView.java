@@ -18,38 +18,16 @@ import org.w3c.dom.Text;
 
 public class SignUpView extends LinearLayout {
 
-    private TypedArray typedArray;
-    private int layoutId = 1;
-
     public SignUpView(Context context) {
         this(context, null);
     }
 
     public SignUpView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        typedArray = context.getTheme().obtainStyledAttributes(attributeSet, R.styleable.SignUpView, 0, 0);
         init(context, attributeSet);
     }
 
     private void init(Context context, AttributeSet attributeSet) {
-        try {
-            layoutId = typedArray.getInt(R.styleable.SignUpView_view_layout, 1);
-        } finally {
-            typedArray.recycle();
-        }
-
-        switch (layoutId) {
-            case 1: {
-                inflate(context, R.layout.fragment_signup_first, this);
-                break;
-            }
-            case 2: {
-                inflate(context, R.layout.fragment_signup_second, this);
-                break;
-            }
-            default:
-                inflate(context, R.layout.fragment_signup_first, this);
-        }
-
+        inflate(context, attributeSet.getAttributeResourceValue("http://schemas.android.com/apk/res-auto", "view_layout", -1), this);
     }
 }

@@ -21,13 +21,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        custom:view_layout="1"/>
+        custom:view_layout="@layout/fragment_signup_first"/>
     <com.nikart.auth.signup.SignUpView
         android:id="@+id/second_sign_up_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        custom:view_layout="2"
+        custom:view_layout="@layout/fragment_signup_second"
         android:visibility="invisible"/>
     <Button
         android:id="@+id/sign_up_next_btn"
