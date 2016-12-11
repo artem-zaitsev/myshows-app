@@ -44,7 +44,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
         return episodesList.size();
     }
 
-    class EpisodesViewHolder extends RecyclerView.ViewHolder {
+        class EpisodesViewHolder extends RecyclerView.ViewHolder {
         TextView episodeTitleTextView, seasonTitleTextView, showTitleTextView, dateTextView;
         EpisodesViewHolder(View itemView) {
             super(itemView);
