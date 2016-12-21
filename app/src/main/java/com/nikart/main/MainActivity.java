@@ -35,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null)
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //тестим некотрые фичи с контроллером
-        // делаем лист из фрагиентов
+        // делаем лист из фрагментов
         fragmentList = new ArrayList<>();
         fragmentList.add(new MyShowsFragment());
         fragmentList.add(new MyEpisodesFragment());
@@ -46,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.main_activity_bottom_nav);
 
-        //тестим контроллер
-        // Переделать контроллер, вынести онкликлистнер, разбить транзакции на подметоды.
         controller = new NavigationController(getSupportFragmentManager(), fragmentList);
         controller.setupWithBottomNavigation(bottomNavigationView);
 

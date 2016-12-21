@@ -19,7 +19,7 @@ public class Episode {
                 "Knock-knock",
                 "Hello, World!"
         };
-        String[] shows = new String[] {
+        String[] shows = new String[]{
                 "Sherlock",
                 "Lost",
                 "The Big Bang",
@@ -27,8 +27,8 @@ public class Episode {
         };
         this.seasonNumber = 1;
         this.airDate = new Date(10102016);
-        int random1 = (int)(Math.random()*12 / 4);
-        int random2 = (int)(Math.random()*12 / 4);
+        int random1 = (int) (Math.random() * 12 / 4);
+        int random2 = (int) (Math.random() * 12 / 4);
         this.title = titles[random1];
         this.showTitle = shows[random2];
     }

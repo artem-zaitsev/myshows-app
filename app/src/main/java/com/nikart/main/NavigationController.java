@@ -27,7 +27,7 @@ public class NavigationController {
     private FragmentTransaction transaction;
     private List<MenuItem> items;
 
-    public NavigationController(FragmentManager fragmentManager, List<Fragment> fragments ) {
+    public NavigationController(FragmentManager fragmentManager, List<Fragment> fragments) {
         this.fragmentManager = fragmentManager;
         this.fragments = fragments;
         items = new ArrayList<>(fragments.size());
@@ -37,7 +37,7 @@ public class NavigationController {
 
         for (int i = 0; i < fragments.size(); i++) {
             items.add(bottomNavigationView.getMenu().getItem(i));
-            Log.d("TAG"," Item " + items.get(i).toString());
+            Log.d("TAG", " Item " + items.get(i).toString());
         }
 
         openFragment(fragments.get(0));
@@ -54,7 +54,7 @@ public class NavigationController {
     }
 
     private void openFragment(Fragment nextFragment) {
-        if (nextFragment.getTag()!= null ||
+        if (nextFragment.getTag() != null ||
                 fragmentManager
                         .findFragmentByTag(nextFragment.getTag()) != null) {
             showFragment(nextFragment);
@@ -62,25 +62,22 @@ public class NavigationController {
             addFragment(nextFragment);
         }
         currentFragment = nextFragment;
-        Log.d("TAG","Current Fragment :" );
+        Log.d("TAG", "Current Fragment :");
     }
 
-    private void startTransaction() {
-        transaction = fragmentManager.beginTransaction();
+    private FragmentTransaction startTransaction() {
+        return fragmentManager.beginTransaction();
     }
 
     private void hideCurrentFragment() {
-        startTransaction();
-        transaction.hide(currentFragment).commitNow();
+        startTransaction().hide(currentFragment).commitNow();
     }
 
-    private void showFragment(Fragment fragment){
-        startTransaction();
-        transaction.show(fragment).commitNow();
+    private void showFragment(Fragment fragment) {
+        startTransaction().show(fragment).commitNow();
     }
 
     private void addFragment(Fragment fragment) {
-        startTransaction();
-        transaction.add(R.id.main_container,fragment,fragment.toString()).commitNow();
+        startTransaction().add(R.id.main_container, fragment, fragment.toString()).commitNow();
     }
 }

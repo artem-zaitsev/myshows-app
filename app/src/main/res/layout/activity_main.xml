@@ -4,13 +4,12 @@
     android:id="@+id/main_activity_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:actionBarNavMode="standard"
-    tools:openDrawer="end">
+    android:fitsSystemWindows="true">
 
 
-    <include layout="@layout/content_main"
+    <include
+        layout="@layout/content_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

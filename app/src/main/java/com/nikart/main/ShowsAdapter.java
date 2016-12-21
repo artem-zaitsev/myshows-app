@@ -22,8 +22,8 @@ import java.net.URL;
 import java.util.List;
 
 /**
- * Created by Artem on 11.12.2016.
- *
+ * Created by Artem
+ * Adapter for shows.
  */
 
 public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHolder> {
@@ -37,7 +37,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
     @Override
     public ShowsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_card_show,
-                parent,false);
+                parent, false);
         return new ShowsViewHolder(view);
     }
 

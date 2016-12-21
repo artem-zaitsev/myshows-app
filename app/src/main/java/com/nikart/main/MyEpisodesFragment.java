@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 public class MyEpisodesFragment extends Fragment {
+
     private RecyclerView recyclerView;
     private EpisodesAdapter adapter;
     private RecyclerView.LayoutManager manager;
@@ -31,8 +32,8 @@ public class MyEpisodesFragment extends Fragment {
         View rootVew = inflater.inflate(R.layout.fragment_my_episodes, container, false);
 
         List<Episode> episodes = new ArrayList<>();
-        for (int i = 0; i<40; i++){
-            episodes.add(i,new Episode());
+        for (int i = 0; i < 40; i++) {
+            episodes.add(i, new Episode());
         }
 
         recyclerView = (RecyclerView) rootVew.findViewById(R.id.fragment_myepisodes_rv);
@@ -40,6 +41,7 @@ public class MyEpisodesFragment extends Fragment {
         manager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(adapter);
+
         return rootVew;
     }
 }

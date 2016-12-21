@@ -29,16 +29,17 @@ public class MyShowsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         shows = new ArrayList<>(30);
-        for(int i = 0; i< 30; i++) {
-            shows.add(i,new Show());
+        for (int i = 0; i < 30; i++) {
+            shows.add(i, new Show());
         }
-        View rootView = inflater.inflate(R.layout.fragment_my_shows,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
+
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_my_show_recycler_view);
         showsAdapter = new ShowsAdapter(shows);
-        layoutManager = new GridLayoutManager(container.getContext(),2); // two columns
-
+        layoutManager = new GridLayoutManager(container.getContext(), 2); // two columns
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
+
         return rootView;
     }
 }
