@@ -6,15 +6,26 @@ package com.nikart.main;
 
 public class Show {
 
+    private int id;
     private String title;
-    private int releaseDate, endDate;
+    private String titleOriginal;
     private String description;
+    private int totalSeasons;
+    private String status;
+    private String country;
+    private String started, ended;
+    private int year;
+    private int watching;
+    private int voted;
+    private int rating;
     private String imageUrl;
+    private String[] genresIds;
+    private String[] episodes;
 
     public Show() {
         this.title = "Sherlock";
-        this.releaseDate = 2010;
-        this.endDate = 2017;
+        this.started = Integer.toString(2010);
+        this.ended = Integer.toString(2017);
         this.description =
                 "\"<p>История о Шерлоке Холмсе и докторе Уотсоне в Лондоне начала " +
                         "двадцать первого века успела прославиться не только как одна из самых стильных " +
@@ -35,12 +46,20 @@ public class Show {
                 "https://media.myshows.me/shows/normal/9/94/9492ce09d3a31c32ba559f5936dac888.jpg";
     }
 
-    public Show(String title, int releaseDate, int endDate, String description, String imageUrl) {
+    public Show(String title, int started, int ended, String description, String imageUrl) {
         this.title = title;
-        this.releaseDate = releaseDate;
-        this.endDate = endDate;
+        this.started = Integer.toString(started);
+        this.ended = Integer.toString(ended);
         this.description = description;
         this.imageUrl = imageUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -51,20 +70,12 @@ public class Show {
         this.title = title;
     }
 
-    public int getReleaseDate() {
-        return releaseDate;
+    public String getTitleOriginal() {
+        return titleOriginal;
     }
 
-    public void setReleaseDate(int releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public int getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(int endDate) {
-        this.endDate = endDate;
+    public void setTitleOriginal(String titleOriginal) {
+        this.titleOriginal = titleOriginal;
     }
 
     public String getDescription() {
@@ -73,6 +84,78 @@ public class Show {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getTotalSeasons() {
+        return totalSeasons;
+    }
+
+    public void setTotalSeasons(int totalSeasons) {
+        this.totalSeasons = totalSeasons;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getStarted() {
+        return started;
+    }
+
+    public void setStarted(String started) {
+        this.started = started;
+    }
+
+    public String getEnded() {
+        return ended;
+    }
+
+    public void setEnded(String ended) {
+        this.ended = ended;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getWatching() {
+        return watching;
+    }
+
+    public void setWatching(int watching) {
+        this.watching = watching;
+    }
+
+    public int getVoted() {
+        return voted;
+    }
+
+    public void setVoted(int voted) {
+        this.voted = voted;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     public String getImageUrl() {

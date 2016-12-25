@@ -7,6 +7,8 @@ import java.util.Date;
  */
 
 public class Episode {
+
+    private int id;
     private String title, showTitle;
     private int seasonNumber;
     private Date airDate;

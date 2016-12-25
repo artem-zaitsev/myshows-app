@@ -70,14 +70,17 @@ public class NavigationController {
     }
 
     private void hideCurrentFragment() {
-        startTransaction().hide(currentFragment).commitNow();
+        startTransaction().setCustomAnimations(R.anim.fade_out, R.anim.fade_out)
+                .hide(currentFragment).commitNow();
     }
 
     private void showFragment(Fragment fragment) {
-        startTransaction().show(fragment).commitNow();
+        startTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_in)
+                .show(fragment).commitNow();
     }
 
     private void addFragment(Fragment fragment) {
-        startTransaction().add(R.id.main_container, fragment, fragment.toString()).commitNow();
+        startTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_in)
+                .add(R.id.main_container, fragment, fragment.toString()).commitNow();
     }
 }

@@ -48,7 +48,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         holder.image.setImageResource(R.drawable.sherlock);
         holder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.title.setText(show.getTitle());
-        holder.dates.setText(" " + show.getReleaseDate() + " - " + show.getEndDate());
+        holder.dates.setText(" " + show.getStarted() + " - " + show.getEnded());
     }
 
     @Override
