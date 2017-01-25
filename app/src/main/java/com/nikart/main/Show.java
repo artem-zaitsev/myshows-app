@@ -24,8 +24,10 @@ public class Show {
 
     public Show() {
         this.title = "Sherlock";
+        this.titleOriginal = "Sherlock";
         this.started = Integer.toString(2010);
         this.ended = Integer.toString(2017);
+        this.rating = 99;
         this.description =
                 "\"<p>История о Шерлоке Холмсе и докторе Уотсоне в Лондоне начала " +
                         "двадцать первого века успела прославиться не только как одна из самых стильных " +

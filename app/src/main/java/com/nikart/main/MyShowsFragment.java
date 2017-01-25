@@ -23,6 +23,8 @@ import java.util.List;
  */
 public class MyShowsFragment extends Fragment {
 
+    static public boolean IS_GRID; // для смены layout'ов в адаптере
+
     private RecyclerView recyclerView;
     private ShowsAdapter showsAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -50,11 +52,16 @@ public class MyShowsFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.switch_layout_style: {
                 // Тут все лаконично, правда не могу объективно оценить насколько читабельно.
-                layoutManager = isGridLayoutManager() ? new LinearLayoutManager(container.getContext())
+                layoutManager = isGridLayoutManager()
+                        ? new LinearLayoutManager(container.getContext())
                         : new GridLayoutManager(container.getContext(), 2);
+                IS_GRID = isGridLayoutManager();
                 recyclerView.setLayoutManager(layoutManager);
-                item.setIcon(!isGridLayoutManager() ? R.drawable.grid_layout_manager
-                        : R.drawable.linear_layout_manager);   // ВНИМАНИЕ!! Перед условием стоит !
+                recyclerView.setAdapter(showsAdapter);
+
+                item.setIcon(!isGridLayoutManager()
+                        ? R.drawable.grid_layout_manager
+                        : R.drawable.linear_layout_manager);
                 return true;
             }
             default:
@@ -67,19 +74,27 @@ public class MyShowsFragment extends Fragment {
         inflater.inflate(R.menu.menu_fragment_my_shows, menu);
 
         //Здесь код пока дублируется.
-        menu.getItem(0).setIcon(!isGridLayoutManager() ? R.drawable.grid_layout_manager
-                : R.drawable.linear_layout_manager);   // ВНИМАНИЕ!! Перед условием стоит !
+        menu.getItem(0).setIcon(
+                !isGridLayoutManager()
+                        ? R.drawable.grid_layout_manager
+                        : R.drawable.linear_layout_manager
+        );   // ВНИМАНИЕ!! Перед условием стоит !
     }
 
-    private boolean isGridLayoutManager() {
+    public boolean isGridLayoutManager() {
         return layoutManager.getClass().equals(GridLayoutManager.class);
     }
 
     private void initRecycler(View rootView) {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_my_show_recycler_view);
-        showsAdapter = new ShowsAdapter(shows);
         layoutManager = new GridLayoutManager(container.getContext(), 2); // two columns
+
+        IS_GRID = true;
+
+        showsAdapter = new ShowsAdapter(shows);
         recyclerView.setLayoutManager(layoutManager);
+        showsAdapter.createViewHolder(recyclerView, 0);
         recyclerView.setAdapter(showsAdapter);
     }
+
 }
