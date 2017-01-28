@@ -62,7 +62,7 @@ public class NavigationController {
             addFragment(nextFragment);
         }
         currentFragment = nextFragment;
-        Log.d("TAG", "Current Fragment :");
+        Log.d("TAG", "Current Fragment :" + currentFragment.toString());
     }
 
     private FragmentTransaction startTransaction() {

@@ -22,7 +22,12 @@ import java.util.List;
 
 public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewHolder> {
 
+    private final int TYPE_MONTH = 1;
+    private final int TYPE_BASE = 0;
+
     private List<Episode> episodesList;
+
+    /*Как распределить по месяцам?????*/
 
     EpisodesAdapter(List<Episode> episodesList) {
         this.episodesList = episodesList;
@@ -42,12 +47,19 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
         holder.episodeTitleTextView.setText(ep.getTitle());
         holder.seasonTitleTextView.setText(String.valueOf(ep.getSeasonNumber()));
         holder.showTitleTextView.setText(ep.getShowTitle());
-        holder.dateTextView.setText(df.format("dd.MM.yyyy",ep.getAirDate()));
+        holder.dateTextView.setText(df.format("dd.MM.yyyy", ep.getAirDate()));
     }
 
     @Override
     public int getItemCount() {
         return episodesList.size();
+    }
+
+    /*Возможно используем для разделения по месяцам*/
+    @Override
+    public int getItemViewType(int position) {
+        //if ()
+        return super.getItemViewType(position);
     }
 
     class EpisodesViewHolder extends RecyclerView.ViewHolder {

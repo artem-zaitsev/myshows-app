@@ -1,14 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
-    <TextView
+    android:layout_marginTop="@dimen/toolbar_height"
+    android:layout_marginBottom="56dp"
+    android:orientation="vertical">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/no_account_information"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textColor="@color/primary_text_material_dark"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/fragment_account_userpic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/fragment_account_username_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="USERNAME"
+                android:textColor="@color/primary_text_material_dark"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+        <TextView
+            android:id="@+id/fragment_account_episodes_count_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="2dp"
+            android:text="EPISODES_COUNT"
+            android:textScaleX="0.6"
+            android:textSize="14sp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/fragment_account_hours_count_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="2dp"
+            android:textScaleX="0.6"
+            android:text="HOURS_COUNT"
+            android:textSize="14sp"
+            android:background="#00AAAA"
+            android:gravity="center"
+            android:layout_weight="1"
+            />
+
+        <TextView
+            android:id="@+id/fragment_account_days_count_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="2dp"
+            android:textScaleX="0.6"
+            android:text="DAYS_COUNT"
+            android:textSize="14sp"
+            android:background="#0077DD"
+            android:gravity="center"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fragment_account_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

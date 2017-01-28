@@ -2,9 +2,11 @@ package com.nikart.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,6 +33,7 @@ public class MyShowsFragment extends Fragment {
     private List<Show> shows;
     private ViewGroup container;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class MyShowsFragment extends Fragment {
             shows.add(i, new Show());
         }
         View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
+
         initRecycler(rootView);
 
         setHasOptionsMenu(true);

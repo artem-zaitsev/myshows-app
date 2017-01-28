@@ -23,21 +23,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="She"
+            android:paddingStart="5dp"
             android:textColor="@color/primary_text_material_dark"
             android:textSize="24sp"
-            />
+            android:paddingLeft="5dp" />
         <TextView
             android:id="@+id/show_orig_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sherlock"
+            android:paddingStart="5dp"
             android:textSize="18sp"
-            android:textColor="@color/secondary_text"/>
+            android:textColor="@color/secondary_text"
+            android:paddingLeft="5dp" />
         <TextView
             android:id="@+id/show_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="99%"
+            android:padding="5dp"
             android:textSize="24sp"
             android:textColor="#ff0000"
             android:layout_gravity="bottom"/>

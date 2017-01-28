@@ -19,7 +19,7 @@
             android:paddingRight="10dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:layout_gravity="bottom"
             android:layout_marginBottom="0dp"
             android:orientation="vertical"
@@ -28,16 +28,19 @@
                 android:id="@+id/show_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="5dp"
                 android:textSize="24sp"
                 android:textColor="@color/primary_text_material_dark"
-                />
+                android:paddingLeft="5dp" />
             <TextView
                 android:id="@+id/show_orig_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="5dp"
                 android:textSize="20sp"
                 android:textColor="@color/secondary_text_material_dark"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="5dp" />
             <TextView
                 android:id="@+id/show_rating"
                 android:layout_width="match_parent"
