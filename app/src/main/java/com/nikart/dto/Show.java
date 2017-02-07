@@ -1,4 +1,4 @@
-package com.nikart.main;
+package com.nikart.dto;
 
 /**
  * Created by Artem on 11.12.2016.

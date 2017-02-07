@@ -1,18 +1,15 @@
 package com.nikart.main;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
+import com.nikart.dto.Episode;
 import com.nikart.myshows.R;
 
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class MyEpisodesFragment extends Fragment {
 
         List<Episode> episodes = new ArrayList<>();
         for (int i = 0; i < 40; i++) {
-            episodes.add(i, new Episode());
+            episodes.add(i, new Episode(i));
         }
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_myepisodes_rv);

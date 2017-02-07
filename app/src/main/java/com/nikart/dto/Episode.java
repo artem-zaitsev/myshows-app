@@ -1,4 +1,4 @@
-package com.nikart.main;
+package com.nikart.dto;
 
 import java.util.Date;
 
@@ -12,9 +12,10 @@ public class Episode {
     private String title, showTitle;
     private int seasonNumber;
     private Date airDate;
+    private int rate;
 
     // Конструктор с сгенерированными эпизодами.
-    public Episode() {
+    public Episode(int i) {
         String[] titles = new String[]{
                 "Promo",
                 "Something new",
@@ -27,12 +28,13 @@ public class Episode {
                 "The Big Bang",
                 "?????"
         };
-        this.seasonNumber = 1;
+        this.seasonNumber = i;
         this.airDate = new Date(10102016);
         int random1 = (int) (Math.random() * 12 / 4);
         int random2 = (int) (Math.random() * 12 / 4);
         this.title = titles[random1];
         this.showTitle = shows[random2];
+        this.rate = 0;
     }
 
     public Episode(String title, int seasonNumber, String showTitle, Date airDate) {
@@ -72,5 +74,13 @@ public class Episode {
 
     public void setAirDate(Date airDate) {
         this.airDate = airDate;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 }
