@@ -1,10 +1,13 @@
 package com.nikart.main;
 
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +23,14 @@ import java.util.List;
  * showTitle, airDate, seasonNumber and title(or number) of episode.
  */
 
-public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewHolder> {
+public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.EpisodesViewHolder>
+        implements View.OnClickListener {
 
     private final int TYPE_MONTH = 1;
     private final int TYPE_BASE = 0;
 
     private List<Episode> episodesList;
+    private int episodeRate;
 
     /*Как распределить по месяцам?????*/
 
@@ -44,22 +49,14 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
     public void onBindViewHolder(EpisodesViewHolder holder, int position) {
         DateFormat df = new DateFormat(); // для форматирования даты, пока здесь оставил
 
-        final Episode ep = episodesList.get(position); // не уверен в праильности final
+        Episode ep = episodesList.get(position);
 
         holder.showImage.setImageResource(R.drawable.sherlock);
         holder.episodeTitleTextView.setText(ep.getTitle());
         holder.seasonTitleTextView.setText(String.valueOf(ep.getSeasonNumber()));
         holder.showTitleTextView.setText(ep.getShowTitle());
-        holder.rateCustomView.setRate(ep.getRate());
         holder.dateTextView.setText(df.format("dd.MM", ep.getAirDate()));
 
-        holder.rateCustomView.setClickListener(new RateCustomView.OnRateCustomViewClickListener() {
-
-            @Override
-            public void onClick(int rate) {
-                ep.setRate(rate); // здесь требует final
-            }
-        });
     }
 
     @Override
@@ -74,11 +71,15 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
         return super.getItemViewType(position);
     }
 
+    @Override
+    public void onClick(View view) {
+        //do nothing
+    }
+
     class EpisodesViewHolder extends RecyclerView.ViewHolder {
 
         public TextView episodeTitleTextView, seasonTitleTextView, showTitleTextView, dateTextView;
         public ImageView showImage;
-        public RateCustomView rateCustomView;
 
         EpisodesViewHolder(View itemView) {
             super(itemView);
@@ -87,8 +88,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
             showTitleTextView = (TextView) itemView.findViewById(R.id.episode_show_title);
             dateTextView = (TextView) itemView.findViewById(R.id.episode_date);
             showImage = (ImageView) itemView.findViewById(R.id.item_episode_show_image);
-            rateCustomView = (RateCustomView) itemView.findViewById(R.id.item_episode_rate);
-
         }
     }
 }

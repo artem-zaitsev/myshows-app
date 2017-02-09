@@ -1,5 +1,6 @@
 package com.nikart.launch;
 
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -10,15 +11,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.nikart.main.MainActivity;
 import com.nikart.myshows.R;
 import com.nikart.auth.signin.LoginActivity;
 import com.nikart.auth.signup.SignUpActivity;
+import com.nikart.util.PreferencesWorker;
 
 public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
 
     static private final int NUM_PAGES = 2;
     private Button registerButton;
     private Button loginButton;
+
+    //SharedPreferences
+    // Если вход был выполнен то при
+    // нажатии на кнопки сразу переходит к MainActivity
+    private SharedPreferences prefs;
 
     //Pager
     private ViewPager pager;
@@ -30,6 +38,8 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
+
+        prefs =  getSharedPreferences("SIGN_IN", MODE_PRIVATE);
 
         registerButton = (Button) findViewById(R.id.register_btn);
         loginButton = (Button) findViewById(R.id.login_btn);
@@ -47,11 +57,15 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_btn: {
-                LoginActivity.start(this);
+                if(PreferencesWorker.isSignedIn(prefs)){
+                    MainActivity.start(this);
+                } else LoginActivity.start(this);
                 break;
             }
             case R.id.register_btn: {
-                SignUpActivity.start(this);
+                if(PreferencesWorker.isSignedIn(prefs)){
+                    MainActivity.start(this);
+                } else SignUpActivity.start(this);
                 break;
             }
         }

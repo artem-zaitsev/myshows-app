@@ -1,4 +1,4 @@
-package com.nikart.main;
+package com.nikart.util;
 
 import android.content.Context;
 import android.util.AttributeSet;

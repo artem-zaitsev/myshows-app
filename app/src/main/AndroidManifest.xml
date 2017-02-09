@@ -10,7 +10,6 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name="com.nikart.launch.LaunchActivity"
-            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

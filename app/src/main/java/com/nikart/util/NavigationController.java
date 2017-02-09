@@ -1,4 +1,4 @@
-package com.nikart.main;
+package com.nikart.util;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;

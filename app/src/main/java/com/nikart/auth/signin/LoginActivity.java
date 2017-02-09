@@ -2,6 +2,7 @@ package com.nikart.auth.signin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 
 import com.nikart.main.MainActivity;
 import com.nikart.myshows.R;
+import com.nikart.util.PreferencesWorker;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,6 +32,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
+        SharedPreferences prefs = getSharedPreferences("SIGN_IN", MODE_PRIVATE);
+        PreferencesWorker.saveSignedIn(prefs,true);
         MainActivity.start(this);
     }
 }

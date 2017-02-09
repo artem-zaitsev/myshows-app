@@ -2,6 +2,7 @@ package com.nikart.auth.signup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 
 import com.nikart.main.MainActivity;
 import com.nikart.myshows.R;
+import com.nikart.util.PreferencesWorker;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -51,6 +53,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_up_btn: {
+                SharedPreferences prefs = getSharedPreferences("SIGN_IN", MODE_PRIVATE);
+                PreferencesWorker.saveSignedIn(prefs,true);
                 MainActivity.start(this);
                 break;
             }

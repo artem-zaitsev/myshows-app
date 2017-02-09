@@ -96,7 +96,6 @@ public class MyShowsFragment extends Fragment {
 
         showsAdapter = new ShowsAdapter(shows);
         recyclerView.setLayoutManager(layoutManager);
-        showsAdapter.createViewHolder(recyclerView, 0);
         recyclerView.setAdapter(showsAdapter);
     }
 

@@ -1,6 +1,7 @@
 package com.nikart.main;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,8 @@ import java.util.List;
  * Фрагмент для отображения списка серий
  */
 
-public class MyEpisodesFragment extends Fragment {
+public class MyEpisodesFragment extends Fragment
+        /*implements EpisodesAdapter.OnEpisodeHolderListener*/{
 
     private RecyclerView recyclerView;
     private EpisodesAdapter adapter;
@@ -43,11 +45,19 @@ public class MyEpisodesFragment extends Fragment {
         manager = new LinearLayoutManager(getActivity().getApplicationContext());
 
         recyclerView.setLayoutManager(manager);
-        DividerItemDecoration divider =
+        /*DividerItemDecoration divider =
                 new DividerItemDecoration(recyclerView.getContext(),manager.getLayoutDirection());
-        recyclerView.addItemDecoration(divider);
+        recyclerView.addItemDecoration(divider);*/
+//        adapter.setEpisodeListener(this);
         recyclerView.setAdapter(adapter);
+
 
         return rootView;
     }
+
+   /* @Override
+    public void onRateButtonClick() {
+        DialogFragment dialogFragment = new RateDialog();
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "RateDialog");
+    }*/
 }
