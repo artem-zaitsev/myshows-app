@@ -24,4 +24,46 @@
     <string name="my_shows">My Shows</string>
     <string name="my_episodes">My Episodes</string>
     <string name="my_account">My Account</string>
+
+
+    <string name="test">Встречайте Android CoordinatorLayout
+
+Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
+
+Всё, что нужно сделать — обернуть необходимые нам виджеты в CoordinatorLayout. Давайте посмотрим, как это будет выглядеть в коде. Наш демонстрационный код очень прост — Floating Action Button, по нажатию на которую на экране появляется Snackbar.
+
+Сначала добавим Support Design Library в gradle:
+
+
+
+Теперь создадим разметку для нашей Activity:
+
+
+И, заодно, саму MainActivity:
+        Встречайте Android CoordinatorLayout
+
+Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
+
+Всё, что нужно сделать — обернуть необходимые нам виджеты
+        Встречайте Android CoordinatorLayout
+
+Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
+
+Всё, что нужно сделать — обернуть необходимые нам виджеты
+        Встречайте Android CoordinatorLayout
+
+Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
+
+Всё, что нужно сделать — обернуть необходимые нам виджеты
+        Встречайте Android CoordinatorLayout
+
+Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
+
+Всё, что нужно сделать — обернуть необходимые нам виджеты
+        Встречайте Android CoordinatorLayout
+
+Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
+
+Всё, что нужно сделать — обернуть необходимые нам виджеты
+    </string>
 </resources>

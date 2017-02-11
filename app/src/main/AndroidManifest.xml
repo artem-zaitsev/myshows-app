@@ -32,6 +32,7 @@
             android:name="com.nikart.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.nikart.show.ShowActivity"></activity>
     </application>
 
 </manifest>

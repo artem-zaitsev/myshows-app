@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.show.ShowActivity;
 
 import java.util.List;
 
@@ -81,6 +82,12 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
             titleOriginal = (TextView) itemView.findViewById(R.id.show_orig_title);
             rating = (TextView) itemView.findViewById(R.id.show_rating);
             image = (ImageView) itemView.findViewById(R.id.show_image);
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ShowActivity.start(view.getContext());
+                }
+            });
         }
     }
 }
