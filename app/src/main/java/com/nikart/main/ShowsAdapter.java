@@ -1,5 +1,6 @@
 package com.nikart.main;
 
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +23,10 @@ import java.util.List;
 
 public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHolder> {
 
+    public static final String TITLE_KEY = "TITLE";
+
     private List<Show> showsList;
+    private Show show;
 
     // Используется статическое поле IS_GRID для смены layout'ов
 
@@ -46,7 +50,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
 
     @Override
     public void onBindViewHolder(ShowsViewHolder holder, int position) {
-        Show show = showsList.get(position);
+        show = showsList.get(position);
 
         if (MyShowsFragment.IS_GRID) {
             holder.container.setRadius(20);
@@ -56,6 +60,14 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         holder.title.setText(show.getTitle());
         holder.titleOriginal.setText(show.getTitleOriginal());
         holder.rating.setText(" " + show.getRating() + "%");
+        holder.image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               /*     Bundle bundle = new Bundle();
+                    bundle.putString(TITLE_KEY,title.getText().toString());*/
+                ShowActivity.start(view.getContext(),show.getTitle());
+            }
+        });
     }
 
     @Override
@@ -82,12 +94,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
             titleOriginal = (TextView) itemView.findViewById(R.id.show_orig_title);
             rating = (TextView) itemView.findViewById(R.id.show_rating);
             image = (ImageView) itemView.findViewById(R.id.show_image);
-            image.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ShowActivity.start(view.getContext());
-                }
-            });
+
         }
     }
 }
