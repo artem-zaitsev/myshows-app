@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
 import com.nikart.show.ShowActivity;
+import com.nikart.util.RateCustomView;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
     public static final String TITLE_KEY = "TITLE";
 
     private List<Show> showsList;
-    private Show show;
+
 
     // Используется статическое поле IS_GRID для смены layout'ов
 
@@ -50,7 +51,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
 
     @Override
     public void onBindViewHolder(ShowsViewHolder holder, int position) {
-        show = showsList.get(position);
+        final Show show = showsList.get(position);
 
         if (MyShowsFragment.IS_GRID) {
             holder.container.setRadius(20);
@@ -59,13 +60,14 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         holder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.title.setText(show.getTitle());
         holder.titleOriginal.setText(show.getTitleOriginal());
-        holder.rating.setText(" " + show.getRating() + "%");
+        holder.episodesUnwatched.setText("999");
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /*     Bundle bundle = new Bundle();
-                    bundle.putString(TITLE_KEY,title.getText().toString());*/
-                ShowActivity.start(view.getContext(),show.getTitle());
+                /*Bundle bundle = new Bundle();
+                bundle.putString(TITLE_KEY,title.getText().toString());*/
+
+                ShowActivity.start(view.getContext(), show.getTitle(), show);
             }
         });
     }
@@ -80,7 +82,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         public CardView container;
         public TextView title;
         public TextView titleOriginal;
-        public TextView rating;
+        public TextView episodesUnwatched;
         public ImageView image;
 
         public ShowsViewHolder(View itemView) {
@@ -92,7 +94,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
 
             title = (TextView) itemView.findViewById(R.id.show_title);
             titleOriginal = (TextView) itemView.findViewById(R.id.show_orig_title);
-            rating = (TextView) itemView.findViewById(R.id.show_rating);
+            episodesUnwatched = (TextView) itemView.findViewById(R.id.show_episodes_unwatched);
             image = (ImageView) itemView.findViewById(R.id.show_image);
 
         }

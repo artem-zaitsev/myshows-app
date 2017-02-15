@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //тестим некотрые фичи с контроллером
         // делаем лист из фрагментов

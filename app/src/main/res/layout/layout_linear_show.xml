@@ -41,13 +41,13 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/show_rating"
+            android:id="@+id/show_episodes_unwatched"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:paddingLeft="5dp"
             android:paddingStart="5dp"
-            android:text="99%"
+            android:text="99"
             android:textColor="#ff0000"
             android:textSize="20sp" />
     </LinearLayout>
