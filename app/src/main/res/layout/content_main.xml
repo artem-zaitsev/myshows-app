@@ -21,6 +21,8 @@
         android:id="@+id/main_activity_bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        design:itemIconTint="@drawable/bottom_nav_bar_selector"
+        design:itemTextColor="@drawable/bottom_nav_bar_selector"
         design:menu="@menu/bottom_nav_menu"
         android:layout_gravity="bottom"
         android:elevation="8dp">
