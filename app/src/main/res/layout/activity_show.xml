@@ -97,7 +97,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:padding="5dp"
-                            android:text="Rate: "
+                            android:text="@string/rating"
                             android:textColor="@color/primary_text_material_dark"
                             android:textSize="18sp" />
 

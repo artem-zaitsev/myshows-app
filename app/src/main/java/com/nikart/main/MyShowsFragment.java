@@ -2,9 +2,11 @@ package com.nikart.main;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.util.ShowsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,7 @@ public class MyShowsFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private List<Show> shows;
     private ViewGroup container;
+    private Toolbar toolbar;
 
 
     @Override
@@ -44,6 +48,10 @@ public class MyShowsFragment extends Fragment {
         }
         View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
 
+        toolbar = (Toolbar) getActivity().findViewById(R.id.activity_main_toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         initRecycler(rootView);
 
         setHasOptionsMenu(true);

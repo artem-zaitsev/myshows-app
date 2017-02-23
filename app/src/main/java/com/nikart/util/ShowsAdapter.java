@@ -1,6 +1,5 @@
-package com.nikart.main;
+package com.nikart.util;
 
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nikart.dto.Show;
+import com.nikart.main.MyShowsFragment;
 import com.nikart.myshows.R;
 import com.nikart.show.ShowActivity;
-import com.nikart.util.RateCustomView;
 
 import java.util.List;
 

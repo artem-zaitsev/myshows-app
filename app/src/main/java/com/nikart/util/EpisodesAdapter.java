@@ -1,13 +1,10 @@
-package com.nikart.main;
+package com.nikart.util;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,7 +31,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
     /*Как распределить по месяцам?????*/
 
-    EpisodesAdapter(List<Episode> episodesList) {
+    public EpisodesAdapter(List<Episode> episodesList) {
         this.episodesList = episodesList;
     }
 

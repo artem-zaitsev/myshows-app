@@ -71,12 +71,17 @@ public class NavigationController {
 
     private void hideCurrentFragment() {
         // startTransaction().setCustomAnimations()
-        startTransaction().setCustomAnimations(R.anim.fade_out, R.anim.fade_out)
+        startTransaction()
+                .setCustomAnimations(
+                        R.anim.fade_out,
+                        R.anim.fade_out)
                 .hide(currentFragment).commitNow();
     }
 
     private void showFragment(Fragment fragment) {
-        startTransaction().setCustomAnimations(R.anim.fade_in, R.anim.fade_in)
+        startTransaction().setCustomAnimations(
+                R.anim.fade_in,
+                R.anim.fade_in)
                 .show(fragment).commitNow();
     }
 

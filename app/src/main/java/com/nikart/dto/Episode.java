@@ -29,7 +29,7 @@ public class Episode {
                 "?????"
         };
         this.seasonNumber = i;
-        this.airDate = new Date(10102016);
+        this.airDate = new Date();
         int random1 = (int) (Math.random() * 12 / 4);
         int random2 = (int) (Math.random() * 12 / 4);
         this.title = titles[random1];
