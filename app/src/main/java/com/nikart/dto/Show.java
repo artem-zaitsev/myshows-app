@@ -22,6 +22,8 @@ public class Show {
     private String[] genresIds;
     private String[] episodes;
     private String watchStatus;
+    private int totalEpisodes;
+    private int watchedEpisodes;
 
     public Show() {
         this.title = "Sherlock";
@@ -47,6 +49,8 @@ public class Show {
                         "мобильниками и прочими благами цивилизации." + "\r\n" + "</p>";
         this.imageUrl =
                 "https://media.myshows.me/shows/normal/9/94/9492ce09d3a31c32ba559f5936dac888.jpg";
+        this.totalEpisodes = 12;
+        this.watchedEpisodes = 3;
     }
 
     public Show(String title, int started, int ended, String description, String imageUrl) {
@@ -175,5 +179,25 @@ public class Show {
 
     public void setWatchStatus(String watchStatus) {
         this.watchStatus = watchStatus;
+    }
+
+    public int getTotalEpisodes() {
+        return totalEpisodes;
+    }
+
+    public void setTotalEpisodes(int totalEpisodes) {
+        this.totalEpisodes = totalEpisodes;
+    }
+
+    public int getWatchedEpisodes() {
+        return watchedEpisodes;
+    }
+
+    public void setWatchedEpisodes(int watchedEpisodes) {
+        this.watchedEpisodes = watchedEpisodes;
+    }
+
+    public int getUnwatchedEpisodes(){
+        return totalEpisodes-watchedEpisodes;
     }
 }

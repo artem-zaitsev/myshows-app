@@ -1,5 +1,6 @@
 package com.nikart.main;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
 import com.nikart.util.ShowsAdapter;
@@ -47,6 +50,9 @@ public class AccountFragment extends Fragment {
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+       /* ImageView accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
+        Glide.with(this).load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg")
+                .into(accountPic);*/
         initRecycler(rootView);
 
         return rootView;

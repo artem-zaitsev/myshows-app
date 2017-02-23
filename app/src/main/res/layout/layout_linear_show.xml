@@ -48,8 +48,8 @@
             android:paddingLeft="5dp"
             android:paddingStart="5dp"
             android:text="99"
-            android:textColor="#ff0000"
-            android:textSize="20sp" />
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
     </LinearLayout>
 
 

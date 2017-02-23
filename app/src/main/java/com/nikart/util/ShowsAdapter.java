@@ -1,5 +1,7 @@
 package com.nikart.util;
 
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nikart.dto.Show;
 import com.nikart.main.MyShowsFragment;
 import com.nikart.myshows.R;
@@ -27,6 +30,8 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
 
     private List<Show> showsList;
 
+    private Context context;
+
 
     // Используется статическое поле IS_GRID для смены layout'ов
 
@@ -39,6 +44,8 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
     public ShowsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         Log.d("TEST", String.valueOf(MyShowsFragment.IS_GRID));
+
+        context = parent.getContext();
 
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 MyShowsFragment.IS_GRID
@@ -55,11 +62,16 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         if (MyShowsFragment.IS_GRID) {
             holder.container.setRadius(20);
         }
+        /*Glide
+                .with(context)
+                .load(show.getImageUrl())
+                .centerCrop()
+                .into(holder.image);*/
         holder.image.setImageResource(R.drawable.sherlock);
         holder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.title.setText(show.getTitle());
         holder.titleOriginal.setText(show.getTitleOriginal());
-        holder.episodesUnwatched.setText("999");
+        holder.episodesUnwatched.setText(context.getString(R.string.unwatched_episodes, show.getUnwatchedEpisodes()));
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

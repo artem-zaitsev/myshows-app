@@ -28,7 +28,7 @@
     <string name="rating">Rating: </string>
     <string name="watch">Watching</string>
 
-
+    <string name="unwatched_episodes">Unwatched : %1$d </string>
 
     <string name="test">Встречайте Android CoordinatorLayout
 
