@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_show_root"
     android:layout_width="match_parent"
     android:layout_height="250dp"
+
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
@@ -9,7 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:background="?android:selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/ripple_item_show">
 
         <ImageView
             android:id="@+id/show_image"
@@ -55,7 +61,7 @@
                 android:layout_marginTop="10dp"
                 android:text="99"
                 android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

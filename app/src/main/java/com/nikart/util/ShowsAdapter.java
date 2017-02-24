@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -60,7 +61,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         final Show show = showsList.get(position);
 
         if (MyShowsFragment.IS_GRID) {
-            holder.container.setRadius(20);
+            holder.container.setRadius(5);
         }
         /*Glide
                 .with(context)
@@ -72,7 +73,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         holder.title.setText(show.getTitle());
         holder.titleOriginal.setText(show.getTitleOriginal());
         holder.episodesUnwatched.setText(context.getString(R.string.unwatched_episodes, show.getUnwatchedEpisodes()));
-        holder.image.setOnClickListener(new View.OnClickListener() {
+        holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*Bundle bundle = new Bundle();
@@ -90,7 +91,10 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
 
     public class ShowsViewHolder extends RecyclerView.ViewHolder {
 
+        public LinearLayout root;
+
         public CardView container;
+
         public TextView title;
         public TextView titleOriginal;
         public TextView episodesUnwatched;
@@ -99,6 +103,8 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         public ShowsViewHolder(View itemView) {
             super(itemView);
             Log.d("TEST", "ShowsVH");
+
+            root = (LinearLayout) itemView.findViewById(R.id.item_show_root);
             if (MyShowsFragment.IS_GRID) {
                 container = (CardView) itemView.findViewById(R.id.show_container);
             }

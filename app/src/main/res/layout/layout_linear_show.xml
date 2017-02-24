@@ -4,7 +4,13 @@
     android:layout_height="80dp"
     android:layout_margin="10dp"
     android:elevation="4dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:focusable="false"
+    android:foreground="@drawable/ripple_item_show"
+    android:background="?android:selectableItemBackground"
+    android:id="@+id/item_show_root"
+    >
 
     <ImageView
         android:id="@+id/show_image"
@@ -49,7 +55,7 @@
             android:paddingStart="5dp"
             android:text="99"
             android:textColor="@color/colorAccent"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 
