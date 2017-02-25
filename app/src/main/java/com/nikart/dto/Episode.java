@@ -14,6 +14,7 @@ public class Episode {
     private Date airDate;
     private int rate;
 
+
     // Конструктор с сгенерированными эпизодами.
     public Episode(int i) {
         String[] titles = new String[]{

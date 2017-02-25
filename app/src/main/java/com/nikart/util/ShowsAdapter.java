@@ -63,12 +63,11 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         if (MyShowsFragment.IS_GRID) {
             holder.container.setRadius(5);
         }
-        /*Glide
+        Glide
                 .with(context)
                 .load(show.getImageUrl())
                 .centerCrop()
-                .into(holder.image);*/
-        holder.image.setImageResource(R.drawable.sherlock);
+                .into(holder.image);
         holder.image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         holder.title.setText(show.getTitle());
         holder.titleOriginal.setText(show.getTitleOriginal());

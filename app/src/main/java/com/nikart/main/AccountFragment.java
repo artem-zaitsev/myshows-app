@@ -50,9 +50,9 @@ public class AccountFragment extends Fragment {
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
             ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-       /* ImageView accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
-        Glide.with(this).load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg")
-                .into(accountPic);*/
+        ImageView accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
+        Glide.with(this).load("https://myshows.me/shared/img/fe/default-user-avatar-big.png")
+                .into(accountPic);
         initRecycler(rootView);
 
         return rootView;

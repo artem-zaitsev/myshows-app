@@ -1,5 +1,6 @@
 package com.nikart.util;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nikart.dto.Episode;
 import com.nikart.myshows.R;
 
@@ -28,6 +30,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
     private List<Episode> episodesList;
     private int episodeRate;
+    private Context context;
 
     /*Как распределить по месяцам?????*/
 
@@ -37,6 +40,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
     @Override
     public EpisodesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_episode,
                 parent, false);
         return new EpisodesViewHolder(view);
@@ -48,7 +52,13 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
         Episode ep = episodesList.get(position);
 
-        holder.showImage.setImageResource(R.drawable.sherlock);
+        Glide
+                .with(context)
+                .load("https://media.myshows.me/shows/normal/9/94/9492ce09d3a31c32ba559f5936dac888.jpg")
+                .centerCrop()
+                .into(holder.showImage);
+
+//        holder.showImage.setImageResource(R.drawable.sherlock);
         holder.episodeTitleTextView.setText(ep.getTitle());
         holder.seasonTitleTextView.setText(String.valueOf(ep.getSeasonNumber()));
         holder.showTitleTextView.setText(ep.getShowTitle());

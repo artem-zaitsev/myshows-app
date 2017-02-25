@@ -34,5 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.nikart.show.ShowActivity"></activity>
     </application>
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
