@@ -80,7 +80,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
     @Override
     public void onClick(View view) {
-        //do nothing
+    //do nothing
     }
 
     class EpisodesViewHolder extends RecyclerView.ViewHolder {

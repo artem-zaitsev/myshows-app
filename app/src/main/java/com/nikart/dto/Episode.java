@@ -1,12 +1,15 @@
 package com.nikart.dto;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
 
 /**
  * Created by Artem
  */
 
-public class Episode {
+public class Episode implements Parcelable{
 
     private int id;
     private String title, showTitle;
@@ -44,6 +47,26 @@ public class Episode {
         this.showTitle = showTitle;
         this.airDate = airDate;
     }
+
+    protected Episode(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        showTitle = in.readString();
+        seasonNumber = in.readInt();
+        rate = in.readInt();
+    }
+
+    public static final Creator<Episode> CREATOR = new Creator<Episode>() {
+        @Override
+        public Episode createFromParcel(Parcel in) {
+            return new Episode(in);
+        }
+
+        @Override
+        public Episode[] newArray(int size) {
+            return new Episode[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -83,5 +106,19 @@ public class Episode {
 
     public void setRate(int rate) {
         this.rate = rate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(title);
+        parcel.writeString(showTitle);
+        parcel.writeInt(seasonNumber);
+        parcel.writeInt(rate);
     }
 }
