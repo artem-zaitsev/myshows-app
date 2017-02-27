@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
 import com.nikart.dto.Episode;
 import com.nikart.myshows.R;
 import com.thoughtbot.expandablerecyclerview.ExpandableRecyclerViewAdapter;
@@ -48,8 +47,6 @@ public class EpisodesInMonthAdapter
     @Override
     public void onBindChildViewHolder(EpisodeViewHolder holder,
                                       int flatPosition, ExpandableGroup group, int childIndex) {
-        DateFormat df = new DateFormat(); // для форматирования даты, пока здесь оставил
-
         Episode ep = ((Month) group).getItems().get(childIndex);
 
 //        holder.showImage.setImageResource(R.drawable.sherlock);
@@ -62,7 +59,7 @@ public class EpisodesInMonthAdapter
                 ep.getShortName()));
         holder.episodeTitleTextView.setText(ep.getTitle());
 
-        holder.dateTextView.setText(df.format("dd.MM.yy, EE ", ep.getAirDate()));
+        holder.dateTextView.setText(DateFormat.format("dd.MM.yy, EE ", ep.getAirDate()));
 
         Resources res = context.getResources();
 

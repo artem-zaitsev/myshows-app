@@ -1,7 +1,9 @@
 package com.nikart.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +38,13 @@ public class MyShowsFragment extends Fragment {
     private ViewGroup container;
     private Toolbar toolbar;
 
+    private String SHOWS_FRAGMENT_TITLE;
+
+    @Override
+    public void onAttach(Context context) {
+        SHOWS_FRAGMENT_TITLE = getString(R.string.my_shows);
+        super.onAttach(context);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,13 +59,18 @@ public class MyShowsFragment extends Fragment {
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.activity_main_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (bar != null) {
+            bar.setDisplayShowTitleEnabled(false);
+        }
+
         initRecycler(rootView);
 
         setHasOptionsMenu(true);
         return rootView;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

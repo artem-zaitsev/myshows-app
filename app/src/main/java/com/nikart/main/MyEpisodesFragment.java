@@ -1,8 +1,11 @@
 package com.nikart.main;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.nikart.dto.Episode;
 import com.nikart.myshows.R;
@@ -37,10 +41,13 @@ public class MyEpisodesFragment extends Fragment {
 
     private Toolbar toolbar;
 
-    private final String[] monthTitle = new String[]{
-            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль",
-            "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
-    };
+    private String EPISODES_FRAGMENT_TITLE;
+
+    @Override
+    public void onAttach(Context context) {
+        EPISODES_FRAGMENT_TITLE = getString(R.string.my_episodes);
+        super.onAttach(context);
+    }
 
     // Приделан ExpandedRecyclerView!!!!!!
     @Override
@@ -50,8 +57,10 @@ public class MyEpisodesFragment extends Fragment {
 
         toolbar = (Toolbar) getActivity().findViewById(R.id.activity_main_toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null)
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (bar != null) {
+            bar.setDisplayShowTitleEnabled(false);
+        }
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_myepisodes_rv);
 /*        adapter = new EpisodesAdapter(episodes);*/
@@ -59,15 +68,24 @@ public class MyEpisodesFragment extends Fragment {
         manager = new LinearLayoutManager(getActivity().getApplicationContext());
 
         recyclerView.setLayoutManager(manager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this.getContext(),
+                manager.getLayoutDirection());
         recyclerView.setAdapter(monthAdapter);
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     //Пока так. Здесь генерируем список эпизодов,
     //ищем максимальную дату, формируем группы по месяцам от текущего до
     //максимального.
     private List<Month> makeGroup() {
+        final String[] monthTitle = getResources().getStringArray(R.array.months);
         Date today = new Date();
         Date maximumDate = new Date(121212);
 

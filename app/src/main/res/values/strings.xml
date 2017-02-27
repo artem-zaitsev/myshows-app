@@ -26,7 +26,7 @@
     <string name="my_account">My Account</string>
 
     <string name="rating">Rating: </string>
-    <string name="watch">Watching</string>
+    <string name="watch">Watching: </string>
 
     <string name="unwatched_episodes">Unwatched : %1$d </string>
 
@@ -41,6 +41,21 @@
         <item quantity="many">%d days</item>
         <item quantity="other">%d days</item>
     </plurals>
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
 
     <string name="test">Встречайте Android CoordinatorLayout
 
