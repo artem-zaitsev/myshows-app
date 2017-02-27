@@ -7,14 +7,16 @@ import android.widget.TextView;
 import com.nikart.myshows.R;
 import com.thoughtbot.expandablerecyclerview.viewholders.ChildViewHolder;
 
+import org.w3c.dom.Text;
+
 /**
- * Created by key on 26.02.2017.
+ * Created by Artem
  */
 
 public class EpisodeViewHolder extends ChildViewHolder {
 
     public TextView episodeTitleTextView, seasonTitleTextView, showTitleTextView, dateTextView;
-    public ImageView showImage;
+    public TextView daysLeftTextView;
 
     public EpisodeViewHolder(View itemView) {
         super(itemView);
@@ -22,7 +24,7 @@ public class EpisodeViewHolder extends ChildViewHolder {
         seasonTitleTextView = (TextView) itemView.findViewById(R.id.episode_season);
         showTitleTextView = (TextView) itemView.findViewById(R.id.episode_show_title);
         dateTextView = (TextView) itemView.findViewById(R.id.episode_date);
-        showImage = (ImageView) itemView.findViewById(R.id.item_episode_show_image);
+        daysLeftTextView = (TextView) itemView.findViewById(R.id.layout_item_episode_days_left);
     }
 
 }

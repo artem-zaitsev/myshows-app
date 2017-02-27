@@ -6,7 +6,7 @@ import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 import java.util.List;
 
 /**
- * Created by key on 26.02.2017.
+ * Created by Artem
  */
 
 public class Month extends ExpandableGroup<Episode> {

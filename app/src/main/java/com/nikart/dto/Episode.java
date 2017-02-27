@@ -13,7 +13,7 @@ public class Episode implements Parcelable{
 
     private int id;
     private String title, showTitle;
-    private int seasonNumber;
+    private String shortName;
     private Date airDate;
     private int rate;
 
@@ -32,8 +32,8 @@ public class Episode implements Parcelable{
                 "The Big Bang",
                 "?????"
         };
-        this.seasonNumber = i;
-        this.airDate = new Date();
+        this.shortName = "s" + i +"e1";
+        this.airDate = new Date(2017,05,17);
         int random1 = (int) (Math.random() * 12 / 4);
         int random2 = (int) (Math.random() * 12 / 4);
         this.title = titles[random1];
@@ -41,9 +41,9 @@ public class Episode implements Parcelable{
         this.rate = 0;
     }
 
-    public Episode(String title, int seasonNumber, String showTitle, Date airDate) {
+    public Episode(String title, String shortName, String showTitle, Date airDate) {
         this.title = title;
-        this.seasonNumber = seasonNumber;
+        this.shortName = shortName;
         this.showTitle = showTitle;
         this.airDate = airDate;
     }
@@ -52,7 +52,7 @@ public class Episode implements Parcelable{
         id = in.readInt();
         title = in.readString();
         showTitle = in.readString();
-        seasonNumber = in.readInt();
+        shortName= in.readString();
         rate = in.readInt();
     }
 
@@ -76,12 +76,12 @@ public class Episode implements Parcelable{
         this.title = title;
     }
 
-    public int getSeasonNumber() {
-        return seasonNumber;
+    public String getShortName() {
+        return shortName;
     }
 
-    public void setSeasonNumber(int seasonNumber) {
-        this.seasonNumber = seasonNumber;
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     public String getShowTitle() {
@@ -118,7 +118,7 @@ public class Episode implements Parcelable{
         parcel.writeInt(id);
         parcel.writeString(title);
         parcel.writeString(showTitle);
-        parcel.writeInt(seasonNumber);
+        parcel.writeString(shortName);
         parcel.writeInt(rate);
     }
 }

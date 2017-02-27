@@ -52,15 +52,9 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
         Episode ep = episodesList.get(position);
 
-        Glide
-                .with(context)
-                .load("https://media.myshows.me/shows/normal/9/94/9492ce09d3a31c32ba559f5936dac888.jpg")
-                .centerCrop()
-                .into(holder.showImage);
-
 //        holder.showImage.setImageResource(R.drawable.sherlock);
         holder.episodeTitleTextView.setText(ep.getTitle());
-        holder.seasonTitleTextView.setText(String.valueOf(ep.getSeasonNumber()));
+        holder.seasonTitleTextView.setText(String.valueOf(ep.getShortName()));
         holder.showTitleTextView.setText(ep.getShowTitle());
         holder.dateTextView.setText(df.format("dd.MM", ep.getAirDate()));
 
@@ -80,13 +74,12 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
     @Override
     public void onClick(View view) {
-    //do nothing
+        //do nothing
     }
 
     class EpisodesViewHolder extends RecyclerView.ViewHolder {
 
         public TextView episodeTitleTextView, seasonTitleTextView, showTitleTextView, dateTextView;
-        public ImageView showImage;
 
         EpisodesViewHolder(View itemView) {
             super(itemView);
@@ -94,7 +87,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
             seasonTitleTextView = (TextView) itemView.findViewById(R.id.episode_season);
             showTitleTextView = (TextView) itemView.findViewById(R.id.episode_show_title);
             dateTextView = (TextView) itemView.findViewById(R.id.episode_date);
-            showImage = (ImageView) itemView.findViewById(R.id.item_episode_show_image);
         }
     }
 }

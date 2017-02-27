@@ -30,6 +30,18 @@
 
     <string name="unwatched_episodes">Unwatched : %1$d </string>
 
+    <string name="fragment_episodes_show_title"> %1$s - </string>
+    <string name="fragment_episodes_short_name"> %1$s, </string>
+
+    <plurals name="days_left">
+        <item quantity="zero">Today</item>
+        <item quantity="one">%d day</item>
+        <item quantity="two">%d days</item>
+        <item quantity="few">%d days</item>
+        <item quantity="many">%d days</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
     <string name="test">Встречайте Android CoordinatorLayout
 
         Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
@@ -67,4 +79,5 @@
         Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
 
         Всё, что нужно сделать — обернуть необходимые нам виджеты</string>
+
 </resources>
