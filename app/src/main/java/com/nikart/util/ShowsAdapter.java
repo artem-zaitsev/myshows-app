@@ -75,9 +75,6 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Bundle bundle = new Bundle();
-                bundle.putString(TITLE_KEY,title.getText().toString());*/
-
                 ShowActivity.start(view.getContext(), show.getTitle(), show);
             }
         });

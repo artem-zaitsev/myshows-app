@@ -24,7 +24,6 @@ public class NavigationController {
     private Fragment currentFragment;
     private List<Fragment> fragments;
     private FragmentManager fragmentManager; // для вызова getSupportFragmentManager
-    private FragmentTransaction transaction;
     private List<MenuItem> items;
 
     public NavigationController(FragmentManager fragmentManager, List<Fragment> fragments) {
@@ -70,7 +69,6 @@ public class NavigationController {
     }
 
     private void hideCurrentFragment() {
-        // startTransaction().setCustomAnimations()
         startTransaction()
                 .setCustomAnimations(
                         R.anim.fade_out,

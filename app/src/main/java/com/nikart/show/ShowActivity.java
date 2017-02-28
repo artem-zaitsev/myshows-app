@@ -79,8 +79,6 @@ public class ShowActivity extends AppCompatActivity {
                 setShowWatching();
                 Toast.makeText(ShowActivity.this, "Show is " + show.getWatchStatus(), Toast.LENGTH_SHORT)
                         .show();
-                /*watchingFab.hide();
-                watchingFab.setVisibility(View.INVISIBLE);*/
                 watchingFab.setImageResource(isShowWatching()
                         ? R.drawable.check_mark
                         : R.drawable.eye);

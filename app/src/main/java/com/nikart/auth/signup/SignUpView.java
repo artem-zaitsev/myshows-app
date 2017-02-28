@@ -28,6 +28,11 @@ public class SignUpView extends LinearLayout {
     }
 
     private void init(Context context, AttributeSet attributeSet) {
-        inflate(context, attributeSet.getAttributeResourceValue("http://schemas.android.com/apk/res-auto", "view_layout", -1), this);
+        inflate(context,
+                attributeSet
+                        .getAttributeResourceValue(
+                                "http://schemas.android.com/apk/res-auto",
+                                "view_layout", -1),
+                this);
     }
 }

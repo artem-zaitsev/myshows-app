@@ -50,8 +50,6 @@ public class EpisodesInMonthAdapter
                                       int flatPosition, ExpandableGroup group, int childIndex) {
         Episode ep = ((Month) group).getItems().get(childIndex);
 
-//        holder.showImage.setImageResource(R.drawable.sherlock);
-
         holder.showTitleTextView.setText(String.format(
                 context.getString(R.string.fragment_episodes_show_title),
                 ep.getShowTitle()));

@@ -20,7 +20,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-
     private NavigationController controller;
     private List<Fragment> fragmentList;
 
@@ -34,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //тестим некотрые фичи с контроллером
-        // делаем лист из фрагментов
         fragmentList = new ArrayList<>();
         fragmentList.add(new MyShowsFragment());
         fragmentList.add(new MyEpisodesFragment());
@@ -57,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
-    * Ну тут короче все ясно.
-    * */
     @Override
     public void onBackPressed() {
         super.onBackPressed();

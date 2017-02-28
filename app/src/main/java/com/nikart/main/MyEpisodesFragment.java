@@ -81,6 +81,8 @@ public class MyEpisodesFragment extends Fragment {
 
         final List<Month> months = new ArrayList<>();
 
+        // Надо ли выносить подобную работу в отдельный поток?
+        // Мотивировал такой ход тем, что здесь будет сортировка.
         new Thread(new Runnable() {
             @Override
             public void run() {

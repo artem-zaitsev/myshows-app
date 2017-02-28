@@ -31,7 +31,7 @@ public class RateDialog extends DialogFragment
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            listener = (RateDialogListener)context;
+            listener = (RateDialogListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() +
                     " must implement RateDialogListener");

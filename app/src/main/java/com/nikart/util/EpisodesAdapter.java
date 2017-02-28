@@ -29,10 +29,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
     private final int TYPE_BASE = 0;
 
     private List<Episode> episodesList;
-    private int episodeRate;
-    private Context context;
-
-    /*Как распределить по месяцам?????*/
 
     public EpisodesAdapter(List<Episode> episodesList) {
         this.episodesList = episodesList;
@@ -40,7 +36,6 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
     @Override
     public EpisodesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_episode,
                 parent, false);
         return new EpisodesViewHolder(view);
@@ -48,28 +43,18 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
     @Override
     public void onBindViewHolder(EpisodesViewHolder holder, int position) {
-        DateFormat df = new DateFormat(); // для форматирования даты, пока здесь оставил
-
         Episode ep = episodesList.get(position);
 
-//        holder.showImage.setImageResource(R.drawable.sherlock);
         holder.episodeTitleTextView.setText(ep.getTitle());
         holder.seasonTitleTextView.setText(String.valueOf(ep.getShortName()));
         holder.showTitleTextView.setText(ep.getShowTitle());
-        holder.dateTextView.setText(df.format("dd.MM", ep.getAirDate()));
+        holder.dateTextView.setText(DateFormat.format("dd.MM", ep.getAirDate()));
 
     }
 
     @Override
     public int getItemCount() {
         return episodesList.size();
-    }
-
-    /*Возможно используем для разделения по месяцам*/
-    @Override
-    public int getItemViewType(int position) {
-        //if ()
-        return super.getItemViewType(position);
     }
 
     @Override

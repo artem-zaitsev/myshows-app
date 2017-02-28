@@ -23,7 +23,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     private Button registerButton;
     private Button loginButton;
 
-    //SharedPreferences
+    // SharedPreferences
     // Если вход был выполнен то при
     // нажатии на кнопки сразу переходит к MainActivity
     private SharedPreferences prefs;
@@ -71,8 +71,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    // Делаем внутренний класс для адаптера фрагментов. Возможно нужно
-    // сделать FragmentAdapter, так как страниц всего 3.
+    // Делаем внутренний класс для адаптера фрагментов.
     private class WelcomePagesSlideAdapter extends FragmentPagerAdapter {
         WelcomePagesSlideAdapter(FragmentManager supportFragmentManager) {
             super(supportFragmentManager);

@@ -49,7 +49,7 @@ public class MyShowsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState)  {
+                             Bundle savedInstanceState) {
 
         this.container = container;
         shows = new ArrayList<>(30);
@@ -76,7 +76,6 @@ public class MyShowsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.switch_layout_style: {
-                // Тут все лаконично, правда не могу объективно оценить насколько читабельно.
                 layoutManager = isGridLayoutManager()
                         ? new LinearLayoutManager(container.getContext())
                         : new GridLayoutManager(container.getContext(), 2);
@@ -98,7 +97,6 @@ public class MyShowsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_my_shows, menu);
 
-        //Здесь код пока дублируется.
         menu.getItem(0).setIcon(
                 !isGridLayoutManager()
                         ? R.drawable.grid_layout_manager

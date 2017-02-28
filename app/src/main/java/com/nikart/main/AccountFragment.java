@@ -72,10 +72,11 @@ public class AccountFragment extends Fragment {
     }
 
     private void initRecycler(View rootView) {
+        /*
+        * Используем ShowsAdapter, но позже изменим
+        * */
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
         layoutManager = new GridLayoutManager(container.getContext(), 2); // two columns
-
-        /*IS_GRID = true;*/
 
         showsAdapter = new ShowsAdapter(shows);
         recyclerView.setLayoutManager(layoutManager);
