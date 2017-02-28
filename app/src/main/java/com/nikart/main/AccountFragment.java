@@ -55,7 +55,8 @@ public class AccountFragment extends Fragment {
         }
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
 
-        toolbar = (Toolbar) getActivity().findViewById(R.id.activity_main_toolbar);
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(ACCOUNT_FRAGMENT_TITLE);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (bar != null) {

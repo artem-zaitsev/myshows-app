@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="56dp"
-    android:layout_marginTop="@dimen/toolbar_height"
     android:orientation="vertical">
-
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/fragment_account_appbar"
@@ -14,20 +12,27 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:orientation="vertical"
-        android:paddingEnd="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingStart="10dp">
+        android:fitsSystemWindows="true">
+
+
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/fragment_account_collapsing_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <include layout="@layout/toolbar_layout"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/toolbar_height"
+                android:layout_marginTop="@dimen/toolbar_height"
+                android:paddingEnd="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingStart="10dp"
                 android:orientation="vertical"
                 app:layout_scrollFlags="snap|exitUntilCollapsed">
 
@@ -102,25 +107,12 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/fragment_account_toolbar_watching"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/toolbar_height"
-                android:layout_gravity="bottom"
-                app:layout_collapseMode="pin">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/watch"
-                    android:textColor="@color/primary_text_material_dark"
-                    android:textSize="24sp" />
-            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
 
     </android.support.design.widget.AppBarLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -128,6 +120,18 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/fragment_account_toolbar_watching"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/watch"
+                android:textColor="@color/primary_text_material_dark"
+                android:textSize="20sp" />
+        </android.support.v7.widget.Toolbar>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_account_rv"
             android:layout_width="match_parent"

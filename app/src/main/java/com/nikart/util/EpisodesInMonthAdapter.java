@@ -22,7 +22,6 @@ import java.util.List;
 public class EpisodesInMonthAdapter
         extends ExpandableRecyclerViewAdapter<MonthViewHolder, EpisodeViewHolder> {
 
-    private List<Episode> episodesList;
     private Context context;
 
     public EpisodesInMonthAdapter(List list) {
@@ -32,14 +31,16 @@ public class EpisodesInMonthAdapter
     @Override
     public MonthViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_group_month,
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.layout_group_month,
                 parent, false);
         return new MonthViewHolder(view);
     }
 
     @Override
     public EpisodeViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_episode,
+        View view = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.layout_item_episode,
                 parent, false);
         return new EpisodeViewHolder(view);
     }
@@ -77,7 +78,11 @@ public class EpisodesInMonthAdapter
     public void onBindGroupViewHolder(MonthViewHolder holder,
                                       int flatPosition, ExpandableGroup group) {
         holder.setMonthTitle(group);
-        holder.setEpisodeCount(group);
+        holder.episodeCountTextView.setText(String.format(context
+                .getResources()
+                .getQuantityString(
+                        R.plurals.series,
+                        group.getItemCount(), group.getItemCount())));
     }
 
 }

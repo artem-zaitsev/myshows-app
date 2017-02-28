@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.AppBarLayout android:layout_width="match_parent"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar_height"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="?attr/colorPrimary"
+    android:elevation="4dp"
+    app:layout_scrollFlags="enterAlways"
+    app:layout_collapseMode="pin"
+    android:fitsSystemWindows="true">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/activity_main_toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar_height"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="FRAGMENT_TITLE"
+            android:textColor="@color/secondary_text"
+            android:textSize="20sp" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/logo" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </android.support.v7.widget.Toolbar>
-
-
-</android.support.design.widget.AppBarLayout>
+</android.support.v7.widget.Toolbar>

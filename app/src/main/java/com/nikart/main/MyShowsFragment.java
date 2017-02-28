@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
@@ -48,7 +49,7 @@ public class MyShowsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)  {
 
         this.container = container;
         shows = new ArrayList<>(30);
@@ -57,14 +58,13 @@ public class MyShowsFragment extends Fragment {
         }
         View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
 
-        toolbar = (Toolbar) getActivity().findViewById(R.id.activity_main_toolbar);
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(SHOWS_FRAGMENT_TITLE);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
         ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (bar != null) {
             bar.setDisplayShowTitleEnabled(false);
         }
-
         initRecycler(rootView);
 
         setHasOptionsMenu(true);
