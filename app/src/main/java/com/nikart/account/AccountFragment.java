@@ -1,12 +1,12 @@
-package com.nikart.main;
+package com.nikart.account;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
-import com.nikart.util.ShowsAdapter;
+import com.nikart.shows.ShowsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.List;
 public class AccountFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ShowsAdapter showsAdapter;
+    private AccountShowAdapter showsAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Show> shows;
     private ViewGroup container;
@@ -76,9 +76,9 @@ public class AccountFragment extends Fragment {
         * Используем ShowsAdapter, но позже изменим
         * */
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
-        layoutManager = new GridLayoutManager(container.getContext(), 2); // two columns
+        layoutManager = new LinearLayoutManager(this.getContext()); // two columns
 
-        showsAdapter = new ShowsAdapter(shows);
+        showsAdapter = new AccountShowAdapter(shows);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
     }

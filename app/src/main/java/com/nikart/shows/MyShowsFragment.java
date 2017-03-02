@@ -1,4 +1,4 @@
-package com.nikart.main;
+package com.nikart.shows;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
-import com.nikart.util.ShowsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

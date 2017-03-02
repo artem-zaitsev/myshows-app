@@ -1,4 +1,4 @@
-package com.nikart.util;
+package com.nikart.soon_episodes;
 
 import com.nikart.dto.Episode;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;

@@ -1,4 +1,4 @@
-package com.nikart.util;
+package com.nikart.soon_episodes;
 
 import android.view.View;
 import android.widget.ImageView;

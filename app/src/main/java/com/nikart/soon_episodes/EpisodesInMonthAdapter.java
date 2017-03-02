@@ -1,4 +1,4 @@
-package com.nikart.util;
+package com.nikart.soon_episodes;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -50,6 +50,8 @@ public class EpisodesInMonthAdapter
                                       int flatPosition, ExpandableGroup group, int childIndex) {
         Episode ep = ((Month) group).getItems().get(childIndex);
 
+        holder.dateTextView.setText(DateFormat.format("dd, EE ", ep.getAirDate()));
+
         holder.showTitleTextView.setText(String.format(
                 context.getString(R.string.fragment_episodes_show_title),
                 ep.getShowTitle()));
@@ -58,7 +60,6 @@ public class EpisodesInMonthAdapter
                 ep.getShortName()));
         holder.episodeTitleTextView.setText(ep.getTitle());
 
-        holder.dateTextView.setText(DateFormat.format("dd.MM.yy, EE ", ep.getAirDate()));
 
         Resources res = context.getResources();
 

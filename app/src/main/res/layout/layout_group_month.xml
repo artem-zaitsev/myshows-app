@@ -25,7 +25,8 @@
             android:padding="5dp"
             android:text="MONTH"
             android:textColor="@color/secondary_text_material_dark"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/layout_group_month_ep_count"

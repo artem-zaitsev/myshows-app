@@ -1,7 +1,6 @@
-package com.nikart.util;
+package com.nikart.shows;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nikart.dto.Show;
-import com.nikart.main.MyShowsFragment;
 import com.nikart.myshows.R;
 import com.nikart.show.ShowActivity;
 
@@ -50,8 +48,8 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
 
         View view = LayoutInflater.from(parent.getContext()).inflate(
                 MyShowsFragment.IS_GRID
-                        ? R.layout.layout_card_show
-                        : R.layout.layout_linear_show,
+                        ? R.layout.layout_item_card_show
+                        : R.layout.layout_item_linear_show,
                 parent, false);
         return new ShowsViewHolder(view);
     }

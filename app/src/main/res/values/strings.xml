@@ -30,7 +30,7 @@
 
     <string name="unwatched_episodes">Unwatched : %1$d </string>
 
-    <string name="fragment_episodes_show_title" translatable="false"> %1$s - </string>
+    <string name="fragment_episodes_show_title" translatable="false">"%1$s - "</string>
     <string name="fragment_episodes_short_name" translatable="false"> %1$s, </string>
 
     <plurals name="days_left">

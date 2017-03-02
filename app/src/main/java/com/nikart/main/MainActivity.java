@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 
+import com.nikart.account.AccountFragment;
+import com.nikart.shows.MyShowsFragment;
 import com.nikart.myshows.R;
+import com.nikart.soon_episodes.SoonEpisodesFragment;
 import com.nikart.util.NavigationController;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentList = new ArrayList<>();
         fragmentList.add(new MyShowsFragment());
-        fragmentList.add(new MyEpisodesFragment());
+        fragmentList.add(new SoonEpisodesFragment());
         fragmentList.add(new AccountFragment());
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView)

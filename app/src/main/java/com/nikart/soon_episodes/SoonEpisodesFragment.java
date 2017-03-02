@@ -1,11 +1,10 @@
-package com.nikart.main;
+package com.nikart.soon_episodes;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -17,11 +16,7 @@ import android.widget.TextView;
 
 import com.nikart.dto.Episode;
 import com.nikart.myshows.R;
-import com.nikart.util.EpisodesAdapter;
-import com.nikart.util.EpisodesInMonthAdapter;
-import com.nikart.util.Month;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +26,7 @@ import java.util.List;
  * Фрагмент для отображения списка серий
  */
 
-public class MyEpisodesFragment extends Fragment {
+public class SoonEpisodesFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager manager;
