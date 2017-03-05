@@ -10,6 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -35,6 +38,8 @@ public class SoonEpisodesFragment extends Fragment {
 
     private String EPISODES_FRAGMENT_TITLE;
 
+    private List<Month> months;
+
     @Override
     public void onAttach(Context context) {
         EPISODES_FRAGMENT_TITLE = getString(R.string.my_episodes);
@@ -56,17 +61,45 @@ public class SoonEpisodesFragment extends Fragment {
             bar.setDisplayShowTitleEnabled(false);
         }
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_myepisodes_rv);
-        monthAdapter = new EpisodesInMonthAdapter(makeGroup());
+
+        months = makeGroup();
+        monthAdapter = new EpisodesInMonthAdapter(months);
         manager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(monthAdapter);
 
+        setHasOptionsMenu(true);
         return rootView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_soon_episodes, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int c = 0;
+        switch (item.getItemId()) {
+            case R.id.item_toggle_group: {
+                for (Month m : months
+                        ) {
+                    c = monthAdapter.toggleGroup(m)
+                            ? c + 1
+                            : c - 1;
+
+                }
+                item.setTitle(c <= 0
+                        ? R.string.collapse
+                        : R.string.expand);
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //Здесь генерируем список эпизодов,

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.util.LayoutSwitcherDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,5 +118,4 @@ public class MyShowsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
     }
-
 }

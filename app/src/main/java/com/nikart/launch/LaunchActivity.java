@@ -59,12 +59,14 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.login_btn: {
                 if(PreferencesWorker.isSignedIn(prefs)){
                     MainActivity.start(this);
+                    finish();
                 } else LoginActivity.start(this);
                 break;
             }
             case R.id.register_btn: {
                 if(PreferencesWorker.isSignedIn(prefs)){
                     MainActivity.start(this);
+                    finish();
                 } else SignUpActivity.start(this);
                 break;
             }

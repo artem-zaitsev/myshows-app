@@ -33,6 +33,19 @@
     <string name="fragment_episodes_show_title" translatable="false">"%1$s - "</string>
     <string name="fragment_episodes_short_name" translatable="false"> %1$s, </string>
 
+    <string name="menu_layout_switch">Switch layouts</string>
+    <string name="choose_layout">Choose layout: </string>
+
+    <string name="expand">Expand all</string>
+    <string name="collapse">Collapse all</string>
+
+    <string name="open_site">Open on myshows.me</string>
+
+    <string name="quit">Quit</string>
+    <string-array name="layouts_variants">
+        <item>Grid</item>
+        <item>Linear</item>
+    </string-array>
 
     <plurals name="days_left">
         <item quantity="zero">Today</item>

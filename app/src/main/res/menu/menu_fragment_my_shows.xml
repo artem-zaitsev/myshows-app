@@ -4,6 +4,7 @@
     <item
         android:id="@+id/switch_layout_style"
         android:icon="@drawable/linear_layout_manager"
-        android:title=""
-        app:showAsAction="ifRoom" />
+        android:title="@string/menu_layout_switch"
+        app:showAsAction="never"
+        />
 </menu>

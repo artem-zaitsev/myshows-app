@@ -24,6 +24,11 @@
     <string name="welcome">Добро пожаловать</string>
     <string name="my_shows">Мои Сериалы</string>
 
+    <array name="layouts_variants">
+        <item>Сеткой</item>
+        <item>Списком</item>
+    </array>
+
     <plurals name="days_left">
         <item quantity="zero">Сегодня</item>
         <item quantity="one">%d день</item>
@@ -56,4 +61,10 @@
         <item>Ноябрь</item>
         <item>Декабрь</item>
     </string-array>
+    <string name="choose_layout">Отображать :</string>
+    <string name="menu_layout_switch">Вариант отображения</string>
+    <string name="collapse">Свернуть все</string>
+    <string name="expand">Раскрыть все</string>
+    <string name="quit">Закрыть</string>
+    <string name="open_site">Открыть на myshows.me</string>
 </resources>

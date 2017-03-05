@@ -10,6 +10,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nikart.dto.Show;
+import com.nikart.main.MainActivity;
 import com.nikart.myshows.R;
 import com.nikart.shows.ShowsAdapter;
 
@@ -67,8 +71,21 @@ public class AccountFragment extends Fragment {
         Glide.with(this).load("https://myshows.me/shared/img/fe/default-user-avatar-big.png")
                 .into(accountPic);
         initRecycler(rootView);
-
+        setHasOptionsMenu(true);
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_fragment_account, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_account: // открываем профиль на сайте
+        }
+        return true;
     }
 
     private void initRecycler(View rootView) {
