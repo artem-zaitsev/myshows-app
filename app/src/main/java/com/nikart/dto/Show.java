@@ -1,29 +1,92 @@
 package com.nikart.dto;
 
+import com.j256.ormlite.dao.ForeignCollection;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by Artem
  */
 
+@DatabaseTable(tableName = Show.TABLE_NAME)
 public class Show {
 
+    public final static String TABLE_NAME = "shows";
+    public final static String FIELD_NAME_ID = "id";
+    public final static String FIELD_NAME_TITLE = "title";
+    public final static String FILED_NAME_TITLE_ORIG = "title_original";
+    public final static String FIELD_NAME_DESCRIPTION = "description";
+    public final static String FIELD_NAME_TOTAL_SEASON = "total_season";
+    public final static String FIELD_NAME_STATUS = "status";
+    public final static String FIELD_NAME_COUNTRY = "country";
+    public final static String FIELD_NAME_STARTED = "started";
+    public final static String FIELD_NAME_ENDED = "ended";
+    public final static String FIELD_NAME_YEAR = "year";
+    public final static String FIELD_NAME_WATCHING = "watching";
+    public final static String FIELD_NAME_VOTED = "voted";
+    public final static String FIELD_NAME_RATING = "rating";
+    public final static String FIELD_NAME_IMAGE = "image_url";
+    public final static String FIELD_NAME_EPISODES = "episodes"; // массив
+    public final static String FIELD_NAME_WATCH_STATUS = "watch_status";
+    public final static String FIELD_NAME_TOTAL_EPISODES = "total_episodes";
+    public final static String FIELD_NAME_WATCHED_EPISODES = "watched_episodes";
+
+    @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
     private int id;
+
+    @DatabaseField(columnName = FIELD_NAME_TITLE)
     private String title;
+
+    @DatabaseField(columnName = FILED_NAME_TITLE_ORIG)
     private String titleOriginal;
+
+    @DatabaseField(columnName = FIELD_NAME_DESCRIPTION)
     private String description;
+
+    @DatabaseField(columnName = FIELD_NAME_TOTAL_SEASON)
     private int totalSeasons;
+
+    @DatabaseField(columnName = FIELD_NAME_STATUS)
     private String status;
+
+    @DatabaseField(columnName = FIELD_NAME_COUNTRY)
     private String country;
-    private String started, ended;
+
+    @DatabaseField(columnName = FIELD_NAME_STARTED)
+    private String started;
+
+    @DatabaseField(columnName = FIELD_NAME_ENDED)
+    private String ended;
+
+    @DatabaseField(columnName = FIELD_NAME_YEAR)
     private int year;
+
+    @DatabaseField(columnName = FIELD_NAME_WATCHING)
     private int watching;
+
+    @DatabaseField(columnName = FIELD_NAME_VOTED)
     private int voted;
+
+    @DatabaseField(columnName = FIELD_NAME_RATING)
     private int rating;
+
+    @DatabaseField(columnName = FIELD_NAME_IMAGE)
     private String imageUrl;
-    private String[] genresIds;
-    private String[] episodes;
+
+    @ForeignCollectionField(columnName = FIELD_NAME_EPISODES, eager = true)
+    private ForeignCollection<Episode> episodes;
+
+    @DatabaseField(columnName = FIELD_NAME_WATCH_STATUS)
     private String watchStatus;
+
+    @DatabaseField(columnName = FIELD_NAME_TOTAL_EPISODES)
     private int totalEpisodes;
+
+    @DatabaseField(columnName = FIELD_NAME_WATCHED_EPISODES)
     private int watchedEpisodes;
+
+    private String[] genresIds;
 
     public Show() {
         this.title = "Sherlock";
@@ -197,7 +260,11 @@ public class Show {
         this.watchedEpisodes = watchedEpisodes;
     }
 
-    public int getUnwatchedEpisodes(){
-        return totalEpisodes-watchedEpisodes;
+    public int getUnwatchedEpisodes() {
+        return totalEpisodes - watchedEpisodes;
+    }
+
+    public ForeignCollection<Episode> getEpisodes() {
+        return episodes;
     }
 }

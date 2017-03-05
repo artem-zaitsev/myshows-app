@@ -19,8 +19,10 @@ import android.widget.TextView;
 
 import com.nikart.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.util.HelperFactory;
 import com.nikart.util.LayoutSwitcherDialog;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,10 +54,13 @@ public class MyShowsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         this.container = container;
-        shows = new ArrayList<>(30);
-        for (int i = 0; i < 30; i++) {
-            shows.add(i, new Show());
+
+        try {
+            shows = HelperFactory.getHelper().getShowDAO().getAllShows();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
 
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);

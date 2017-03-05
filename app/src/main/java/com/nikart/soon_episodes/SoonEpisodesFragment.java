@@ -19,7 +19,9 @@ import android.widget.TextView;
 
 import com.nikart.dto.Episode;
 import com.nikart.myshows.R;
+import com.nikart.util.HelperFactory;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -118,9 +120,15 @@ public class SoonEpisodesFragment extends Fragment {
                 Date today = new Date();
                 Date maximumDate = new Date(121212);
 
-                List<Episode> episodes = new ArrayList<>();
-                for (int i = 0; i < 40; i++) {
-                    episodes.add(i, new Episode(i));
+                List<Episode> episodes = null;
+                try {
+                    episodes =
+                            HelperFactory.getHelper()
+                                    .getEpisodeDAO().getAllEpisodes(); // забираем из базы
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                for (int i = 0; i < episodes.size(); i++) {
                     maximumDate = (today.compareTo(episodes.get(i).getAirDate()) < 0)
                             ? episodes.get(i).getAirDate()
                             : today;

@@ -44,7 +44,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
 
         holder.episodeTitleTextView.setText(ep.getTitle());
         holder.seasonTitleTextView.setText(String.valueOf(ep.getShortName()));
-        holder.showTitleTextView.setText(ep.getShowTitle());
+        holder.showTitleTextView.setText("BLALABALJND");
         holder.dateTextView.setText(DateFormat.format("dd.MM", ep.getAirDate()));
 
     }

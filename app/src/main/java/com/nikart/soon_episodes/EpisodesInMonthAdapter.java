@@ -54,7 +54,7 @@ public class EpisodesInMonthAdapter
 
         holder.showTitleTextView.setText(String.format(
                 context.getString(R.string.fragment_episodes_show_title),
-                ep.getShowTitle()));
+                "Show"));
         holder.seasonTitleTextView.setText(String.format(
                 context.getString(R.string.fragment_episodes_short_name),
                 ep.getShortName()));

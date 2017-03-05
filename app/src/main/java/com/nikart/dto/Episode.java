@@ -3,21 +3,61 @@ package com.nikart.dto;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.Date;
 
 /**
  * Created by Artem
  */
 
+@DatabaseTable(tableName = Episode.TABLE_NAME)
 public class Episode implements Parcelable{
 
+    public final static String TABLE_NAME = "episodes";
+    public final static String FIELD_NAME_ID = "id";
+    public final static String FIELD_NAME_TITLE = "title";
+    public final static String FIELD_NAME_SHOW = "show";
+    public final static String FIELD_NAME_SHORT_NAME = "short_name";
+    public final static String FIELD_NAME_AIR_DATE = "air_date";
+    public final static String FIELD_NAME_RATING = "rating";
+
+    @DatabaseField(columnName = FIELD_NAME_ID)
     private int id;
-    private String title, showTitle;
+    @DatabaseField(columnName = FIELD_NAME_TITLE)
+    private String title;
+    @DatabaseField(columnName = FIELD_NAME_SHORT_NAME)
     private String shortName;
+    @DatabaseField(columnName = FIELD_NAME_AIR_DATE)
     private Date airDate;
+    @DatabaseField(columnName = FIELD_NAME_RATING)
     private int rate;
 
+    @DatabaseField(columnName = FIELD_NAME_SHOW, foreign = true, foreignAutoRefresh = true)
+    private Show show;
 
+
+    public Episode(){
+        String[] titles = new String[]{
+                "Promo",
+                "Something new",
+                "Knock-knock",
+                "Hello, World!"
+        };
+        String[] shows = new String[]{
+                "Sherlock",
+                "Lost",
+                "The Big Bang",
+                "?????"
+        };
+        this.shortName = "s1e1";
+        this.airDate = new Date(2017,5,17);
+        int random1 = (int) (Math.random() * 12 / 4);
+        int random2 = (int) (Math.random() * 12 / 4);
+        this.title = titles[random1];
+        this.rate = 0;
+    }
     // Конструктор с сгенерированными эпизодами.
     public Episode(int i) {
         String[] titles = new String[]{
@@ -37,21 +77,18 @@ public class Episode implements Parcelable{
         int random1 = (int) (Math.random() * 12 / 4);
         int random2 = (int) (Math.random() * 12 / 4);
         this.title = titles[random1];
-        this.showTitle = shows[random2];
         this.rate = 0;
     }
 
     public Episode(String title, String shortName, String showTitle, Date airDate) {
         this.title = title;
         this.shortName = shortName;
-        this.showTitle = showTitle;
         this.airDate = airDate;
     }
 
     protected Episode(Parcel in) {
         id = in.readInt();
         title = in.readString();
-        showTitle = in.readString();
         shortName= in.readString();
         rate = in.readInt();
     }
@@ -84,14 +121,6 @@ public class Episode implements Parcelable{
         this.shortName = shortName;
     }
 
-    public String getShowTitle() {
-        return showTitle;
-    }
-
-    public void setShowTitle(String showTitle) {
-        this.showTitle = showTitle;
-    }
-
     public Date getAirDate() {
         return airDate;
     }
@@ -108,6 +137,15 @@ public class Episode implements Parcelable{
         this.rate = rate;
     }
 
+
+    public Show getShow() {
+        return show;
+    }
+
+    public void setShow(Show show) {
+        this.show = show;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -117,7 +155,6 @@ public class Episode implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(id);
         parcel.writeString(title);
-        parcel.writeString(showTitle);
         parcel.writeString(shortName);
         parcel.writeInt(rate);
     }
