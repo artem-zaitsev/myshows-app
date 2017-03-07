@@ -19,14 +19,14 @@
         android:textColor="@color/primary_text_material_dark"
         android:textSize="20sp" />
 
-    <com.nikart.auth.signup.SignUpView
+    <com.nikart.screens.auth.signup.SignUpView
         android:id="@+id/first_sign_up_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
         custom:view_layout="@layout/fragment_signup_first" />
 
-    <com.nikart.auth.signup.SignUpView
+    <com.nikart.screens.auth.signup.SignUpView
         android:id="@+id/second_sign_up_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

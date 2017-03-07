@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nikart.dto.Episode;
+import com.nikart.data.dto.Episode;
 import com.nikart.myshows.R;
 
 
