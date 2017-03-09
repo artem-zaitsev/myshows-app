@@ -3,6 +3,8 @@ package com.nikart.screens.soon_episodes;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,8 +17,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nikart.data.EpisodeFromDataBaseLoader;
 import com.nikart.data.dto.Episode;
 import com.nikart.myshows.R;
 import com.nikart.data.HelperFactory;
@@ -37,8 +41,10 @@ public class SoonEpisodesFragment extends Fragment {
     private RecyclerView.LayoutManager manager;
     private EpisodesInMonthAdapter monthAdapter;
     private Toolbar toolbar;
+    private ProgressBar progressLoad;
 
     private String EPISODES_FRAGMENT_TITLE;
+    private LoaderManager.LoaderCallbacks<List<Episode>> loaderCallbacks;
 
     private List<Month> months;
 
@@ -53,23 +59,8 @@ public class SoonEpisodesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_my_episodes, container, false);
-
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(EPISODES_FRAGMENT_TITLE);
-
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (bar != null) {
-            bar.setDisplayShowTitleEnabled(false);
-        }
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_myepisodes_rv);
-
-        months = makeGroup();
-        monthAdapter = new EpisodesInMonthAdapter(months);
-        manager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(monthAdapter);
-
+        initFragment(rootView);
+        initLoader();
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -94,7 +85,6 @@ public class SoonEpisodesFragment extends Fragment {
                     c = monthAdapter.toggleGroup(m)
                             ? c + 1
                             : c - 1;
-
                 }
                 item.setTitle(c <= 0
                         ? R.string.collapse
@@ -104,29 +94,43 @@ public class SoonEpisodesFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    //Здесь генерируем список эпизодов,
-    //ищем максимальную дату, формируем группы по месяцам от текущего до
-    //максимального.
-    private List<Month> makeGroup() {
+    private void initFragment(View rootView) {
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(EPISODES_FRAGMENT_TITLE);
 
-        final List<Month> months = new ArrayList<>();
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (bar != null) {
+            bar.setDisplayShowTitleEnabled(false);
+        }
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_myepisodes_rv);
+        progressLoad = (ProgressBar) rootView.findViewById(R.id.fragment_episodes_progress);
+    }
 
-        // Надо ли выносить подобную работу в отдельный поток?
-        // Мотивировал такой ход тем, что здесь будет сортировка.
-        new Thread(new Runnable() {
+    private void initRecycler() {
+        monthAdapter = new EpisodesInMonthAdapter(months);
+        manager = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.setAdapter(monthAdapter);
+    }
+
+    private void initLoader() {
+        loaderCallbacks = new LoaderManager.LoaderCallbacks<List<Episode>>() {
             @Override
-            public void run() {
+            public Loader<List<Episode>> onCreateLoader(int id, Bundle args) {
+                return new EpisodeFromDataBaseLoader(SoonEpisodesFragment.this.getContext());
+            }
+
+            @Override
+            public void onLoadFinished(Loader<List<Episode>> loader, List<Episode> data) {
                 final String[] monthTitle = getResources().getStringArray(R.array.months);
                 Date today = new Date();
                 Date maximumDate = new Date(121212);
 
-                List<Episode> episodes = null;
-                try {
-                    episodes =
-                            HelperFactory.getHelper()
-                                    .getEpisodeDAO().getAllEpisodes(); // забираем из базы
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                months = new ArrayList<>();
+                List<Episode> episodes = new ArrayList<>();
+                for (Episode e : data) {
+                    episodes.add(data.indexOf(e), e);
                 }
                 for (int i = 0; i < episodes.size(); i++) {
                     maximumDate = (today.compareTo(episodes.get(i).getAirDate()) < 0)
@@ -138,19 +142,29 @@ public class SoonEpisodesFragment extends Fragment {
 
                 //Использую устаревший метод, так как не сильно вдался в подробности
                 //как применить Calendar к имеющейся дате.
-                for (int i = Calendar.getInstance().get(Calendar.MONTH); i <= maximumDate.getMonth(); i++) {
+                for (int i = Calendar.getInstance().get(Calendar.MONTH);
+                     i <= maximumDate.getMonth(); i++) {
                     List<Episode> tmp = new ArrayList<>();
+
                     for (Episode ep : episodes) {
-                        if (today.compareTo(ep.getAirDate()) <= 0 && ep.getAirDate().getMonth() == i) {
+                        if (today.compareTo(ep.getAirDate()) <= 0 &&
+                                ep.getAirDate().getMonth() == i) {
                             tmp.add(ep);
                         }
                     }
                     if (tmp.isEmpty()) continue;
                     months.add(new Month(monthTitle[i], tmp));
                 }
-            }
-        }).run();
 
-        return months;
+                progressLoad.setVisibility(View.GONE);
+                initRecycler();
+            }
+
+            @Override
+            public void onLoaderReset(Loader<List<Episode>> loader) {
+
+            }
+        };
+        getLoaderManager().restartLoader(0, null, loaderCallbacks);
     }
 }

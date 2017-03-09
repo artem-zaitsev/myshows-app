@@ -68,27 +68,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                shows = new ArrayList<>(30);
-                episodes = new ArrayList<>(30);
-                for (int i = 0; i < 30; i++) {
-                    shows.add(i, new Show());
-                    episodes.add(i, new Episode());
-                    episodes.get(i).setShow(shows.get(i));
-                }
-                for (Show s : shows) {
-                    try {
-                        HelperFactory.getHelper().getShowDAO().create(s);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-                for (Episode e : episodes) {
-                    try {
-                        HelperFactory.getHelper().getEpisodeDAO().create(e);
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                    }
-                }
+
             }
         }).run();
 
