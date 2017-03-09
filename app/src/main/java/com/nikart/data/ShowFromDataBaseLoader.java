@@ -34,6 +34,22 @@ public class ShowFromDataBaseLoader extends AsyncTaskLoader<List<Show>> {
 
     @Override
     public List<Show> loadInBackground() {
+
+        List<Show> generatedShows = new ArrayList<>(30);
+        List<Episode> generatedEps = new ArrayList<>(30);
+
+        for (int i = 0; i < 30; i++) {
+            generatedShows.add(i, new Show());
+            generatedEps.add(i,new Episode());
+            generatedEps.get(i).setShow(generatedShows.get(i));
+            try {
+                HelperFactory.getHelper().getShowDAO().createOrUpdate(generatedShows.get(i));
+                HelperFactory.getHelper().getEpisodeDAO().create(generatedEps.get(i));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
         try {
             shows = HelperFactory.getHelper().getShowDAO().getAllShows();
         } catch (SQLException e) {

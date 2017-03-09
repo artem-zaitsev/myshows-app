@@ -59,19 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        /*Работа с базой
-        * Сделал пока отдельным потоком в таком виде,
-        * позже надо сделать Loader*/
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).run();
-
     }
 
     @Override

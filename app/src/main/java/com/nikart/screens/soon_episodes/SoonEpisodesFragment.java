@@ -156,6 +156,7 @@ public class SoonEpisodesFragment extends Fragment {
                     months.add(new Month(monthTitle[i], tmp));
                 }
 
+                Log.d("LOADERS", "Load finished on " + SoonEpisodesFragment.class.toString());
                 progressLoad.setVisibility(View.GONE);
                 initRecycler();
             }

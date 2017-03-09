@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nikart.data.ShowFromDataBaseLoader;
 import com.nikart.data.dto.Show;
@@ -61,8 +62,7 @@ public class MyShowsFragment extends Fragment {
                     }
 
                     progressLoad.setVisibility(View.GONE);
-
-                    Log.d("LOADERS", "Load finished");
+                    Log.d("LOADERS", "Load finished. Shows count: " + shows.size());
                 }
 
                 @Override
