@@ -20,14 +20,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.nikart.base.Response;
 import com.nikart.data.ShowFromDataBaseLoader;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
-import com.nikart.data.HelperFactory;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,30 +45,7 @@ public class MyShowsFragment extends Fragment {
     private Toolbar toolbar;
     private ProgressBar progressLoad;
 
-    private LoaderManager.LoaderCallbacks loaderCallbacks =
-            new LoaderManager.LoaderCallbacks<List<Show>>() {
-                @Override
-                public Loader<List<Show>> onCreateLoader(int id, Bundle args) {
-                    return new ShowFromDataBaseLoader(MyShowsFragment.this.getContext());
-                }
-
-                @Override
-                public void onLoadFinished(Loader<List<Show>> loader, List<Show> data) {
-                    for (Show s: data) {
-                        shows.add(data.indexOf(s),s);
-                        showsAdapter.notifyDataSetChanged();
-                    }
-
-                    progressLoad.setVisibility(View.GONE);
-                    Log.d("LOADERS", "Load finished. Shows count: " + shows.size());
-                }
-
-                @Override
-                public void onLoaderReset(Loader<List<Show>> loader) {
-                    //reset
-                }
-
-            };
+    private LoaderManager.LoaderCallbacks loaderCallbacks;
 
 
     private String SHOWS_FRAGMENT_TITLE;
@@ -89,9 +64,7 @@ public class MyShowsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
 
         initFragment(rootView);
-
-        initRecycler(rootView);
-        getLoaderManager().restartLoader(0, null, loaderCallbacks);
+        initLoader();
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -144,33 +117,12 @@ public class MyShowsFragment extends Fragment {
 
         progressLoad = (ProgressBar) rootView.findViewById(R.id.fragment_my_shows_progress);
         progressLoad.setVisibility(View.VISIBLE);
-    }
 
-    private LoaderManager.LoaderCallbacks<List<Show>> loadShow() {
-        return new LoaderManager.LoaderCallbacks<List<Show>>() {
-            @Override
-            public Loader<List<Show>> onCreateLoader(int id, Bundle args) {
-                return new ShowFromDataBaseLoader(MyShowsFragment.this.getContext());
-            }
-
-            @Override
-            public void onLoadFinished(Loader<List<Show>> loader, List<Show> data) {
-                shows = data;
-                showsAdapter.notifyDataSetChanged();
-                Log.d("LOADERS", "Load finished");
-            }
-
-            @Override
-            public void onLoaderReset(Loader<List<Show>> loader) {
-                //reset
-            }
-
-        };
-    }
-
-    private void initRecycler(View rootView) {
-        shows = new ArrayList<>(10);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_my_show_recycler_view);
+    }
+
+    private void initRecycler() {
+        shows = new ArrayList<>(10);
         layoutManager = new GridLayoutManager(container.getContext(), 2); // two columns
 
         IS_GRID = true;
@@ -178,5 +130,36 @@ public class MyShowsFragment extends Fragment {
         showsAdapter = new ShowsAdapter(shows);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
+    }
+
+    private void initLoader() {
+        loaderCallbacks =
+                new LoaderManager.LoaderCallbacks<Response>() {
+                    @Override
+                    public Loader<Response> onCreateLoader(int id, Bundle args) {
+                        return new ShowFromDataBaseLoader(MyShowsFragment.this.getContext());
+                    }
+
+                    @Override
+                    public void onLoadFinished(Loader<Response> loader, Response data) {
+                        List<Show> sh = data.getTypedAnswer();
+                        for (Show s : sh) {
+                            shows.add(sh.indexOf(s), s);
+                            showsAdapter.notifyDataSetChanged();
+                        }
+
+                        progressLoad.setVisibility(View.GONE);
+                        Log.d("LOADERS", "Load finished. Shows count: " + shows.size());
+                    }
+
+                    @Override
+                    public void onLoaderReset(Loader<Response> loader) {
+                        //reset
+                    }
+
+                };
+
+        getLoaderManager().restartLoader(0, null, loaderCallbacks);
+        initRecycler();
     }
 }

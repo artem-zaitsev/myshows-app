@@ -7,7 +7,7 @@
     android:background="?android:selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="@drawable/ripple_item_show"
+    android:foreground="@drawable/ripple_item"
     android:orientation="horizontal">
 
     <LinearLayout

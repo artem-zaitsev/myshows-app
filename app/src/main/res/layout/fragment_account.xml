@@ -10,10 +10,10 @@
         android:id="@+id/fragment_account_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/toolbar_height"
         android:background="@color/background"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
-
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/fragment_account_collapsing_bar"
@@ -22,12 +22,10 @@
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/toolbar_height"
+
                 android:orientation="vertical"
                 android:paddingEnd="10dp"
                 android:paddingLeft="10dp"
@@ -104,22 +102,13 @@
 
             </LinearLayout>
 
-
         </android.support.design.widget.CollapsingToolbarLayout>
-
-
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/fragment_account_toolbar_watching"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height">
+            android:layout_height="@dimen/toolbar_height"
+            app:layout_scrollFlags="enterAlwaysCollapsed"
+            app:layout_collapseMode="pin">
 
             <TextView
                 android:layout_width="match_parent"
@@ -130,10 +119,13 @@
                 android:textSize="20sp" />
         </android.support.v7.widget.Toolbar>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:background="@drawable/shadow_bottom" />
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_account_rv"
@@ -143,5 +135,6 @@
     </LinearLayout>
 
     <include layout="@layout/layout_toolbar" />
+
 
 </android.support.design.widget.CoordinatorLayout>

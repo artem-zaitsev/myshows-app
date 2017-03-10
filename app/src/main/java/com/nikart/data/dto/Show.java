@@ -32,7 +32,7 @@ public class Show {
     public final static String FIELD_NAME_TOTAL_EPISODES = "total_episodes";
     public final static String FIELD_NAME_WATCHED_EPISODES = "watched_episodes";
 
-    @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
+    @DatabaseField(columnName = FIELD_NAME_ID, id = true)
     private int id;
 
     @DatabaseField(columnName = FIELD_NAME_TITLE)

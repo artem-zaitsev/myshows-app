@@ -7,7 +7,7 @@
     android:orientation="horizontal"
     android:clickable="true"
     android:focusable="false"
-    android:foreground="@drawable/ripple_item_show"
+    android:foreground="@drawable/ripple_item"
     android:background="?android:selectableItemBackground"
     android:id="@+id/item_show_root">
 

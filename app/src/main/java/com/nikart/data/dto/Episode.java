@@ -23,7 +23,7 @@ public class Episode implements Parcelable{
     public final static String FIELD_NAME_AIR_DATE = "air_date";
     public final static String FIELD_NAME_RATING = "rating";
 
-    @DatabaseField(columnName = FIELD_NAME_ID)
+    @DatabaseField(columnName = FIELD_NAME_ID, id = true)
     private int id;
     @DatabaseField(columnName = FIELD_NAME_TITLE)
     private String title;

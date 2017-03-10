@@ -20,12 +20,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nikart.base.Response;
 import com.nikart.data.EpisodeFromDataBaseLoader;
 import com.nikart.data.dto.Episode;
 import com.nikart.myshows.R;
-import com.nikart.data.HelperFactory;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +43,7 @@ public class SoonEpisodesFragment extends Fragment {
     private ProgressBar progressLoad;
 
     private String EPISODES_FRAGMENT_TITLE;
-    private LoaderManager.LoaderCallbacks<List<Episode>> loaderCallbacks;
+    private LoaderManager.LoaderCallbacks<Response> loaderCallbacks;
 
     private List<Month> months;
 
@@ -115,22 +114,23 @@ public class SoonEpisodesFragment extends Fragment {
     }
 
     private void initLoader() {
-        loaderCallbacks = new LoaderManager.LoaderCallbacks<List<Episode>>() {
+        loaderCallbacks = new LoaderManager.LoaderCallbacks<Response>() {
             @Override
-            public Loader<List<Episode>> onCreateLoader(int id, Bundle args) {
+            public Loader<Response> onCreateLoader(int id, Bundle args) {
                 return new EpisodeFromDataBaseLoader(SoonEpisodesFragment.this.getContext());
             }
 
             @Override
-            public void onLoadFinished(Loader<List<Episode>> loader, List<Episode> data) {
+            public void onLoadFinished(Loader<Response> loader, Response data) {
                 final String[] monthTitle = getResources().getStringArray(R.array.months);
                 Date today = new Date();
                 Date maximumDate = new Date(121212);
 
                 months = new ArrayList<>();
                 List<Episode> episodes = new ArrayList<>();
-                for (Episode e : data) {
-                    episodes.add(data.indexOf(e), e);
+                List<Episode> fromResponse = data.getTypedAnswer();
+                for (Episode e : fromResponse) {
+                    episodes.add(fromResponse.indexOf(e), e);
                 }
                 for (int i = 0; i < episodes.size(); i++) {
                     maximumDate = (today.compareTo(episodes.get(i).getAirDate()) < 0)
@@ -162,7 +162,7 @@ public class SoonEpisodesFragment extends Fragment {
             }
 
             @Override
-            public void onLoaderReset(Loader<List<Episode>> loader) {
+            public void onLoaderReset(Loader<Response> loader) {
 
             }
         };
