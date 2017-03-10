@@ -36,6 +36,7 @@ dependencies {
 
 
     compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
 
     testCompile 'junit:junit:4.12'
 }
