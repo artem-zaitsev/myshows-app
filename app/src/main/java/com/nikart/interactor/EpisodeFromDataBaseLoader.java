@@ -1,8 +1,9 @@
-package com.nikart.data;
+package com.nikart.interactor;
 
 import android.content.Context;
 
-import com.nikart.base.BaseAnswer;
+import com.nikart.data.HelperFactory;
+import com.nikart.interactor.Answer;
 import com.nikart.base.BaseLoader;
 
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import java.sql.SQLException;
  * Created by Artem on 09.03.2017.
  */
 
-public class EpisodeFromDataBaseLoader extends BaseLoader<BaseAnswer> {
+public class EpisodeFromDataBaseLoader extends BaseLoader<Answer> {
 
     public EpisodeFromDataBaseLoader(Context context) {
         super(context);
@@ -19,8 +20,8 @@ public class EpisodeFromDataBaseLoader extends BaseLoader<BaseAnswer> {
 
 
     @Override
-    public BaseAnswer loadInBackground() {
-        BaseAnswer data = new BaseAnswer();
+    public Answer loadInBackground() {
+        Answer data = new Answer();
         try {
             data.setAnswer(HelperFactory.getHelper().getEpisodeDAO().getAllEpisodes());
         } catch (SQLException e) {

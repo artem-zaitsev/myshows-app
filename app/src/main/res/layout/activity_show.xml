@@ -102,7 +102,7 @@
                             android:textColor="@color/primary_text_material_dark"
                             android:textSize="18sp" />
 
-                        <com.nikart.util.RateCustomView
+                        <com.nikart.screens.util.RateCustomView
                             android:id="@+id/activity_show_rate_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

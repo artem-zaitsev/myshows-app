@@ -1,8 +1,9 @@
-package com.nikart.util;
+package com.nikart.interactor.interceptors;
 
 import android.content.SharedPreferences;
 
 import com.nikart.app.App;
+import com.nikart.util.PreferencesWorker;
 
 import java.io.IOException;
 import java.util.HashSet;

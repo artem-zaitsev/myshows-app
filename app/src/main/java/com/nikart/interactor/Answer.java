@@ -1,4 +1,4 @@
-package com.nikart.base;
+package com.nikart.interactor;
 
 import android.support.annotation.Nullable;
 
@@ -8,7 +8,7 @@ import java.util.Objects;
  * Created by Artem on 09.03.2017.
  */
 
-public class BaseAnswer {
+public class Answer {
 
     @Nullable
     private Object answer;

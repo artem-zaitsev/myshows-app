@@ -1,4 +1,4 @@
-package com.nikart.data.retrofit;
+package com.nikart.interactor.retrofit;
 
 import com.nikart.data.dto.UserProfile;
 

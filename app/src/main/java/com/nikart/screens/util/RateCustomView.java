@@ -1,4 +1,4 @@
-package com.nikart.util;
+package com.nikart.screens.util;
 
 import android.content.Context;
 import android.util.AttributeSet;

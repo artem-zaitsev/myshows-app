@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
-import com.nikart.util.RateCustomView;
+import com.nikart.screens.util.RateCustomView;
 
 import java.util.List;
 

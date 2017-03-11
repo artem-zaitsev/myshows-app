@@ -11,18 +11,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nikart.app.App;
-import com.nikart.base.BaseAnswer;
+import com.nikart.interactor.Answer;
+import com.nikart.interactor.interceptors.AddCookiesInterceptor;
+import com.nikart.interactor.interceptors.ReceivedCookieInterceptor;
 import com.nikart.myshows.R;
 import com.nikart.screens.main.MainActivity;
-import com.nikart.util.AuthLoader;
+import com.nikart.interactor.AuthLoader;
 import com.nikart.util.PreferencesWorker;
 
-import java.io.IOException;
-
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -52,17 +52,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final SharedPreferences signInPrefs = App.getSignInPrefs();
         final SharedPreferences cookiesPrefs = App.getCookiesPrefs();
 
-        LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<BaseAnswer>() {
+        LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
 
             @Override
-            public Loader<BaseAnswer> onCreateLoader(int i, Bundle bundle) {
-                return new AuthLoader(LoginActivity.this, cookiesPrefs,
-                        loginEditText.getText().toString(),
+            public Loader<Answer> onCreateLoader(int i, Bundle bundle) {
+                return new AuthLoader(LoginActivity.this, loginEditText.getText().toString(),
                         passwordEditText.getText().toString());
             }
 
             @Override
-            public void onLoadFinished(android.support.v4.content.Loader<BaseAnswer> loader, BaseAnswer data) {
+            public void onLoadFinished(android.support.v4.content.Loader<Answer> loader, Answer data) {
                 Response response = data.getTypedAnswer();
                 if (response.isSuccessful()) {
                     PreferencesWorker.saveSignedIn(signInPrefs, true);
@@ -77,12 +76,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
 
             @Override
-            public void onLoaderReset(android.support.v4.content.Loader<BaseAnswer> loader) {
+            public void onLoaderReset(android.support.v4.content.Loader<Answer> loader) {
 
             }
         };
-        if (loginEditText.getText().toString().equals(null)
-                && passwordEditText.getText().equals(null)) {
+        if (!loginEditText.getText().toString().equals(null)
+                && !passwordEditText.getText().equals(null)) {
             getSupportLoaderManager().restartLoader(0, null, loaderCallbacks);
         } else {
             Toast.makeText(this, getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();

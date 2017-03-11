@@ -21,8 +21,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.nikart.base.BaseAnswer;
-import com.nikart.data.ShowFromDataBaseLoader;
+import com.nikart.interactor.Answer;
+import com.nikart.interactor.ShowFromDataBaseLoader;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
 
@@ -131,26 +131,30 @@ public class MyShowsFragment extends Fragment {
     }
 
     private void initLoader() {
-        LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<BaseAnswer>() {
+        LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
             @Override
-            public Loader<BaseAnswer> onCreateLoader(int id, Bundle args) {
+            public Loader<Answer> onCreateLoader(int id, Bundle args) {
                 return new ShowFromDataBaseLoader(MyShowsFragment.this.getContext());
             }
 
             @Override
-            public void onLoadFinished(Loader<BaseAnswer> loader, BaseAnswer data) {
+            public void onLoadFinished(Loader<Answer> loader, Answer data) {
                 List<Show> sh = data.getTypedAnswer();
                 for (Show s : sh) {
-                    shows.add(sh.indexOf(s), s);
+                    if (shows.size() < sh.size()) {
+                        shows.add(sh.indexOf(s), s);
+                    } else {
+                        shows.set(sh.indexOf(s),s);
+                    }
                     showsAdapter.notifyDataSetChanged();
                 }
 
                 progressLoad.setVisibility(View.GONE);
-                Log.d("LOADERS", "Load finished. Shows count: " + shows.size());
+                Log.d("LOADERS", "Load finished. Shows count: " + shows.size() + " " + sh.size());
             }
 
             @Override
-            public void onLoaderReset(Loader<BaseAnswer> loader) {
+            public void onLoaderReset(Loader<Answer> loader) {
                 //reset
             }
 

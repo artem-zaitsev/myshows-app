@@ -1,11 +1,14 @@
-package com.nikart.util;
+package com.nikart.interactor;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.nikart.base.BaseAnswer;
+import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
+import com.nikart.interactor.interceptors.AddCookiesInterceptor;
+import com.nikart.interactor.interceptors.ReceivedCookieInterceptor;
+import com.nikart.util.Md5Converter;
 
 import java.io.IOException;
 
@@ -18,30 +21,24 @@ import okhttp3.Response;
  * Loader для авторизации. Пока забиты только тестовые данные.
  */
 
-public class AuthLoader extends BaseLoader<BaseAnswer> {
+public class AuthLoader extends BaseLoader<Answer> {
 
-    private SharedPreferences cookiesPrefs;
     private String login;
     private String password;
+    private OkHttpClient client;
 
     /*Правильно ли передавать логин и пароль в конструктор лоадеру?
     * Есть ли какой-нибудь другой способ?*/
-    public AuthLoader(Context context, SharedPreferences prefs,
-                      String login, String password) {
+    public AuthLoader(Context context, String login, String password) {
         super(context);
-        cookiesPrefs = prefs;
         this.login = login;
         this.password = password;
     }
 
     @Override
-    public BaseAnswer loadInBackground() {
-        BaseAnswer answer = new BaseAnswer();
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new AddCookiesInterceptor())
-                .addInterceptor(new ReceivedCookieInterceptor())
-                .build();
-
+    public Answer loadInBackground() {
+        Answer answer = new Answer();
+        client = App.getClient();
 
         /*Подставляем логин и пароль из EditText'ов*/
         Request request = new Request.Builder()

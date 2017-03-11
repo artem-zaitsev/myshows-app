@@ -1,4 +1,4 @@
-package com.nikart.util;
+package com.nikart.screens.util;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

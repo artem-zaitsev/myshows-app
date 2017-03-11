@@ -1,4 +1,4 @@
-package com.nikart.util;
+package com.nikart.screens.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;

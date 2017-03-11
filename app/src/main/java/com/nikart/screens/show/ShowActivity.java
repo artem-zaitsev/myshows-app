@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
-import com.nikart.util.RateCustomView;
+import com.nikart.screens.util.RateCustomView;
 
 public class ShowActivity extends AppCompatActivity {
 

@@ -4,9 +4,12 @@ import android.app.Application;
 import android.content.SharedPreferences;
 
 import com.nikart.data.HelperFactory;
-import com.nikart.data.retrofit.MyShowsApi;
+import com.nikart.interactor.interceptors.AddCookiesInterceptor;
+import com.nikart.interactor.interceptors.ReceivedCookieInterceptor;
+import com.nikart.interactor.retrofit.MyShowsApi;
 import com.nikart.util.PreferencesWorker;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -19,6 +22,7 @@ public class App extends Application {
     private static MyShowsApi api; // ссылка на реализацию апи
     private static SharedPreferences cookiesPrefs; // для хранения куков
     private static SharedPreferences signInPrefs; // для хранения флага логина
+    private static OkHttpClient client; // ссылка на клиент
 
     public static MyShowsApi getApi() {
         return api;
@@ -32,6 +36,10 @@ public class App extends Application {
         return signInPrefs;
     }
 
+    public static OkHttpClient getClient() {
+        return client;
+    }
+
     /*Надо вынести все библиотеки в отдельные методы*/
     @Override
     public void onCreate() {
@@ -42,6 +50,10 @@ public class App extends Application {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         api = retrofit.create(MyShowsApi.class);
+        client = new OkHttpClient.Builder()
+                .addInterceptor(new AddCookiesInterceptor())
+                .addInterceptor(new ReceivedCookieInterceptor())
+                .build();
         cookiesPrefs = getSharedPreferences(PreferencesWorker.PREF_COOKIES, MODE_PRIVATE);
         signInPrefs = getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE);
     }

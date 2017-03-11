@@ -20,8 +20,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.nikart.base.BaseAnswer;
-import com.nikart.data.EpisodeFromDataBaseLoader;
+import com.nikart.interactor.Answer;
+import com.nikart.interactor.EpisodeFromDataBaseLoader;
 import com.nikart.data.dto.Episode;
 import com.nikart.myshows.R;
 
@@ -43,7 +43,7 @@ public class SoonEpisodesFragment extends Fragment {
     private ProgressBar progressLoad;
 
     private String EPISODES_FRAGMENT_TITLE;
-    private LoaderManager.LoaderCallbacks<BaseAnswer> loaderCallbacks;
+    private LoaderManager.LoaderCallbacks<Answer> loaderCallbacks;
 
     private List<Month> months;
 
@@ -114,14 +114,14 @@ public class SoonEpisodesFragment extends Fragment {
     }
 
     private void initLoader() {
-        loaderCallbacks = new LoaderManager.LoaderCallbacks<BaseAnswer>() {
+        loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
             @Override
-            public Loader<BaseAnswer> onCreateLoader(int id, Bundle args) {
+            public Loader<Answer> onCreateLoader(int id, Bundle args) {
                 return new EpisodeFromDataBaseLoader(SoonEpisodesFragment.this.getContext());
             }
 
             @Override
-            public void onLoadFinished(Loader<BaseAnswer> loader, BaseAnswer data) {
+            public void onLoadFinished(Loader<Answer> loader, Answer data) {
                 final String[] monthTitle = getResources().getStringArray(R.array.months);
                 Date today = new Date();
                 Date maximumDate = new Date(121212);
@@ -162,7 +162,7 @@ public class SoonEpisodesFragment extends Fragment {
             }
 
             @Override
-            public void onLoaderReset(Loader<BaseAnswer> loader) {
+            public void onLoaderReset(Loader<Answer> loader) {
 
             }
         };

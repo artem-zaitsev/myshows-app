@@ -11,13 +11,13 @@
         android:text="Rate this"
         android:textSize="24sp"
         android:textColor="@color/primary_text_material_dark"/>
-    <com.nikart.util.RateCustomView
+    <com.nikart.screens.util.RateCustomView
         android:id="@+id/dialog_rate_custom_view"
         android:layout_margin="16dp"
         android:layout_gravity="center"
         android:layout_width="200dp"
         android:layout_height="wrap_content">
 
-    </com.nikart.util.RateCustomView>
+    </com.nikart.screens.util.RateCustomView>
 
 </LinearLayout>
