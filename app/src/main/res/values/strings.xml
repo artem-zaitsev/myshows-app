@@ -42,6 +42,8 @@
     <string name="open_site">Open on myshows.me</string>
 
     <string name="quit">Quit</string>
+    <string name="incorrect_data">Login or Password are incorrect. Please try again.</string>
+    <string name="empty_fields">Fill all fields!</string>
     <string-array name="layouts_variants">
         <item>Grid</item>
         <item>Linear</item>

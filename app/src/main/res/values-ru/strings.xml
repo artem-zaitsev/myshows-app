@@ -67,4 +67,6 @@
     <string name="expand">Раскрыть все</string>
     <string name="quit">Закрыть</string>
     <string name="open_site">Открыть на myshows.me</string>
+    <string name="incorrect_data">Неправильный логин или пароль. Попробуйте еще раз.</string>
+    <string name="empty_fields">Заполните все поля!</string>
 </resources>

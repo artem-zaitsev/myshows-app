@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.nikart.base.Response;
+import com.nikart.base.BaseAnswer;
 import com.nikart.data.ShowFromDataBaseLoader;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
@@ -44,8 +44,6 @@ public class MyShowsFragment extends Fragment {
     private ViewGroup container;
     private Toolbar toolbar;
     private ProgressBar progressLoad;
-
-    private LoaderManager.LoaderCallbacks loaderCallbacks;
 
 
     private String SHOWS_FRAGMENT_TITLE;
@@ -133,31 +131,30 @@ public class MyShowsFragment extends Fragment {
     }
 
     private void initLoader() {
-        loaderCallbacks =
-                new LoaderManager.LoaderCallbacks<Response>() {
-                    @Override
-                    public Loader<Response> onCreateLoader(int id, Bundle args) {
-                        return new ShowFromDataBaseLoader(MyShowsFragment.this.getContext());
-                    }
+        LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<BaseAnswer>() {
+            @Override
+            public Loader<BaseAnswer> onCreateLoader(int id, Bundle args) {
+                return new ShowFromDataBaseLoader(MyShowsFragment.this.getContext());
+            }
 
-                    @Override
-                    public void onLoadFinished(Loader<Response> loader, Response data) {
-                        List<Show> sh = data.getTypedAnswer();
-                        for (Show s : sh) {
-                            shows.add(sh.indexOf(s), s);
-                            showsAdapter.notifyDataSetChanged();
-                        }
+            @Override
+            public void onLoadFinished(Loader<BaseAnswer> loader, BaseAnswer data) {
+                List<Show> sh = data.getTypedAnswer();
+                for (Show s : sh) {
+                    shows.add(sh.indexOf(s), s);
+                    showsAdapter.notifyDataSetChanged();
+                }
 
-                        progressLoad.setVisibility(View.GONE);
-                        Log.d("LOADERS", "Load finished. Shows count: " + shows.size());
-                    }
+                progressLoad.setVisibility(View.GONE);
+                Log.d("LOADERS", "Load finished. Shows count: " + shows.size());
+            }
 
-                    @Override
-                    public void onLoaderReset(Loader<Response> loader) {
-                        //reset
-                    }
+            @Override
+            public void onLoaderReset(Loader<BaseAnswer> loader) {
+                //reset
+            }
 
-                };
+        };
 
         getLoaderManager().restartLoader(0, null, loaderCallbacks);
         initRecycler();

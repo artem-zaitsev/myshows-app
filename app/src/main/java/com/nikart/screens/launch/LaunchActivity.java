@@ -8,9 +8,11 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.nikart.app.App;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.myshows.R;
 import com.nikart.screens.auth.signin.LoginActivity;
@@ -39,7 +41,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        prefs =  getSharedPreferences("SIGN_IN", MODE_PRIVATE);
+        prefs = App.getSignInPrefs();//статичный метод в App
 
         registerButton = (Button) findViewById(R.id.register_btn);
         loginButton = (Button) findViewById(R.id.login_btn);
@@ -57,14 +59,15 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_btn: {
-                if(PreferencesWorker.isSignedIn(prefs)){
+                if (PreferencesWorker.isSignedIn(prefs)) {
+                    Log.d("PREFS", String.valueOf(PreferencesWorker.isSignedIn(prefs)));
                     MainActivity.start(this);
                     finish();
                 } else LoginActivity.start(this);
                 break;
             }
             case R.id.register_btn: {
-                if(PreferencesWorker.isSignedIn(prefs)){
+                if (PreferencesWorker.isSignedIn(prefs)) {
                     MainActivity.start(this);
                     finish();
                 } else SignUpActivity.start(this);
@@ -93,9 +96,9 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 default:
                     fragment = new WelcomeFragment();
-                }
-            return fragment;
             }
+            return fragment;
+        }
 
         @Override
         public int getCount() {

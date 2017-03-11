@@ -8,7 +8,7 @@ import java.util.Objects;
  * Created by Artem on 09.03.2017.
  */
 
-public class Response {
+public class BaseAnswer {
 
     @Nullable
     private Object answer;
