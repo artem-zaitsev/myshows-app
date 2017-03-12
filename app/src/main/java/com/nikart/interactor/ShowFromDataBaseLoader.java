@@ -34,24 +34,7 @@ public class ShowFromDataBaseLoader extends BaseLoader<Answer> {
     @Override
     public Answer loadInBackground() {
 
-        Answer data = new Answer();
-        List<Show> generatedShows = new ArrayList<>(30);
-        List<Episode> generatedEps = new ArrayList<>(30);
-
-
-        for (int i = 0; i < 30; i++) {
-            generatedShows.add(i, new Show());
-            generatedEps.add(i, new Episode());
-            generatedShows.get(i).setId(i);
-            generatedEps.get(i).setShow(generatedShows.get(i));
-            try {
-                HelperFactory.getHelper().getShowDAO().createOrUpdate(generatedShows.get(i));
-                HelperFactory.getHelper().getEpisodeDAO().createOrUpdate(generatedEps.get(i));
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
+        super.data = new Answer();
         try {
             data.setAnswer(HelperFactory.getHelper().getShowDAO().getAllShows());
         } catch (SQLException e) {
