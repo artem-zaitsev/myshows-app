@@ -13,9 +13,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
 import com.nikart.screens.util.RateCustomView;
+
+import java.sql.SQLException;
+import java.util.List;
 
 public class ShowActivity extends AppCompatActivity {
 
@@ -26,10 +30,9 @@ public class ShowActivity extends AppCompatActivity {
     private FloatingActionButton watchingFab;
     private RateCustomView rateCustomView;
 
-    public static void start(Context context, String title, Show s) {
+    public static void start(Context context, int id) {
         Intent intent = new Intent(context, ShowActivity.class);
-        intent.putExtra("TITLE", title);
-        show = s;
+        intent.putExtra("ID", id);
         context.startActivity(intent);
     }
 
@@ -37,6 +40,27 @@ public class ShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
+        Intent intent = getIntent();
+
+        try {
+            show = HelperFactory.getHelper().getShowDAO().queryForId(intent.getIntExtra("ID", 0));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        initActivity();
+    }
+
+    private void setShowWatching() {
+        show.setWatchStatus(isShowWatching()
+                ? "not watching"
+                : "watching");//???????
+    }
+
+    private boolean isShowWatching() {
+        return (show.getWatchStatus() != null && show.getWatchStatus().equals("watching"));
+    }
+
+    private void initActivity() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_show_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,11 +69,8 @@ public class ShowActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-        title = intent.getStringExtra("TITLE");
-
         titleTextView = (TextView) findViewById(R.id.activity_show_toolbar_title_textview);
-        titleTextView.setText(title);
+        titleTextView.setText(show.getTitle());
 
         informationTextView = (TextView) findViewById(R.id.activity_show_information_textview);
         informationTextView.setText(
@@ -91,19 +112,12 @@ public class ShowActivity extends AppCompatActivity {
             @Override
             public void onClick(int rate) {
                 show.setRating(rate);
+                try {
+                    HelperFactory.getHelper().getShowDAO().update(show);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
-
-
-    }
-
-    private void setShowWatching() {
-        show.setWatchStatus(isShowWatching()
-                ? "not watching"
-                : "watching");//???????
-    }
-
-    private boolean isShowWatching() {
-        return (show.getWatchStatus() != null && show.getWatchStatus().equals("watching"));
     }
 }

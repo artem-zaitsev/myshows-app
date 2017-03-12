@@ -24,7 +24,7 @@ import okhttp3.Response;
  * Created by Artem on 08.03.2017.
  */
 
-public class ShowFromDataBaseLoader extends BaseLoader<Answer>{
+public class ShowFromDataBaseLoader extends BaseLoader<Answer> {
 
 
     public ShowFromDataBaseLoader(Context context) {
@@ -42,6 +42,7 @@ public class ShowFromDataBaseLoader extends BaseLoader<Answer>{
         for (int i = 0; i < 30; i++) {
             generatedShows.add(i, new Show());
             generatedEps.add(i, new Episode());
+            generatedShows.get(i).setId(i);
             generatedEps.get(i).setShow(generatedShows.get(i));
             try {
                 HelperFactory.getHelper().getShowDAO().createOrUpdate(generatedShows.get(i));

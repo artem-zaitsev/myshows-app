@@ -2,6 +2,7 @@ package com.nikart.interactor;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.nikart.app.App;
@@ -26,6 +27,13 @@ public class AuthLoader extends BaseLoader<Answer> {
     private String login;
     private String password;
     private OkHttpClient client;
+
+    public static Bundle args(String login, String password) {
+        Bundle args = new Bundle();
+        String[] array = {login, password};
+        args.putStringArray("ARGS", array);
+        return args;
+    }
 
     /*Правильно ли передавать логин и пароль в конструктор лоадеру?
     * Есть ли какой-нибудь другой способ?*/
