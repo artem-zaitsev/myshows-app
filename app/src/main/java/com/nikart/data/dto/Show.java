@@ -1,5 +1,7 @@
 package com.nikart.data.dto;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.field.ForeignCollectionField;
@@ -33,12 +35,15 @@ public class Show {
     public final static String FIELD_NAME_WATCHED_EPISODES = "watched_episodes";
 
     @DatabaseField(columnName = FIELD_NAME_ID, id = true)
+    @SerializedName("showId")
     private int id;
 
     @DatabaseField(columnName = FIELD_NAME_TITLE)
+    @SerializedName("ruTitle")
     private String title;
 
     @DatabaseField(columnName = FILED_NAME_TITLE_ORIG)
+    @SerializedName("title")
     private String titleOriginal;
 
     @DatabaseField(columnName = FIELD_NAME_DESCRIPTION)
@@ -51,6 +56,7 @@ public class Show {
     private String status;
 
     @DatabaseField(columnName = FIELD_NAME_COUNTRY)
+    @SerializedName("showStatus")
     private String country;
 
     @DatabaseField(columnName = FIELD_NAME_STARTED)
@@ -69,24 +75,32 @@ public class Show {
     private int voted;
 
     @DatabaseField(columnName = FIELD_NAME_RATING)
+    @SerializedName("rating")
     private int rating;
 
     @DatabaseField(columnName = FIELD_NAME_IMAGE)
+    @SerializedName("image")
     private String imageUrl;
 
     @ForeignCollectionField(columnName = FIELD_NAME_EPISODES, eager = true)
     private ForeignCollection<Episode> episodes;
 
     @DatabaseField(columnName = FIELD_NAME_WATCH_STATUS)
+    @SerializedName("watchStatus")
     private String watchStatus;
 
     @DatabaseField(columnName = FIELD_NAME_TOTAL_EPISODES)
+    @SerializedName("totalEpisodes")
     private int totalEpisodes;
 
     @DatabaseField(columnName = FIELD_NAME_WATCHED_EPISODES)
+    @SerializedName("watchedEpisodes")
     private int watchedEpisodes;
 
     private String[] genresIds;
+
+    @SerializedName("runtime")
+    private Long runtime;
 
     public Show() {
         this.title = "Sherlock";
@@ -266,5 +280,13 @@ public class Show {
 
     public ForeignCollection<Episode> getEpisodes() {
         return episodes;
+    }
+
+    public Long getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Long runtime) {
+        this.runtime = runtime;
     }
 }

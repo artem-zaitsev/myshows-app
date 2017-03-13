@@ -25,11 +25,12 @@ public class AddCookiesInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
 
-        HashSet<String> fromPrefs = (HashSet<String>) PreferencesWorker.getCookies(App.getCookiesPrefs());
+        HashSet<String> fromPrefs = (HashSet<String>) PreferencesWorker.getCookies();
         for (String cookie : fromPrefs) {
             builder.addHeader("Cookie", cookie);
             Log.d("OkHTTP", "Cookie: " + cookie);
         }
+        Log.d("OkHTTP", "PREF: " + PreferencesWorker.getCookies());
         return chain.proceed(builder.build());
     }
 }

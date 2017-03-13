@@ -2,7 +2,6 @@ package com.nikart.screens.auth.signin;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -13,16 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.nikart.app.App;
 import com.nikart.interactor.Answer;
-import com.nikart.interactor.interceptors.AddCookiesInterceptor;
-import com.nikart.interactor.interceptors.ReceivedCookieInterceptor;
+import com.nikart.interactor.AuthLoader;
 import com.nikart.myshows.R;
 import com.nikart.screens.main.MainActivity;
-import com.nikart.interactor.AuthLoader;
 import com.nikart.util.PreferencesWorker;
 
-import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,9 +44,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        final SharedPreferences signInPrefs = App.getSignInPrefs();
-        final SharedPreferences cookiesPrefs = App.getCookiesPrefs();
-
         LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
 
             @Override
@@ -64,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onLoadFinished(android.support.v4.content.Loader<Answer> loader, Answer data) {
                 Response response = data.getTypedAnswer();
                 if (response.isSuccessful()) {
-                    PreferencesWorker.saveSignedIn(signInPrefs, true);
+                    PreferencesWorker.saveSignedIn(true);
                     Log.d("OkHTTP", "Successful");
                     MainActivity.start(LoginActivity.this);
                 } else {

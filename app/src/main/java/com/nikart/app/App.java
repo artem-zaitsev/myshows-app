@@ -19,48 +19,65 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
 
-    private static MyShowsApi api; // ссылка на реализацию апи
-    private static SharedPreferences cookiesPrefs; // для хранения куков
-    private static SharedPreferences signInPrefs; // для хранения флага логина
-    private static OkHttpClient client; // ссылка на клиент
+    private static App appInstance;
 
-    public static MyShowsApi getApi() {
+    private MyShowsApi api; // ссылка на реализацию апи
+    private OkHttpClient client; // ссылка на клиент
+
+    private final String BASE_URL = "https://api.myshows.me/";
+
+    private Retrofit retrofit;// ретрофит
+
+    public MyShowsApi getApi() {
         return api;
     }
 
-    public static SharedPreferences getCookiesPrefs() {
-        return cookiesPrefs;
-    }
-
-    public static SharedPreferences getSignInPrefs() {
-        return signInPrefs;
-    }
-
-    public static OkHttpClient getClient() {
+    public OkHttpClient getClient() {
         return client;
     }
 
-    /*Надо вынести все библиотеки в отдельные методы*/
+
+    public static App getInstance() {
+        return appInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         HelperFactory.setHelper(getApplicationContext());
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.myshows.me/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        api = retrofit.create(MyShowsApi.class);
-        client = new OkHttpClient.Builder()
-                .addInterceptor(new AddCookiesInterceptor())
-                .addInterceptor(new ReceivedCookieInterceptor())
-                .build();
-        cookiesPrefs = getSharedPreferences(PreferencesWorker.PREF_COOKIES, MODE_PRIVATE);
-        signInPrefs = getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE);
+
+        appInstance = this;
+        initClient();
+        initRetrofit();
+        initApi();
+
+        //Инициализируем статическую sharedPreferences в PrefWorker
+        PreferencesWorker.sharedPreferences =
+                getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE);
     }
 
     @Override
     public void onTerminate() {
         HelperFactory.releaseHelper();
         super.onTerminate();
+    }
+
+    private void initClient() {
+        client = new OkHttpClient.Builder()
+                .addInterceptor(new AddCookiesInterceptor())
+                .addInterceptor(new ReceivedCookieInterceptor())
+                .build();
+    }
+
+    private void initRetrofit() {
+        retrofit = new Retrofit.Builder()
+                .client(client)
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+    }
+
+    private void initApi() {
+        api = retrofit.create(MyShowsApi.class);
     }
 }

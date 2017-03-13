@@ -1,6 +1,7 @@
 package com.nikart.interactor.interceptors;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.nikart.app.App;
 import com.nikart.util.PreferencesWorker;
@@ -28,8 +29,8 @@ public class ReceivedCookieInterceptor implements Interceptor {
             for (String header : origResponse.headers("Set-Cookie")) {
                 cookies.add(header);
             }
-
-            PreferencesWorker.saveCookies(App.getCookiesPrefs(), cookies);
+            Log.d("OkHTTP", "Cookie from: " + cookies);
+            PreferencesWorker.saveCookies(cookies);
         }
         return origResponse;
     }

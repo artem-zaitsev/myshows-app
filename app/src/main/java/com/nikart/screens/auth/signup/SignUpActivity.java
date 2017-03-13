@@ -36,7 +36,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         backButton = (Button) findViewById(R.id.sign_up_back_btn);
         backButton.setOnClickListener(this);
 
-        firstSignUpView  = (SignUpView) findViewById(R.id.first_sign_up_view);
+        firstSignUpView = (SignUpView) findViewById(R.id.first_sign_up_view);
         secondSignUpView = (SignUpView) findViewById(R.id.second_sign_up_view);
         linearLayoutWithButtons = (LinearLayout) findViewById(R.id.sign_up_bttns);
 
@@ -46,8 +46,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sign_up_btn: {
-                SharedPreferences prefs = getSharedPreferences("SIGN_IN", MODE_PRIVATE);
-                PreferencesWorker.saveSignedIn(prefs,true);
+                PreferencesWorker.saveSignedIn(true);
                 MainActivity.start(this);
                 break;
             }

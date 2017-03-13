@@ -46,7 +46,7 @@ public class AuthLoader extends BaseLoader<Answer> {
     @Override
     public Answer loadInBackground() {
         Answer answer = new Answer();
-        client = App.getClient();
+        client = App.getInstance().getClient();
 
         /*Подставляем логин и пароль из EditText'ов*/
         Request request = new Request.Builder()

@@ -1,10 +1,12 @@
 package com.nikart.interactor;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.nikart.data.HelperFactory;
 import com.nikart.interactor.Answer;
 import com.nikart.base.BaseLoader;
+import com.nikart.util.PreferencesWorker;
 
 import java.sql.SQLException;
 
@@ -17,7 +19,6 @@ public class EpisodeFromDataBaseLoader extends BaseLoader<Answer> {
     public EpisodeFromDataBaseLoader(Context context) {
         super(context);
     }
-
 
     @Override
     public Answer loadInBackground() {

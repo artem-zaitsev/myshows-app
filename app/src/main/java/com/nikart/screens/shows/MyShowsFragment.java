@@ -25,6 +25,7 @@ import com.nikart.interactor.Answer;
 import com.nikart.interactor.ShowFromDataBaseLoader;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.util.LayoutSwitcherDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
  * Fragment class for MyShows fragment.
  * There is information about user's shows.
  */
-public class MyShowsFragment extends Fragment {
+public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.LayoutSwitcherDialogListener {
 
     static public boolean IS_GRID; // для смены layout'ов в адаптере
 
@@ -72,7 +73,7 @@ public class MyShowsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.switch_layout_style: {
-                layoutManager = isGridLayoutManager()
+                /*layoutManager = isGridLayoutManager()
                         ? new LinearLayoutManager(container.getContext())
                         : new GridLayoutManager(container.getContext(), 2);
                 IS_GRID = isGridLayoutManager();
@@ -81,7 +82,11 @@ public class MyShowsFragment extends Fragment {
 
                 item.setIcon(!isGridLayoutManager()
                         ? R.drawable.grid_layout_manager
-                        : R.drawable.linear_layout_manager);
+                        : R.drawable.linear_layout_manager);*/
+
+                LayoutSwitcherDialog switcherDialog = new LayoutSwitcherDialog();
+                switcherDialog.setListener(this);
+                switcherDialog.show(getFragmentManager(),"SWITCHER");
                 return true;
             }
             default:
@@ -162,5 +167,19 @@ public class MyShowsFragment extends Fragment {
 
         getLoaderManager().restartLoader(0, null, loaderCallbacks);
         initRecycler();
+    }
+
+    @Override
+    public void OnItemClickListener(int i) {
+        layoutManager = (i == 1)
+                ? new LinearLayoutManager(container.getContext())
+                : new GridLayoutManager(container.getContext(), 2);
+        IS_GRID = isGridLayoutManager();
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(showsAdapter);
+
+        /*item.setIcon(!isGridLayoutManager()
+                ? R.drawable.grid_layout_manager
+                : R.drawable.linear_layout_manager);*/
     }
 }

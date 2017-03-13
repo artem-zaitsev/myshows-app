@@ -14,11 +14,11 @@ public class Answer {
     private Object answer;
 
     public <T> T getTypedAnswer() {
-        if(answer == null ) {
+        if (answer == null) {
             return null;
         }
 
-        return(T) answer;
+        return (T) answer;
     }
 
     public void setAnswer(Object answer) {

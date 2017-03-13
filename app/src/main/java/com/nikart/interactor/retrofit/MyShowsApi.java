@@ -1,6 +1,10 @@
 package com.nikart.interactor.retrofit;
 
+import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
+import com.nikart.interactor.Answer;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,7 +17,11 @@ import retrofit2.http.Path;
 
 public interface MyShowsApi {
 
-    //Тест на старом апи, берет информацию о пользователе без авторизации.
+    // Берем информацию о пользователе без авторизации.
     @GET("profile/{login}")
     Call<UserProfile> getUserProfile(@Path("login") String login);
+
+    //Список сериалов
+    @GET("profile/shows")
+    Call<List<Show>> getShows();
 }

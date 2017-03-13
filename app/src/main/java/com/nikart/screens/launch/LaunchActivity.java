@@ -41,8 +41,6 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        prefs = App.getSignInPrefs();//статичный метод в App
-
         registerButton = (Button) findViewById(R.id.register_btn);
         loginButton = (Button) findViewById(R.id.login_btn);
 
@@ -59,15 +57,15 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_btn: {
-                if (PreferencesWorker.isSignedIn(prefs)) {
-                    Log.d("PREFS", String.valueOf(PreferencesWorker.isSignedIn(prefs)));
+                if (PreferencesWorker.isSignedIn()) {
+                    Log.d("PREFS", String.valueOf(PreferencesWorker.isSignedIn()));
                     MainActivity.start(this);
                     finish();
                 } else LoginActivity.start(this);
                 break;
             }
             case R.id.register_btn: {
-                if (PreferencesWorker.isSignedIn(prefs)) {
+                if (PreferencesWorker.isSignedIn()) {
                     MainActivity.start(this);
                     finish();
                 } else SignUpActivity.start(this);

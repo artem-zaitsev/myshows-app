@@ -48,6 +48,8 @@
         <item>Grid</item>
         <item>Linear</item>
     </string-array>
+    <string name="grid">Grid</string>
+    <string name="linear">Linear</string>
 
     <plurals name="days_left">
         <item quantity="zero">Today</item>
