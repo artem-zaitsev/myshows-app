@@ -1,22 +1,20 @@
 package com.nikart.screens.launch;
 
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.nikart.app.App;
-import com.nikart.screens.main.MainActivity;
 import com.nikart.myshows.R;
 import com.nikart.screens.auth.signin.LoginActivity;
 import com.nikart.screens.auth.signup.SignUpActivity;
+import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
 
 public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
@@ -25,32 +23,16 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     private Button registerButton;
     private Button loginButton;
 
-    // SharedPreferences
-    // Если вход был выполнен то при
-    // нажатии на кнопки сразу переходит к MainActivity
-    private SharedPreferences prefs;
-
-    //Pager
     private ViewPager pager;
-
-    //PagerAdapter
     private PagerAdapter pagerAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
 
-        registerButton = (Button) findViewById(R.id.register_btn);
-        loginButton = (Button) findViewById(R.id.login_btn);
-
-        loginButton.setOnClickListener(this);
-        registerButton.setOnClickListener(this);
-
-        pager = (ViewPager) findViewById(R.id.launch_pager);
-        pagerAdapter = new WelcomePagesSlideAdapter(getSupportFragmentManager());
-        pager.setAdapter(pagerAdapter);
-
+        initActivity();
     }
 
     @Override
@@ -72,6 +54,18 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             }
         }
+    }
+
+    private void initActivity() {
+        registerButton = (Button) findViewById(R.id.register_btn);
+        loginButton = (Button) findViewById(R.id.login_btn);
+
+        loginButton.setOnClickListener(this);
+        registerButton.setOnClickListener(this);
+
+        pager = (ViewPager) findViewById(R.id.launch_pager);
+        pagerAdapter = new WelcomePagesSlideAdapter(getSupportFragmentManager());
+        pager.setAdapter(pagerAdapter);
     }
 
     // Делаем внутренний класс для адаптера фрагментов.

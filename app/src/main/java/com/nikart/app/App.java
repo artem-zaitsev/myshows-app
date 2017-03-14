@@ -20,13 +20,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class App extends Application {
 
     private static App appInstance;
+    public final String BASE_URL = "https://api.myshows.me/";
 
     private MyShowsApi api; // ссылка на реализацию апи
     private OkHttpClient client; // ссылка на клиент
-
-    private final String BASE_URL = "https://api.myshows.me/";
-
     private Retrofit retrofit;// ретрофит
+
+    public static App getInstance() {
+        return appInstance;
+    }
 
     public MyShowsApi getApi() {
         return api;
@@ -36,24 +38,16 @@ public class App extends Application {
         return client;
     }
 
-
-    public static App getInstance() {
-        return appInstance;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
-        HelperFactory.setHelper(getApplicationContext());
-
         appInstance = this;
+
+        HelperFactory.setHelper(getApplicationContext());
         initClient();
         initRetrofit();
         initApi();
-
-        //Инициализируем статическую sharedPreferences в PrefWorker
-        PreferencesWorker.sharedPreferences =
-                getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE);
+        initPreferences();
     }
 
     @Override
@@ -79,5 +73,11 @@ public class App extends Application {
 
     private void initApi() {
         api = retrofit.create(MyShowsApi.class);
+    }
+
+    private void initPreferences() {
+        //Инициализируем статическую sharedPreferences в PrefWorker
+        PreferencesWorker.sharedPreferences =
+                getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE);
     }
 }

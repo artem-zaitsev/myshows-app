@@ -24,6 +24,7 @@ import okhttp3.Response;
 
 public class AuthLoader extends BaseLoader<Answer> {
 
+    public static final String ARGS = "ARGS";
     private String login;
     private String password;
     private OkHttpClient client;
@@ -31,7 +32,7 @@ public class AuthLoader extends BaseLoader<Answer> {
     public static Bundle args(String login, String password) {
         Bundle args = new Bundle();
         String[] array = {login, password};
-        args.putStringArray("ARGS", array);
+        args.putStringArray(ARGS, array);
         return args;
     }
 

@@ -1,6 +1,8 @@
 package com.nikart.screens.account;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.nikart.app.App;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
 
@@ -55,18 +58,7 @@ public class AccountFragment extends Fragment {
             shows.add(i, new Show());
         }
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
-
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(ACCOUNT_FRAGMENT_TITLE);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        if (bar != null) {
-            bar.setDisplayShowTitleEnabled(false);
-        }
-
-        ImageView accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
-        Glide.with(this).load("https://myshows.me/shared/img/fe/default-user-avatar-big.png")
-                .into(accountPic);
+        initFragment(rootView);
         initRecycler(rootView);
         setHasOptionsMenu(true);
         return rootView;
@@ -80,11 +72,31 @@ public class AccountFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_account: // открываем профиль на сайте
+            case R.id.item_open_link: {
+                // открываем профиль на сайте
+                Uri address = Uri.parse("https://myshows.me/profile/");
+                Intent intent = new Intent(Intent.ACTION_VIEW,address);
+                startActivity(intent);
+            }
         }
         return true;
     }
 
+
+    private void initFragment(View rootView) {
+
+        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(ACCOUNT_FRAGMENT_TITLE);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (bar != null) {
+            bar.setDisplayShowTitleEnabled(false);
+        }
+
+        ImageView accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
+        Glide.with(this).load("https://myshows.me/shared/img/fe/default-user-avatar-big.png")
+                .into(accountPic);
+    }
     private void initRecycler(View rootView) {
         /*
         * Используем ShowsAdapter, но позже изменим

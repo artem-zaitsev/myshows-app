@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ContextThemeWrapper;
 
 import com.nikart.myshows.R;
 
@@ -23,22 +24,23 @@ public class LayoutSwitcherDialog extends DialogFragment {
         public void OnItemClickListener(int i);
     }
 
-/*    @Override
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try{
+        /*try{
             listener = (LayoutSwitcherDialogListener)context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + "must implement LayoutSwitcherDialogListener!");
-        }
-    }*/
+        }*/
+    }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        setStyle(STYLE_NORMAL, R.style.Theme_AppCompat_Light_Dialog_Alert);
+        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(),
+                R.style.Theme_AppCompat_Light_Dialog_Alert));
+
         builder.setTitle(R.string.menu_layout_switch)
                 .setSingleChoiceItems(R.array.layouts_variants, 0, new DialogInterface.OnClickListener() {
                     @Override

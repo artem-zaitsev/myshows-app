@@ -40,14 +40,20 @@ public class ShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
-        Intent intent = getIntent();
+        show = getShowFromIntent();
 
+        initActivity();
+    }
+
+    private Show getShowFromIntent() {
+        Show show = null;
         try {
+            Intent intent = getIntent();
             show = HelperFactory.getHelper().getShowDAO().queryForId(intent.getIntExtra("ID", 0));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        initActivity();
+        return show;
     }
 
     private void setShowWatching() {

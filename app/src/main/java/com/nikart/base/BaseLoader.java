@@ -31,4 +31,16 @@ public abstract class BaseLoader<T> extends AsyncTaskLoader<T> {
         this.data = data;
         super.deliverResult(data);
     }
+
+    @Override
+    protected void onStopLoading() {
+        super.onStopLoading();
+        cancelLoad();
+    }
+
+    @Override
+    protected void onReset() {
+        super.onReset();
+        onStopLoading();
+    }
 }
