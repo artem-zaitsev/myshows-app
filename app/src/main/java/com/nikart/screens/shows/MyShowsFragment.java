@@ -21,9 +21,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.nikart.interactor.Answer;
-import com.nikart.interactor.ShowFromDataBaseLoader;
 import com.nikart.data.dto.Show;
+import com.nikart.interactor.Answer;
+import com.nikart.interactor.ShowsListFromDataBaseLoader;
 import com.nikart.myshows.R;
 import com.nikart.util.LayoutSwitcherDialog;
 
@@ -73,20 +73,9 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.switch_layout_style: {
-                /*layoutManager = isGridLayoutManager()
-                        ? new LinearLayoutManager(container.getContext())
-                        : new GridLayoutManager(container.getContext(), 2);
-                IS_GRID = isGridLayoutManager();
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(showsAdapter);
-
-                item.setIcon(!isGridLayoutManager()
-                        ? R.drawable.grid_layout_manager
-                        : R.drawable.linear_layout_manager);*/
-
                 LayoutSwitcherDialog switcherDialog = new LayoutSwitcherDialog();
                 switcherDialog.setListener(this);
-                switcherDialog.show(getFragmentManager(),"SWITCHER");
+                switcherDialog.show(getFragmentManager(), "SWITCHER");
                 return true;
             }
             default:
@@ -139,7 +128,7 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
         LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
             @Override
             public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                return new ShowFromDataBaseLoader(MyShowsFragment.this.getContext());
+                return new ShowsListFromDataBaseLoader(MyShowsFragment.this.getContext());
             }
 
             @Override
@@ -149,7 +138,7 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
                     if (shows.size() < sh.size()) {
                         shows.add(sh.indexOf(s), s);
                     } else {
-                        shows.set(sh.indexOf(s),s);
+                        shows.set(sh.indexOf(s), s);
                     }
                     showsAdapter.notifyDataSetChanged();
                 }

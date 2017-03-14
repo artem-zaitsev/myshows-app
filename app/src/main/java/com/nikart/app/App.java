@@ -1,7 +1,6 @@
 package com.nikart.app;
 
 import android.app.Application;
-import android.content.SharedPreferences;
 
 import com.nikart.data.HelperFactory;
 import com.nikart.interactor.interceptors.AddCookiesInterceptor;
@@ -77,7 +76,7 @@ public class App extends Application {
 
     private void initPreferences() {
         //Инициализируем статическую sharedPreferences в PrefWorker
-        PreferencesWorker.sharedPreferences =
-                getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE);
+        PreferencesWorker.getInstance().initSharedPreferences(
+                getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE));
     }
 }

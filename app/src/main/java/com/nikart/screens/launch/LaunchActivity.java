@@ -39,15 +39,15 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_btn: {
-                if (PreferencesWorker.isSignedIn()) {
-                    Log.d("PREFS", String.valueOf(PreferencesWorker.isSignedIn()));
+                if (PreferencesWorker.getInstance().isSignedIn()) {
+                    Log.d("PREFS", String.valueOf(PreferencesWorker.getInstance().isSignedIn()));
                     MainActivity.start(this);
                     finish();
                 } else LoginActivity.start(this);
                 break;
             }
             case R.id.register_btn: {
-                if (PreferencesWorker.isSignedIn()) {
+                if (PreferencesWorker.getInstance().isSignedIn()) {
                     MainActivity.start(this);
                     finish();
                 } else SignUpActivity.start(this);

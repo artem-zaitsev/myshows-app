@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onLoadFinished(Loader<Answer> loader, Answer data) {
                 Response response = data.getTypedAnswer();
                 if (response.isSuccessful()) {
-                    PreferencesWorker.saveSignedIn(true);
+                    PreferencesWorker.getInstance().saveSignedIn(true);
                     Log.d("OkHTTP", "Successful");
                     MainActivity.start(LoginActivity.this);
                 } else {

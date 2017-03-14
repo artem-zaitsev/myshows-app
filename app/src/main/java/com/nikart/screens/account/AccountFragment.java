@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,8 +22,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.nikart.app.App;
 import com.nikart.data.dto.Show;
+import com.nikart.data.dto.UserProfile;
+import com.nikart.interactor.Answer;
+import com.nikart.interactor.UserProfileLoader;
 import com.nikart.myshows.R;
 
 import java.util.ArrayList;
@@ -39,6 +43,8 @@ public class AccountFragment extends Fragment {
     private List<Show> shows;
     private ViewGroup container;
     private Toolbar toolbar;
+    private ImageView accountPic;
+    private TextView usernameTextView;
 
     private String ACCOUNT_FRAGMENT_TITLE;
 
@@ -59,6 +65,7 @@ public class AccountFragment extends Fragment {
         }
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
         initFragment(rootView);
+        loadData();
         initRecycler(rootView);
         setHasOptionsMenu(true);
         return rootView;
@@ -75,16 +82,14 @@ public class AccountFragment extends Fragment {
             case R.id.item_open_link: {
                 // открываем профиль на сайте
                 Uri address = Uri.parse("https://myshows.me/profile/");
-                Intent intent = new Intent(Intent.ACTION_VIEW,address);
+                Intent intent = new Intent(Intent.ACTION_VIEW, address);
                 startActivity(intent);
             }
         }
         return true;
     }
 
-
     private void initFragment(View rootView) {
-
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(ACCOUNT_FRAGMENT_TITLE);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -93,19 +98,45 @@ public class AccountFragment extends Fragment {
             bar.setDisplayShowTitleEnabled(false);
         }
 
-        ImageView accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
-        Glide.with(this).load("https://myshows.me/shared/img/fe/default-user-avatar-big.png")
-                .into(accountPic);
+        accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
+        usernameTextView =
+                (TextView) rootView.findViewById(R.id.fragment_account_username_text_view);
     }
+
     private void initRecycler(View rootView) {
-        /*
-        * Используем ShowsAdapter, но позже изменим
-        * */
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
         layoutManager = new LinearLayoutManager(this.getContext()); // two columns
 
         showsAdapter = new AccountShowAdapter(shows);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
+    }
+
+    private void loadData() {
+        LoaderManager.LoaderCallbacks loaderCallbacks =
+                new LoaderManager.LoaderCallbacks<Answer>() {
+
+                    @Override
+                    public Loader<Answer> onCreateLoader(int id, Bundle args) {
+                        return new UserProfileLoader(getContext());
+                    }
+
+                    @Override
+                    public void onLoadFinished(Loader<Answer> loader, Answer data) {
+                        UserProfile user = data.getTypedAnswer();
+                        //data - null, поэтому захардкоренные данные
+                        usernameTextView.setText("LOGIN");
+                        Glide.with(AccountFragment.this)
+                                .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
+                                .into(accountPic);
+                    }
+
+                    @Override
+                    public void onLoaderReset(Loader<Answer> loader) {
+
+                    }
+                };
+        getActivity().getSupportLoaderManager().initLoader(0, null, loaderCallbacks);
+
     }
 }

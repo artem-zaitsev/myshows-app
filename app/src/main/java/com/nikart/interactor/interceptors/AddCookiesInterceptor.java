@@ -1,14 +1,11 @@
 package com.nikart.interactor.interceptors;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.nikart.app.App;
 import com.nikart.util.PreferencesWorker;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.prefs.Preferences;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -25,12 +22,12 @@ public class AddCookiesInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
 
-        HashSet<String> fromPrefs = (HashSet<String>) PreferencesWorker.getCookies();
+        HashSet<String> fromPrefs = (HashSet<String>) PreferencesWorker.getInstance().getCookies();
         for (String cookie : fromPrefs) {
             builder.addHeader("Cookie", cookie);
             Log.d("OkHTTP", "Cookie: " + cookie);
         }
-        Log.d("OkHTTP", "PREF: " + PreferencesWorker.getCookies());
+        Log.d("OkHTTP", "PREF: " + PreferencesWorker.getInstance().getCookies());
         return chain.proceed(builder.build());
     }
 }

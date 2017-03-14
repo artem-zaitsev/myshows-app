@@ -1,6 +1,5 @@
 package com.nikart.util;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 
 import java.util.HashSet;
@@ -14,29 +13,42 @@ public class PreferencesWorker {
 
     public static final String PREF_SIGN_IN = "sign in";
     public static final String PREF_COOKIES = "cookies";
-    public static SharedPreferences sharedPreferences;
 
-    public static SharedPreferences getSharedPreferences() {
+    private static SharedPreferences sharedPreferences;
+    private static PreferencesWorker preferencesWorker;
+
+    public static PreferencesWorker getInstance() {
+        if (preferencesWorker == null) {
+            preferencesWorker = new PreferencesWorker();
+        }
+        return preferencesWorker;
+    }
+
+    public void initSharedPreferences(SharedPreferences sharedPreferences) {
+        PreferencesWorker.sharedPreferences = sharedPreferences;
+    }
+
+    public SharedPreferences getSharedPreferences() {
         return sharedPreferences;
     }
 
-    public static void saveSignedIn(boolean value) {
+    public void saveSignedIn(boolean value) {
         SharedPreferences.Editor edit = getSharedPreferences().edit();
         edit.putBoolean(PREF_SIGN_IN, value);
         edit.apply();
     }
 
-    public static boolean isSignedIn() {
+    public boolean isSignedIn() {
         return getSharedPreferences().getBoolean(PREF_SIGN_IN, false);
     }
 
-    public static void saveCookies(Set<String> cookies) {
+    public void saveCookies(Set<String> cookies) {
         SharedPreferences.Editor edit = getSharedPreferences().edit();
         edit.putStringSet(PREF_COOKIES, cookies);
         edit.apply();
     }
 
-    public static Set<String> getCookies() {
+    public Set<String> getCookies() {
         return getSharedPreferences().getStringSet(PREF_COOKIES, new HashSet<String>());
     }
 }

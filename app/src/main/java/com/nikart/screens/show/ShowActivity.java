@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -15,15 +17,16 @@ import android.widget.Toast;
 
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
+import com.nikart.interactor.Answer;
+import com.nikart.interactor.ShowByIdFromDataBaseLoader;
 import com.nikart.myshows.R;
 import com.nikart.screens.util.RateCustomView;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class ShowActivity extends AppCompatActivity {
 
-    private static Show show;
+    private Show show;
     private String title;
     private TextView titleTextView,
             informationTextView, descriptionTextView;
@@ -40,20 +43,34 @@ public class ShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
-        show = getShowFromIntent();
 
-        initActivity();
+        loadFromIntent();
+
     }
 
-    private Show getShowFromIntent() {
-        Show show = null;
-        try {
-            Intent intent = getIntent();
-            show = HelperFactory.getHelper().getShowDAO().queryForId(intent.getIntExtra("ID", 0));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return show;
+    private void loadFromIntent() {
+        LoaderManager.LoaderCallbacks showLoaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
+            @Override
+            public Loader<Answer> onCreateLoader(int id, Bundle args) {
+                return new ShowByIdFromDataBaseLoader(ShowActivity.this,
+                        args.getInt(ShowByIdFromDataBaseLoader.ARGS_ID));
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Answer> loader, Answer data) {
+                show = data.getTypedAnswer();
+                Log.d("LOADERS", "Finished load show on ShowActivity.");
+                initActivity();
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Answer> loader) {
+
+            }
+        };
+        getSupportLoaderManager().initLoader(0,
+                ShowByIdFromDataBaseLoader.args(getIntent().getIntExtra("ID", 0)),
+                showLoaderCallbacks);
     }
 
     private void setShowWatching() {

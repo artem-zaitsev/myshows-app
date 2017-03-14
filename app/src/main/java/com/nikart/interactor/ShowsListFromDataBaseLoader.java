@@ -3,8 +3,8 @@ package com.nikart.interactor;
 import android.content.Context;
 import android.util.Log;
 
-import com.nikart.data.HelperFactory;
 import com.nikart.base.BaseLoader;
+import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Episode;
 import com.nikart.data.dto.Show;
 
@@ -17,15 +17,14 @@ import java.util.List;
  * Created by Artem on 08.03.2017.
  */
 
-public class ShowFromDataBaseLoader extends BaseLoader<Answer> {
+public class ShowsListFromDataBaseLoader extends BaseLoader<Answer> {
 
-    public ShowFromDataBaseLoader(Context context) {
+    public ShowsListFromDataBaseLoader(Context context) {
         super(context);
     }
 
     @Override
     public Answer loadInBackground() {
-
         List<Show> generatedShows = new ArrayList<>(30);
         List<Episode> generatedEps = new ArrayList<>(30);
         for (int i = 0; i < 30; i++) {

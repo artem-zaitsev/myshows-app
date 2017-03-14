@@ -1,9 +1,7 @@
 package com.nikart.interactor.interceptors;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.nikart.app.App;
 import com.nikart.util.PreferencesWorker;
 
 import java.io.IOException;
@@ -30,7 +28,7 @@ public class ReceivedCookieInterceptor implements Interceptor {
                 cookies.add(header);
             }
             Log.d("OkHTTP", "Cookie from: " + cookies);
-            PreferencesWorker.saveCookies(cookies);
+            PreferencesWorker.getInstance().saveCookies(cookies);
         }
         return origResponse;
     }

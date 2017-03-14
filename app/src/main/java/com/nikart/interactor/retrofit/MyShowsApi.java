@@ -2,7 +2,6 @@ package com.nikart.interactor.retrofit;
 
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
-import com.nikart.interactor.Answer;
 
 import java.util.List;
 
@@ -19,9 +18,13 @@ public interface MyShowsApi {
 
     // Берем информацию о пользователе без авторизации.
     @GET("profile/{login}")
-    Call<UserProfile> getUserProfile(@Path("login") String login);
+    Call<UserProfile> getAnyUserProfile(@Path("login") String login);
 
     //Список сериалов
     @GET("profile/shows")
     Call<List<Show>> getShows();
+
+    //Информация об авторизированном пользователе
+    @GET("profile/")
+    Call<UserProfile> getUserProfile();
 }

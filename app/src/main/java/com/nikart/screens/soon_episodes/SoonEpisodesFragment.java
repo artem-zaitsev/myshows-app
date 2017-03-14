@@ -20,9 +20,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.nikart.interactor.Answer;
-import com.nikart.interactor.EpisodeFromDataBaseLoader;
 import com.nikart.data.dto.Episode;
+import com.nikart.interactor.Answer;
+import com.nikart.interactor.EpisodesListFromDataBaseLoader;
 import com.nikart.myshows.R;
 
 import java.util.ArrayList;
@@ -117,7 +117,7 @@ public class SoonEpisodesFragment extends Fragment {
         loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
             @Override
             public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                return new EpisodeFromDataBaseLoader(SoonEpisodesFragment.this.getContext());
+                return new EpisodesListFromDataBaseLoader(SoonEpisodesFragment.this.getContext());
             }
 
             @Override
