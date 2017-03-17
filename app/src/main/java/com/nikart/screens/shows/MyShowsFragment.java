@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
 import com.nikart.interactor.ShowsListFromDataBaseLoader;
+import com.nikart.interactor.ShowsListLoader;
 import com.nikart.myshows.R;
 import com.nikart.util.LayoutSwitcherDialog;
 
@@ -128,7 +129,7 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
         LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
             @Override
             public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                return new ShowsListFromDataBaseLoader(MyShowsFragment.this.getContext());
+                return new ShowsListLoader(MyShowsFragment.this.getContext());
             }
 
             @Override
