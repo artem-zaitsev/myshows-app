@@ -2,15 +2,16 @@ package com.nikart.interactor;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
 import com.nikart.base.BaseLoader;
+import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
+import com.nikart.util.JsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -19,7 +20,9 @@ import java.util.List;
 
 public class ShowsListLoader extends BaseLoader<Answer> {
 
-    public ShowsListLoader(Context context) { super(context); }
+    public ShowsListLoader(Context context) {
+        super(context);
+    }
 
     @Override
     public Answer loadInBackground() {
@@ -33,18 +36,13 @@ public class ShowsListLoader extends BaseLoader<Answer> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Iterator keys = result.keys();
 
-        while (keys.hasNext()) {
-            String currentDynamicKey = (String)keys.next();
-            JSONObject currentDynamicValue = null;
-            try {
-                currentDynamicValue = result.getJSONObject(currentDynamicKey);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Show show = new Gson().fromJson(currentDynamicValue.toString(), Show.class);
-            shows.add(show);
+        JsonParser<Show> parser = new JsonParser<>(shows);
+        shows = parser.getParsedList(result, Show.class);
+        try {
+            HelperFactory.getHelper().createInDataBase(shows);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         data.setAnswer(shows);
         return data;

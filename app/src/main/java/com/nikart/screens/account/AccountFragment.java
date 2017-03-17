@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.nikart.data.dto.Show;
@@ -124,11 +125,19 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onLoadFinished(Loader<Answer> loader, Answer data) {
                         UserProfile user = data.getTypedAnswer();
-                        //data - null, поэтому захардкоренные данные
-                        usernameTextView.setText("LOGIN");
-                        Glide.with(AccountFragment.this)
-                                .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
-                                .into(accountPic);
+                        if (user != null) {
+                            usernameTextView.setText((String) user.getLogin());
+                            Glide.with(AccountFragment.this)
+                                    .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
+                                    .into(accountPic);
+                        } else {
+                            usernameTextView.setText(" ");
+                            Glide.with(AccountFragment.this)
+                                    .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
+                                    .into(accountPic);
+                            Toast.makeText(getContext(), "Sorry. There are some problems.", Toast.LENGTH_SHORT)
+                                    .show();
+                        }
                     }
 
                     @Override

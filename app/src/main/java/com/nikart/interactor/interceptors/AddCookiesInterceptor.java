@@ -27,7 +27,7 @@ public class AddCookiesInterceptor implements Interceptor {
             builder.addHeader("Cookie", cookie);
             Log.d("OkHTTP", "Cookie: " + cookie);
         }
-        Log.d("OkHTTP", "PREF: " + PreferencesWorker.getInstance().getCookies());
+        Log.d("OkHTTP", "Add cookie from prefs " + PreferencesWorker.getInstance().getCookies());
         return chain.proceed(builder.build());
     }
 }

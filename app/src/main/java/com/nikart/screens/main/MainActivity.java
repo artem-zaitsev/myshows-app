@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 
 
@@ -15,6 +16,7 @@ import com.nikart.screens.shows.MyShowsFragment;
 import com.nikart.myshows.R;
 import com.nikart.screens.soon_episodes.SoonEpisodesFragment;
 import com.nikart.screens.util.NavigationController;
+import com.nikart.util.PreferencesWorker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.d("PREFERENCES", "Cookie from prefs:" + PreferencesWorker.getInstance().getCookies());
         initActivity();
     }
 

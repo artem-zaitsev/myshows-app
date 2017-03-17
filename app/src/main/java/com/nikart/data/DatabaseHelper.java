@@ -12,7 +12,9 @@ import com.nikart.data.dao.ShowDAO;
 import com.nikart.data.dto.Episode;
 import com.nikart.data.dto.Show;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by Artem on 05.03.2017.
@@ -55,6 +57,17 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             Log.d("DATABASE_LOG", "error upgrading db "
                     + DATABASE_NAME + " ver. " + DATABASE_VERSION);
             e.printStackTrace();
+        }
+    }
+
+    /*Create a notes in base*/
+    public void createInDataBase(List<Show> shows) throws IOException {
+        for (Show s : shows) {
+            try {
+                getShowDAO().createOrUpdate(s);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

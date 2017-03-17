@@ -27,7 +27,7 @@ public class ReceivedCookieInterceptor implements Interceptor {
             for (String header : origResponse.headers("Set-Cookie")) {
                 cookies.add(header);
             }
-            Log.d("OkHTTP", "Cookie from: " + cookies);
+            Log.d("OkHTTP", "Received cookie : " + cookies);
             PreferencesWorker.getInstance().saveCookies(cookies);
         }
         return origResponse;

@@ -62,7 +62,6 @@ public class ShowsListFromDataBaseLoader extends BaseLoader<Answer> {
                 e.printStackTrace();
             }
         }
-
     }
 
     private List<Show> getFromDataBase() throws SQLException {

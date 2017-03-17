@@ -31,7 +31,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-
+        Log.d("PREFERENCES", "Cookie from prefs:" + PreferencesWorker.getInstance().getCookies());
         initActivity();
     }
 
