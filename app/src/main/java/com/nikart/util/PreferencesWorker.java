@@ -2,8 +2,8 @@ package com.nikart.util;
 
 import android.content.SharedPreferences;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Artem
@@ -11,11 +11,16 @@ import java.util.Set;
 
 public class PreferencesWorker {
 
+    public static final String PREFERENCES = "myshows.prefs";
     public static final String PREF_SIGN_IN = "sign in";
     public static final String PREF_COOKIES = "cookies";
+    private static final String COOKIES_SESID = "PHPSESID";
+    private static final String COOKIES_LOGIN = "login";
+    private static final String COOKIES_PASS = "password";
 
     private static SharedPreferences sharedPreferences;
     private static PreferencesWorker preferencesWorker;
+    private SharedPreferences.Editor edit;
 
     public static PreferencesWorker getInstance() {
         if (preferencesWorker == null) {
@@ -26,6 +31,7 @@ public class PreferencesWorker {
 
     public void initSharedPreferences(SharedPreferences sharedPreferences) {
         PreferencesWorker.sharedPreferences = sharedPreferences;
+        edit = sharedPreferences.edit();
     }
 
     public SharedPreferences getSharedPreferences() {
@@ -33,7 +39,6 @@ public class PreferencesWorker {
     }
 
     public void saveSignedIn(boolean value) {
-        SharedPreferences.Editor edit = getSharedPreferences().edit();
         edit.putBoolean(PREF_SIGN_IN, value);
         edit.apply();
     }
@@ -42,13 +47,19 @@ public class PreferencesWorker {
         return getSharedPreferences().getBoolean(PREF_SIGN_IN, false);
     }
 
-    public void saveCookies(Set<String> cookies) {
-        SharedPreferences.Editor edit = getSharedPreferences().edit();
-        edit.putStringSet(PREF_COOKIES, cookies);
-        edit.apply();
+    public void saveCookies(List<String> cookies) {
+        edit.putString(COOKIES_SESID, cookies.get(0))
+                .putString(COOKIES_LOGIN, cookies.get(1))
+                .putString(COOKIES_PASS, cookies.get(2))
+                .apply();
     }
 
-    public Set<String> getCookies() {
-        return getSharedPreferences().getStringSet(PREF_COOKIES, new HashSet<String>());
+    public List<String> getCookies() {
+        List<String> cookies = new ArrayList<>();
+
+        cookies.add(getSharedPreferences().getString(COOKIES_LOGIN, null));
+        cookies.add(getSharedPreferences().getString(COOKIES_PASS, null));
+        cookies.add(getSharedPreferences().getString(COOKIES_SESID, null));
+        return cookies;
     }
 }

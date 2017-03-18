@@ -136,7 +136,7 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
             @Override
             public void onLoadFinished(Loader<Answer> loader, Answer data) {
                 List<Show> sh = data.getTypedAnswer();
-                if (sh != null) {
+                if (sh!=null && !sh.isEmpty()) {
                     for (Show s : sh) {
                         if (shows.size() < sh.size()) {
                             shows.add(sh.indexOf(s), s);

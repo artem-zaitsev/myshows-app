@@ -1,6 +1,7 @@
 package com.nikart.app;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.nikart.data.HelperFactory;
 import com.nikart.interactor.interceptors.AddCookiesInterceptor;

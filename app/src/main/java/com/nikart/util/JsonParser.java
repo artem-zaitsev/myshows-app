@@ -1,5 +1,6 @@
 package com.nikart.util;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ public class JsonParser<T> {
 
     }
 
-    public List<T> getParsedList(JSONObject result, Class<T> c) {
+    public List<T> getParsedList(@NonNull JSONObject result, Class<T> c) {
         list = new ArrayList<>();
         Iterator keys = result.keys();
         while (keys.hasNext()) {

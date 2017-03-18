@@ -5,7 +5,7 @@ import android.util.Log;
 import com.nikart.util.PreferencesWorker;
 
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -22,10 +22,12 @@ public class AddCookiesInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request.Builder builder = chain.request().newBuilder();
 
-        HashSet<String> fromPrefs = (HashSet<String>) PreferencesWorker.getInstance().getCookies();
-        for (String cookie : fromPrefs) {
-            builder.addHeader("Cookie", cookie);
-            Log.d("OkHTTP", "Add Cookie: " + cookie);
+        List<String> fromPrefs = PreferencesWorker.getInstance().getCookies();
+        if (fromPrefs.get(0) != null) {
+            for (String cookie : fromPrefs) {
+                builder.addHeader("Cookie", cookie);
+                Log.d("OkHTTP", "Add Cookie: " + cookie);
+            }
         }
         Log.d("OkHTTP", "Add cookie from prefs " + PreferencesWorker.getInstance().getCookies());
         return chain.proceed(builder.build());

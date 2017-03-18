@@ -59,6 +59,7 @@ public class AuthLoader extends BaseLoader<Answer> {
         try {
             response = client.newCall(request).execute();
             Log.d("OkHTTP", response.toString());
+            Log.d("HTTP_RESPONSE", response.headers().get("Set-Cookie"));
         } catch (IOException e) {
             e.printStackTrace();
         }
