@@ -4,6 +4,7 @@ import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 import com.nikart.data.dto.Show;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,5 +21,16 @@ public class ShowDAO extends BaseDaoImpl<Show, Integer> {
 
     public List<Show> getAllShows() throws SQLException {
         return this.queryForAll();
+    }
+
+    /*Create a notes in base*/
+    public void createInDataBase(List<Show> shows) throws IOException {
+        for (Show s : shows) {
+            try {
+                this.createOrUpdate(s);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

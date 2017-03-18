@@ -60,16 +60,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    /*Create a notes in base*/
-    public void createInDataBase(List<Show> shows) throws IOException {
-        for (Show s : shows) {
-            try {
-                getShowDAO().createOrUpdate(s);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+
 
     /*Show*/
     public ShowDAO getShowDAO() throws SQLException {

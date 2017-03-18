@@ -12,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
@@ -32,6 +34,7 @@ public class ShowActivity extends AppCompatActivity {
             informationTextView, descriptionTextView;
     private FloatingActionButton watchingFab;
     private RateCustomView rateCustomView;
+    private ImageView showImageView;
 
     public static void start(Context context, int id) {
         Intent intent = new Intent(context, ShowActivity.class);
@@ -92,6 +95,11 @@ public class ShowActivity extends AppCompatActivity {
             }
         });
 
+        showImageView = (ImageView) findViewById(R.id.activity_show_image) ;
+        Glide.with(this)
+                .load(show.getImageUrl())
+                .centerCrop()
+                .into(showImageView);
         titleTextView = (TextView) findViewById(R.id.activity_show_toolbar_title_textview);
         titleTextView.setText(show.getTitle());
 
@@ -111,7 +119,6 @@ public class ShowActivity extends AppCompatActivity {
         Log.d("DESCRIPT", show.getDescription());
 
         watchingFab = (FloatingActionButton) findViewById(R.id.activity_show_fab);
-
         // спорное решение
         watchingFab.setImageResource(isShowWatching()
                 ? R.drawable.check_mark

@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
@@ -135,17 +136,21 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
             @Override
             public void onLoadFinished(Loader<Answer> loader, Answer data) {
                 List<Show> sh = data.getTypedAnswer();
-                for (Show s : sh) {
-                    if (shows.size() < sh.size()) {
-                        shows.add(sh.indexOf(s), s);
-                    } else {
-                        shows.set(sh.indexOf(s), s);
+                if (sh != null) {
+                    for (Show s : sh) {
+                        if (shows.size() < sh.size()) {
+                            shows.add(sh.indexOf(s), s);
+                        } else {
+                            shows.set(sh.indexOf(s), s);
+                        }
+                        showsAdapter.notifyDataSetChanged();
                     }
-                    showsAdapter.notifyDataSetChanged();
+                    progressLoad.setVisibility(View.GONE);
+                    Log.d("LOADERS", "Load finished. Shows count: " + shows.size() + " " + sh.size());
+                } else {
+                    Toast.makeText(MyShowsFragment.this.getContext(), "Troubles!", Toast.LENGTH_SHORT).show();
                 }
 
-                progressLoad.setVisibility(View.GONE);
-                Log.d("LOADERS", "Load finished. Shows count: " + shows.size() + " " + sh.size());
             }
 
             @Override

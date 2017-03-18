@@ -5,7 +5,9 @@ import com.nikart.data.dto.UserProfile;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -21,10 +23,12 @@ public interface MyShowsApi {
     Call<UserProfile> getAnyUserProfile(@Path("login") String login);
 
     //Список сериалов
-    @GET("profile/shows")
-    Call<List<Show>> getShows();
+    @GET("profile/shows/")
+    Call<ResponseBody> getShows();
 
-    //Информация об авторизированном пользователе
+    //Информация об авторизированном пол
+    // ьзователе
     @GET("profile/")
     Call<UserProfile> getUserProfile();
+
 }

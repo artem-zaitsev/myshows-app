@@ -21,7 +21,7 @@ public class ReceivedCookieInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Response origResponse = chain.proceed(chain.request());
 
-        if (!origResponse.headers("Set-Cookie").isEmpty()) {
+        if (PreferencesWorker.getInstance().getCookies().isEmpty() && !origResponse.headers("Set-Cookie").isEmpty()) {
             HashSet<String> cookies = new HashSet<>();
 
             for (String header : origResponse.headers("Set-Cookie")) {
