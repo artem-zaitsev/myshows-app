@@ -44,19 +44,25 @@ public class ShowsListLoader extends BaseLoader<Answer> {
 //        Call<ResponseBody> responseBodyCall = App.getInstance().getApi().getShows();
 
         OkHttpClient client = App.getInstance().getClient();
+        /**/
+
         Request request = new Request.Builder()
                 .url("https://api.myshows.me/profile/shows/")
                 .build();
 
+        //Response<ResponseBody> response = null;
         okhttp3.Response response = null;
+
+        ResponseBody responseBody =null;
         try {
+            //response = App.getInstance().getApi().getShows().execute();
             response = client.newCall(request).execute();
-            result = response.body()!=null ? new JSONObject(response.body().string()) : null;
+            responseBody = response.body();
             Log.d("JSON","ResponseBody: " + response.body() + " Message: " + response.message() );
+            result = response.body()!=null ? new JSONObject(response.body().string()) : null;
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
-
         JsonParser<Show> parser = new JsonParser<>();
         if (result != null) {
             shows = parser.getParsedList(result, Show.class);
@@ -64,7 +70,6 @@ public class ShowsListLoader extends BaseLoader<Answer> {
         } else {
             shows = getShowsFromDb();
         }
-
         data.setAnswer(shows);
         return data;
     }
