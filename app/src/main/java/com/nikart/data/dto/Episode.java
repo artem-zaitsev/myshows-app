@@ -2,18 +2,24 @@ package com.nikart.data.dto;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
+import com.google.gson.annotations.SerializedName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Artem
  */
 
 @DatabaseTable(tableName = Episode.TABLE_NAME)
-public class Episode implements Parcelable{
+public class Episode implements Parcelable {
 
     public final static String TABLE_NAME = "episodes";
     public final static String FIELD_NAME_ID = "id";
@@ -22,23 +28,40 @@ public class Episode implements Parcelable{
     public final static String FIELD_NAME_SHORT_NAME = "short_name";
     public final static String FIELD_NAME_AIR_DATE = "air_date";
     public final static String FIELD_NAME_RATING = "rating";
+    public static final Creator<Episode> CREATOR = new Creator<Episode>() {
+        @Override
+        public Episode createFromParcel(Parcel in) {
+            return new Episode(in);
+        }
 
+        @Override
+        public Episode[] newArray(int size) {
+            return new Episode[size];
+        }
+    };
     @DatabaseField(columnName = FIELD_NAME_ID, id = true)
+    @SerializedName("episodeId")
     private int id;
     @DatabaseField(columnName = FIELD_NAME_TITLE)
+    @SerializedName("title")
     private String title;
+    @SerializedName("seasonNumber")
+    private int seasonNumber;
+    @SerializedName("episodeNumber")
+    private int episodeNumber;
     @DatabaseField(columnName = FIELD_NAME_SHORT_NAME)
     private String shortName;
     @DatabaseField(columnName = FIELD_NAME_AIR_DATE)
-    private Date airDate;
+    @SerializedName("airDate")
+    private String airDate;
     @DatabaseField(columnName = FIELD_NAME_RATING)
     private int rate;
-
     @DatabaseField(columnName = FIELD_NAME_SHOW, foreign = true, foreignAutoRefresh = true)
     private Show show;
+    @SerializedName("showId")
+    private int showId;
 
-
-    public Episode(){
+    public Episode() {
         String[] titles = new String[]{
                 "Promo",
                 "Something new",
@@ -52,12 +75,13 @@ public class Episode implements Parcelable{
                 "?????"
         };
         this.shortName = "s1e1";
-        this.airDate = new Date(2017,5,17);
+        this.airDate = "19.03.2017";
         int random1 = (int) (Math.random() * 12 / 4);
         int random2 = (int) (Math.random() * 12 / 4);
         this.title = titles[random1];
         this.rate = 0;
     }
+
     // Конструктор с сгенерированными эпизодами.
     public Episode(int i) {
         String[] titles = new String[]{
@@ -72,15 +96,15 @@ public class Episode implements Parcelable{
                 "The Big Bang",
                 "?????"
         };
-        this.shortName = "s" + i +"e1";
-        this.airDate = new Date(2017,05,17);
+        this.shortName = "s" + i + "e1";
+        this.airDate = "19.02.2017";
         int random1 = (int) (Math.random() * 12 / 4);
         int random2 = (int) (Math.random() * 12 / 4);
         this.title = titles[random1];
         this.rate = 0;
     }
 
-    public Episode(String title, String shortName, String showTitle, Date airDate) {
+    public Episode(String title, String shortName, String showTitle, String airDate) {
         this.title = title;
         this.shortName = shortName;
         this.airDate = airDate;
@@ -89,21 +113,9 @@ public class Episode implements Parcelable{
     protected Episode(Parcel in) {
         id = in.readInt();
         title = in.readString();
-        shortName= in.readString();
+        shortName = in.readString();
         rate = in.readInt();
     }
-
-    public static final Creator<Episode> CREATOR = new Creator<Episode>() {
-        @Override
-        public Episode createFromParcel(Parcel in) {
-            return new Episode(in);
-        }
-
-        @Override
-        public Episode[] newArray(int size) {
-            return new Episode[size];
-        }
-    };
 
     public String getTitle() {
         return title;
@@ -114,6 +126,7 @@ public class Episode implements Parcelable{
     }
 
     public String getShortName() {
+        shortName = "s" + getSeasonNumber() + "e" + getEpisodeNumber();
         return shortName;
     }
 
@@ -122,10 +135,18 @@ public class Episode implements Parcelable{
     }
 
     public Date getAirDate() {
-        return airDate;
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
+        Date date = new Date();
+        try {
+            date = df.parse(airDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Log.d("DATE", toString() + date + " source: " + airDate);
+        return date;
     }
 
-    public void setAirDate(Date airDate) {
+    public void setAirDate(String airDate) {
         this.airDate = airDate;
     }
 
@@ -144,6 +165,22 @@ public class Episode implements Parcelable{
 
     public void setShow(Show show) {
         this.show = show;
+    }
+
+    public int getSeasonNumber() {
+        return seasonNumber;
+    }
+
+    public void setSeasonNumber(int seasonNumber) {
+        this.seasonNumber = seasonNumber;
+    }
+
+    public int getEpisodeNumber() {
+        return episodeNumber;
+    }
+
+    public void setEpisodeNumber(int episodeNumber) {
+        this.episodeNumber = episodeNumber;
     }
 
     @Override

@@ -26,7 +26,7 @@ import com.bumptech.glide.Glide;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.interactor.Answer;
-import com.nikart.interactor.UserProfileLoader;
+import com.nikart.interactor.loaders.UserProfileLoader;
 import com.nikart.myshows.R;
 
 import java.util.ArrayList;

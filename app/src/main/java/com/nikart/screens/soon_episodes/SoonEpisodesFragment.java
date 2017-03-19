@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 import com.nikart.data.dto.Episode;
 import com.nikart.interactor.Answer;
-import com.nikart.interactor.EpisodesListFromDataBaseLoader;
+import com.nikart.interactor.loaders.NextEpisodesListLoader;
 import com.nikart.myshows.R;
 
 import java.util.ArrayList;
@@ -81,9 +81,11 @@ public class SoonEpisodesFragment extends Fragment {
             case R.id.item_toggle_group: {
                 for (Month m : months
                         ) {
+                    // надо настроить поведение на раскрыть/свернуть все
                     c = monthAdapter.toggleGroup(m)
-                            ? c + 1
-                            : c - 1;
+                            ? (c + 1)
+                            : (c - 1);
+
                 }
                 item.setTitle(c <= 0
                         ? R.string.collapse
@@ -117,7 +119,7 @@ public class SoonEpisodesFragment extends Fragment {
         loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
             @Override
             public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                return new EpisodesListFromDataBaseLoader(SoonEpisodesFragment.this.getContext());
+                return new NextEpisodesListLoader(SoonEpisodesFragment.this.getContext());
             }
 
             @Override
@@ -129,36 +131,41 @@ public class SoonEpisodesFragment extends Fragment {
                 months = new ArrayList<>();
                 List<Episode> episodes = new ArrayList<>();
                 List<Episode> fromResponse = data.getTypedAnswer();
-                for (Episode e : fromResponse) {
-                    episodes.add(fromResponse.indexOf(e), e);
-                }
-                for (int i = 0; i < episodes.size(); i++) {
-                    maximumDate = (today.compareTo(episodes.get(i).getAirDate()) < 0)
-                            ? episodes.get(i).getAirDate()
-                            : today;
-                    Log.d("TAG", "Ep date: " + episodes.get(i).getAirDate().getMonth());
-                    Log.d("TAG", String.valueOf(maximumDate.getMonth()));
-                }
 
-                //Использую устаревший метод, так как не сильно вдался в подробности
-                //как применить Calendar к имеющейся дате.
-                for (int i = Calendar.getInstance().get(Calendar.MONTH);
-                     i <= maximumDate.getMonth(); i++) {
-                    List<Episode> tmp = new ArrayList<>();
+                if (fromResponse != null) {
 
-                    for (Episode ep : episodes) {
-                        if (today.compareTo(ep.getAirDate()) <= 0 &&
-                                ep.getAirDate().getMonth() == i) {
-                            tmp.add(ep);
-                        }
+                    for (Episode e : fromResponse) {
+                        episodes.add(fromResponse.indexOf(e), e);
                     }
-                    if (tmp.isEmpty()) continue;
-                    months.add(new Month(monthTitle[i], tmp));
-                }
 
-                Log.d("LOADERS", "Load finished on " + SoonEpisodesFragment.class.toString());
-                progressLoad.setVisibility(View.GONE);
-                initRecycler();
+                    for (int i = 0; i < episodes.size(); i++) {
+                        maximumDate = (today.compareTo(episodes.get(i).getAirDate()) < 0)
+                                ? episodes.get(i).getAirDate()
+                                : today;
+                        Log.d("TAG", "Ep date: " + episodes.get(i).getAirDate().getMonth());
+                        Log.d("TAG", String.valueOf(maximumDate.getMonth()));
+                    }
+
+                    //Использую устаревший метод, так как не сильно вдался в подробности
+                    //как применить Calendar к имеющейся дате.
+                    for (int i = Calendar.getInstance().get(Calendar.MONTH);
+                         i <= maximumDate.getMonth(); i++) {
+                        List<Episode> tmp = new ArrayList<>();
+
+                        for (Episode ep : episodes) {
+                            if (today.compareTo(ep.getAirDate()) <= 0 &&
+                                    ep.getAirDate().getMonth() == i) {
+                                tmp.add(ep);
+                            }
+                        }
+                        if (tmp.isEmpty()) continue;
+                        months.add(new Month(monthTitle[i], tmp));
+                    }
+
+                    Log.d("LOADERS", "Load finished on " + SoonEpisodesFragment.class.toString());
+                    progressLoad.setVisibility(View.GONE);
+                    initRecycler();
+                }
             }
 
             @Override

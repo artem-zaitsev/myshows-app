@@ -1,13 +1,9 @@
 package com.nikart.interactor.retrofit;
 
-import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
-
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
@@ -26,9 +22,11 @@ public interface MyShowsApi {
     @GET("profile/shows/")
     Call<ResponseBody> getShows();
 
-    //Информация об авторизированном пол
-    // ьзователе
+    //Информация об авторизированном пользователе
     @GET("profile/")
     Call<UserProfile> getUserProfile();
+
+    @GET("profile/episodes/next/")
+    Call<ResponseBody> getNextEpisodes();
 
 }

@@ -24,8 +24,7 @@ import android.widget.Toast;
 
 import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
-import com.nikart.interactor.ShowsListFromDataBaseLoader;
-import com.nikart.interactor.ShowsListLoader;
+import com.nikart.interactor.loaders.ShowsListLoader;
 import com.nikart.myshows.R;
 import com.nikart.util.LayoutSwitcherDialog;
 
@@ -136,7 +135,7 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
             @Override
             public void onLoadFinished(Loader<Answer> loader, Answer data) {
                 List<Show> sh = data.getTypedAnswer();
-                if (sh!=null && !sh.isEmpty()) {
+                if (sh != null && !sh.isEmpty()) {
                     for (Show s : sh) {
                         if (shows.size() < sh.size()) {
                             shows.add(sh.indexOf(s), s);

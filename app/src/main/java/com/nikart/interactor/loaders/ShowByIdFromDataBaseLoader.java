@@ -1,10 +1,11 @@
-package com.nikart.interactor;
+package com.nikart.interactor.loaders;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import com.nikart.base.BaseLoader;
 import com.nikart.data.HelperFactory;
+import com.nikart.interactor.Answer;
 
 import java.sql.SQLException;
 

@@ -1,4 +1,4 @@
-package com.nikart.interactor;
+package com.nikart.interactor.loaders;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.util.Log;
 import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
 import com.nikart.data.dto.UserProfile;
+import com.nikart.interactor.Answer;
 
 import java.io.IOException;
 

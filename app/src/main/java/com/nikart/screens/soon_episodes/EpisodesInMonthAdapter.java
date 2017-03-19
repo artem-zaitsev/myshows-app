@@ -51,18 +51,15 @@ public class EpisodesInMonthAdapter
         Episode ep = ((Month) group).getItems().get(childIndex);
 
         holder.dateTextView.setText(DateFormat.format("dd, EE ", ep.getAirDate()));
-
         holder.showTitleTextView.setText(String.format(
                 context.getString(R.string.fragment_episodes_show_title),
-                ep.getShow().getTitle()));
+                "NOT WORKING"));
         holder.seasonTitleTextView.setText(String.format(
                 context.getString(R.string.fragment_episodes_short_name),
                 ep.getShortName()));
         holder.episodeTitleTextView.setText(ep.getTitle());
 
-
         Resources res = context.getResources();
-
         Calendar calendarEpisodes = Calendar.getInstance();
         calendarEpisodes.setTime(ep.getAirDate());
         int daysCount =

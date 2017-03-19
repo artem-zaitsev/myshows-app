@@ -1,4 +1,4 @@
-package com.nikart.interactor;
+package com.nikart.interactor.loaders;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,10 +7,10 @@ import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
+import com.nikart.interactor.Answer;
 import com.nikart.util.JsonParser;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -35,20 +35,19 @@ public class ShowsListLoader extends BaseLoader<Answer> {
         List<Show> shows = new ArrayList<>();
         data = new Answer();
 
-        JSONObject result = null;
         Response<ResponseBody> response = null;
         try {
             response = App.getInstance().getApi().getShows().execute();
-            Log.d("JSON", "ResponseBody: " + response.body() + " Message: " + response.message());
+            Log.d("LOADERS", this.toString()
+                    + "ResponseBody: " + response.body() + " Message: " + response.message());
 
-            result = response.body() != null ? new JSONObject(response.body().string()) : null;
+            JsonParser<Show> parser = new JsonParser<>(response);
+            shows = parser.getParsedList(Show.class);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
-        JsonParser<Show> parser = new JsonParser<>();
-        if (result != null) {
-            shows = parser.getParsedList(result, Show.class);
+        if (shows != null) {
             createShowsInDb(shows);
         } else {
             shows = getShowsFromDb();

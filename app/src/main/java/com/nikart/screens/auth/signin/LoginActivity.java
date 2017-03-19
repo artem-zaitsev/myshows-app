@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nikart.interactor.Answer;
-import com.nikart.interactor.AuthLoader;
+import com.nikart.interactor.loaders.AuthLoader;
 import com.nikart.myshows.R;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;

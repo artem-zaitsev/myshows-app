@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
-import com.nikart.interactor.ShowByIdFromDataBaseLoader;
+import com.nikart.interactor.loaders.ShowByIdFromDataBaseLoader;
 import com.nikart.myshows.R;
 import com.nikart.screens.util.RateCustomView;
 
@@ -95,7 +95,7 @@ public class ShowActivity extends AppCompatActivity {
             }
         });
 
-        showImageView = (ImageView) findViewById(R.id.activity_show_image) ;
+        showImageView = (ImageView) findViewById(R.id.activity_show_image);
         Glide.with(this)
                 .load(show.getImageUrl())
                 .centerCrop()

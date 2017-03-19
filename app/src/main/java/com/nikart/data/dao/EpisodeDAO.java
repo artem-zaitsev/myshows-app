@@ -21,4 +21,14 @@ public class EpisodeDAO extends BaseDaoImpl<Episode, Integer> {
     public List<Episode> getAllEpisodes() throws SQLException {
         return this.queryForAll();
     }
+
+    public void createInDataBase(List<Episode> episodes) {
+        for (Episode ep : episodes) {
+            try {
+                this.createOrUpdate(ep);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
