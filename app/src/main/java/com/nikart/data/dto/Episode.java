@@ -62,52 +62,6 @@ public class Episode implements Parcelable {
     private int showId;
 
     public Episode() {
-        String[] titles = new String[]{
-                "Promo",
-                "Something new",
-                "Knock-knock",
-                "Hello, World!"
-        };
-        String[] shows = new String[]{
-                "Sherlock",
-                "Lost",
-                "The Big Bang",
-                "?????"
-        };
-        this.shortName = "s1e1";
-        this.airDate = "19.03.2017";
-        int random1 = (int) (Math.random() * 12 / 4);
-        int random2 = (int) (Math.random() * 12 / 4);
-        this.title = titles[random1];
-        this.rate = 0;
-    }
-
-    // Конструктор с сгенерированными эпизодами.
-    public Episode(int i) {
-        String[] titles = new String[]{
-                "Promo",
-                "Something new",
-                "Knock-knock",
-                "Hello, World!"
-        };
-        String[] shows = new String[]{
-                "Sherlock",
-                "Lost",
-                "The Big Bang",
-                "?????"
-        };
-        this.shortName = "s" + i + "e1";
-        this.airDate = "19.02.2017";
-        int random1 = (int) (Math.random() * 12 / 4);
-        int random2 = (int) (Math.random() * 12 / 4);
-        this.title = titles[random1];
-        this.rate = 0;
-    }
-
-    public Episode(String title, String shortName, String showTitle, String airDate) {
-        this.title = title;
-        this.shortName = shortName;
-        this.airDate = airDate;
     }
 
     protected Episode(Parcel in) {
@@ -181,6 +135,10 @@ public class Episode implements Parcelable {
 
     public void setEpisodeNumber(int episodeNumber) {
         this.episodeNumber = episodeNumber;
+    }
+
+    public int getShowId() {
+        return showId;
     }
 
     @Override

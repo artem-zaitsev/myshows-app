@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MyShows</string>
+    <string name="app_name">My Shows</string>
     <string name="back">Назад</string>
     <string name="empty_content">Здесь ничего нет, пока…</string>
     <string name="my_account">Мой Профиль</string>

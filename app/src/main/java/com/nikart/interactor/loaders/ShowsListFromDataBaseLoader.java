@@ -26,25 +26,12 @@ public class ShowsListFromDataBaseLoader extends BaseLoader<Answer> {
 
     @Override
     public Answer loadInBackground() {
-        List<Show> generatedShows = new ArrayList<>(30);
-        List<Episode> generatedEps = new ArrayList<>(30);
-        for (int i = 0; i < 30; i++) {
-            generatedShows.add(i, new Show());
-            generatedShows.get(i).setId(i);
-            generatedEps.add(i, new Episode());
-            generatedEps.get(i).setShow(generatedShows.get(i));
-        }
 
         data = new Answer();
         try {
-            if (getFromDataBase().size() < generatedShows.size()) {
-                createInDataBase(generatedShows, generatedEps);
-            }
-
             data.setAnswer(getFromDataBase());
-
             Log.d("LOADERS", String.valueOf(getFromDataBase().size()));
-        } catch (SQLException | IOException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

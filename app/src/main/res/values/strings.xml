@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyShows</string>
+    <string name="app_name">My Shows</string>
     <string name="welcome">Welcome to MyShows.</string>
     <string name="promo1">Create your own episodes list</string>
     <string name="promo2">Don\'t miss when episode airs</string>

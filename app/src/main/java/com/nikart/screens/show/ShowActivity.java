@@ -45,10 +45,9 @@ public class ShowActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show);
+        setContentView(R.layout.layout_load_content);
 
         loadFromIntent();
-
     }
 
     private void loadFromIntent() {
@@ -87,6 +86,7 @@ public class ShowActivity extends AppCompatActivity {
     }
 
     private void initActivity() {
+        setContentView(R.layout.activity_show);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_show_toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

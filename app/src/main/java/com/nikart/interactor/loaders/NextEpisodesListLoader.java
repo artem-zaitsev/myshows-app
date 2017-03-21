@@ -7,6 +7,7 @@ import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Episode;
+import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
 import com.nikart.util.JsonParser;
 
@@ -57,7 +58,7 @@ public class NextEpisodesListLoader extends BaseLoader<Answer> {
     private List<Episode> getEpisodesFromDb() {
         List<Episode> eps = new ArrayList<>();
         try {
-            HelperFactory.getHelper().getEpisodeDAO().getAllEpisodes();
+            eps = HelperFactory.getHelper().getEpisodeDAO().getAllEpisodes();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,9 +67,11 @@ public class NextEpisodesListLoader extends BaseLoader<Answer> {
 
     private void createEpisodesInDb(List<Episode> episodes) {
         try {
+
             HelperFactory.getHelper().getEpisodeDAO().createInDataBase(episodes);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

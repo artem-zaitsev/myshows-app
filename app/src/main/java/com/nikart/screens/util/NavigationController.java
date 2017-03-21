@@ -43,9 +43,11 @@ public class NavigationController {
     }
 
     public void switchFragments(MenuItem item) {
-        hideCurrentFragment();
+
         for (int i = 0; i < items.size(); i++) {
-            if (item.getItemId() == items.get(i).getItemId()) {
+            if (item.getItemId() == items.get(i).getItemId() &&
+                    !currentFragment.getTag().equals(fragments.get(i).getTag())) {
+                hideCurrentFragment();
                 openFragment(fragments.get(i));
             }
         }

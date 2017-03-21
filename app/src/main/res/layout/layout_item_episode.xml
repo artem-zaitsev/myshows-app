@@ -3,7 +3,7 @@
     style="@style/AppTheme.NoActionBar"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:layout_margin="5dp"
+    android:padding="5dp"
     android:background="?android:selectableItemBackground"
     android:clickable="true"
     android:focusable="true"

@@ -47,25 +47,30 @@ public class Show {
     private String titleOriginal;
 
     @DatabaseField(columnName = FIELD_NAME_DESCRIPTION)
+    @SerializedName("description")
     private String description;
 
     @DatabaseField(columnName = FIELD_NAME_TOTAL_SEASON)
     private int totalSeasons;
 
     @DatabaseField(columnName = FIELD_NAME_STATUS)
+    @SerializedName("status")
     private String status;
 
     @DatabaseField(columnName = FIELD_NAME_COUNTRY)
-    @SerializedName("showStatus")
+    @SerializedName("country")
     private String country;
 
     @DatabaseField(columnName = FIELD_NAME_STARTED)
+    @SerializedName("started")
     private String started;
 
     @DatabaseField(columnName = FIELD_NAME_ENDED)
+    @SerializedName("ended")
     private String ended;
 
     @DatabaseField(columnName = FIELD_NAME_YEAR)
+    @SerializedName("year")
     private int year;
 
     @DatabaseField(columnName = FIELD_NAME_WATCHING)
@@ -76,14 +81,15 @@ public class Show {
 
     @DatabaseField(columnName = FIELD_NAME_RATING)
     @SerializedName("rating")
-    private int rating;
+    private float rating;
 
     @DatabaseField(columnName = FIELD_NAME_IMAGE)
     @SerializedName("image")
     private String imageUrl;
 
     @ForeignCollectionField(columnName = FIELD_NAME_EPISODES, eager = true)
-    private ForeignCollection<Episode> episodes;
+    @Expose
+    private ForeignCollection<Episode> episode;
 
     @DatabaseField(columnName = FIELD_NAME_WATCH_STATUS)
     @SerializedName("watchStatus")
@@ -97,45 +103,13 @@ public class Show {
     @SerializedName("watchedEpisodes")
     private int watchedEpisodes;
 
+    @SerializedName("genres")
     private String[] genresIds;
 
     @SerializedName("runtime")
     private Long runtime;
 
     public Show() {
-        this.title = "Sherlock";
-        this.titleOriginal = "Sherlock";
-        this.started = Integer.toString(2010);
-        this.ended = Integer.toString(2017);
-        this.rating = 0;
-        this.description =
-                "\n<p>История о Шерлоке Холмсе и докторе Уотсоне в Лондоне начала " +
-                        "двадцать первого века успела прославиться не только как одна из самых стильных " +
-                        "и интригующих экранизаций рассказов сэра Артура Конан-Дойла, но и как шоу, " +
-                        "создатели которого заставляют фанатов изнывать в ожидании новых серий не меньше " +
-                        "пары-тройки мучительных лет. Ожидание, впрочем, того стоит." + "\r\n" +
-                        "</p>" + "\r\n" + "<h3>В чем суть?</h3>" + "\r\n" +
-                        "<p>Хромающий афганский ветеран ищет соседа по квартире и по совету знакомого " +
-                        "отправляется в морг к возможному кандидату. К счастью, живому – но с характером, " +
-                        "являющим собой ядерный коктейль из социопатии, презрения к интеллектуальному " +
-                        "уровню окружающих и прочих милых личностных качеств, включая неоспоримую " +
-                        "гениальность. Лондон, тем временем, сотрясает череда необъяснимых убийств," +
-                        " разобраться с которыми бравым служакам из Скотленд Ярда оказывается не по зубам. " +
-                        "В дело под бодрый саундтрек вступают Шерлок и доктор Уотсон, вооруженные в " +
-                        "придачу к давно знакомой дедукции еще и личным блогом, закодированными " +
-                        "мобильниками и прочими благами цивилизации." + "\r\n" + "</p>";
-        this.imageUrl =
-                "https://media.myshows.me/shows/normal/9/94/9492ce09d3a31c32ba559f5936dac888.jpg";
-        this.totalEpisodes = 12;
-        this.watchedEpisodes = 3;
-    }
-
-    public Show(String title, int started, int ended, String description, String imageUrl) {
-        this.title = title;
-        this.started = Integer.toString(started);
-        this.ended = Integer.toString(ended);
-        this.description = description;
-        this.imageUrl = imageUrl;
     }
 
     public int getId() {
@@ -235,7 +209,7 @@ public class Show {
     }
 
     public int getRating() {
-        return rating;
+        return Math.round(rating);
     }
 
     public void setRating(int rating) {
@@ -279,7 +253,7 @@ public class Show {
     }
 
     public ForeignCollection<Episode> getEpisodes() {
-        return episodes;
+        return episode;
     }
 
     public Long getRuntime() {

@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.interactor.Answer;
+import com.nikart.interactor.loaders.ShowsListFromDataBaseLoader;
 import com.nikart.interactor.loaders.UserProfileLoader;
 import com.nikart.myshows.R;
 
@@ -46,6 +48,7 @@ public class AccountFragment extends Fragment {
     private Toolbar toolbar;
     private ImageView accountPic;
     private TextView usernameTextView;
+    private FrameLayout progressLayout;
 
     private String ACCOUNT_FRAGMENT_TITLE;
 
@@ -67,7 +70,7 @@ public class AccountFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
         initFragment(rootView);
         loadData();
-        initRecycler(rootView);
+
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -91,6 +94,8 @@ public class AccountFragment extends Fragment {
     }
 
     private void initFragment(View rootView) {
+        progressLayout  =(FrameLayout) rootView.findViewById(R.id.fragment_account_progress);
+        progressLayout.setVisibility(View.VISIBLE);
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(ACCOUNT_FRAGMENT_TITLE);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -102,10 +107,10 @@ public class AccountFragment extends Fragment {
         accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
         usernameTextView =
                 (TextView) rootView.findViewById(R.id.fragment_account_username_text_view);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
     }
 
-    private void initRecycler(View rootView) {
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
+    private void initRecycler(List shows) {
         layoutManager = new LinearLayoutManager(this.getContext()); // two columns
 
         showsAdapter = new AccountShowAdapter(shows);
@@ -114,7 +119,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void loadData() {
-        LoaderManager.LoaderCallbacks loaderCallbacks =
+        LoaderManager.LoaderCallbacks loaderUserProfileCallbacks =
                 new LoaderManager.LoaderCallbacks<Answer>() {
 
                     @Override
@@ -130,6 +135,7 @@ public class AccountFragment extends Fragment {
                             Glide.with(AccountFragment.this)
                                     .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
                                     .into(accountPic);
+                            progressLayout.setVisibility(View.GONE);
                         } else {
                             usernameTextView.setText(" ");
                             Glide.with(AccountFragment.this)
@@ -145,7 +151,27 @@ public class AccountFragment extends Fragment {
 
                     }
                 };
-        getActivity().getSupportLoaderManager().initLoader(0, null, loaderCallbacks);
+        LoaderManager.LoaderCallbacks loaderShowListCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
+            @Override
+            public Loader<Answer> onCreateLoader(int id, Bundle args) {
+                return new ShowsListFromDataBaseLoader(getContext());
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Answer> loader, Answer data) {
+                if(data.getTypedAnswer() != null) {
+                    shows = data.getTypedAnswer();
+                    initRecycler(shows);
+                }
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Answer> loader) {
+
+            }
+        };
+        getActivity().getSupportLoaderManager().initLoader(0, null, loaderUserProfileCallbacks);
+        getActivity().getSupportLoaderManager().initLoader(1, null, loaderShowListCallbacks);
 
     }
 }

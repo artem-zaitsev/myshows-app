@@ -57,7 +57,7 @@ public class SoonEpisodesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_my_episodes, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_soon_episodes, container, false);
         initFragment(rootView);
         initLoader();
         setHasOptionsMenu(true);

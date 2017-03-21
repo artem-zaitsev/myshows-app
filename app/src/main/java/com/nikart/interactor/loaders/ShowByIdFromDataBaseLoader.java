@@ -2,12 +2,18 @@ package com.nikart.interactor.loaders;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
 import com.nikart.data.HelperFactory;
+import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
 
+import java.io.IOException;
 import java.sql.SQLException;
+
+import retrofit2.Response;
 
 /**
  * Created by Artem on 14.03.2017.
@@ -34,11 +40,17 @@ public class ShowByIdFromDataBaseLoader extends BaseLoader<Answer> {
     @Override
     public Answer loadInBackground() {
         data = new Answer();
+
         try {
-            data.setAnswer(HelperFactory.getHelper().getShowDAO().queryForId(id));
-        } catch (SQLException e) {
+            Response<Show> response = App.getInstance().getApi().getShowById(id).execute();
+            data.setAnswer(response.body());
+            if (response.body() == null) {
+                    data.setAnswer(HelperFactory.getHelper().getShowDAO().queryForId(id));
+            }
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
+
         return data;
     }
 }

@@ -1,5 +1,6 @@
 package com.nikart.interactor.retrofit;
 
+import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 
 import okhttp3.ResponseBody;
@@ -28,5 +29,8 @@ public interface MyShowsApi {
 
     @GET("profile/episodes/next/")
     Call<ResponseBody> getNextEpisodes();
+
+    @GET("shows/{id}")
+    Call<Show> getShowById(@Path("id") int id);
 
 }

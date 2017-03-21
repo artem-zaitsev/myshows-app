@@ -53,7 +53,7 @@ public class EpisodesInMonthAdapter
         holder.dateTextView.setText(DateFormat.format("dd, EE ", ep.getAirDate()));
         holder.showTitleTextView.setText(String.format(
                 context.getString(R.string.fragment_episodes_show_title),
-                "NOT WORKING"));
+                ep.getShow().getTitle()));
         holder.seasonTitleTextView.setText(String.format(
                 context.getString(R.string.fragment_episodes_short_name),
                 ep.getShortName()));
