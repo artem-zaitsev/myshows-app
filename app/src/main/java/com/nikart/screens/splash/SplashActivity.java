@@ -25,6 +25,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        initActivity();
+    }
+
+    private void initActivity() {
         String login = PreferencesWorker.getInstance().getLogin();
         String password = PreferencesWorker.getInstance().getPassword();
         if ( login != null

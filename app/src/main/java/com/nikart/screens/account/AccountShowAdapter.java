@@ -19,9 +19,11 @@ import java.util.List;
 public class AccountShowAdapter extends RecyclerView.Adapter<AccountShowAdapter.ShowViewHolder> {
 
     private List<Show> showList;
+    private RateShowChangedListener listener;
 
-    public AccountShowAdapter(List list) {
+    public AccountShowAdapter(List list, RateShowChangedListener listener) {
         this.showList = list;
+        this.listener = listener;
     }
 
     @Override
@@ -37,14 +39,14 @@ public class AccountShowAdapter extends RecyclerView.Adapter<AccountShowAdapter.
 
         holder.showTitle.setText(show.getTitle());
         holder.showTitleOriginal.setText(show.getTitleOriginal());
-        holder.ratingView.setRate(show.getRating());
+        holder.ratingView.setRate(Math.round(show.getRating()));
         holder.ratingView.setClickListener(new RateCustomView.OnRateCustomViewClickListener() {
             @Override
             public void onClick(int rate) {
                 show.setRating(rate);
+                if (listener != null) listener.rateUpdate(show.getId(), rate);
             }
         });
-
     }
 
 
@@ -67,5 +69,9 @@ public class AccountShowAdapter extends RecyclerView.Adapter<AccountShowAdapter.
             ratingView = (RateCustomView) itemView.findViewById(R.id.layout_item_account_rate);
 
         }
+    }
+
+    public interface RateShowChangedListener {
+        public void rateUpdate(int showId, int rate);
     }
 }

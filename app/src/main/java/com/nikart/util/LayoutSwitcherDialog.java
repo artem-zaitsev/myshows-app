@@ -24,17 +24,6 @@ public class LayoutSwitcherDialog extends DialogFragment {
         public void OnItemClickListener(int i);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        /*try{
-            listener = (LayoutSwitcherDialogListener)context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + "must implement LayoutSwitcherDialogListener!");
-        }*/
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -42,7 +31,7 @@ public class LayoutSwitcherDialog extends DialogFragment {
                 R.style.Theme_AppCompat_Light_Dialog_Alert));
 
         builder.setTitle(R.string.menu_layout_switch)
-                .setSingleChoiceItems(R.array.layouts_variants, 0, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(R.array.layouts_variants, -1, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         listener.OnItemClickListener(i);

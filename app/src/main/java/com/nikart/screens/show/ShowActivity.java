@@ -34,7 +34,7 @@ public class ShowActivity extends AppCompatActivity {
     private TextView titleTextView,
             informationTextView, descriptionTextView;
     private FloatingActionButton watchingFab;
-    private RateCustomView rateCustomView;
+    private TextView rateTextView;
     private ImageView showImageView;
 
     public static void start(Context context, int id) {
@@ -136,36 +136,7 @@ public class ShowActivity extends AppCompatActivity {
             }
         });
 
-        rateCustomView = (RateCustomView) findViewById(R.id.activity_show_rate_view);
-        rateCustomView.setRate(show.getRating());
-        rateCustomView.setClickListener(new RateCustomView.OnRateCustomViewClickListener() {
-            @Override
-            public void onClick(int rate) {
-                show.setRating(rate);
-                try {
-                    HelperFactory.getHelper().getShowDAO().update(show);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                getSupportLoaderManager().restartLoader(1, RateUpdateLoader.args(show.getId(), rate),
-                        new LoaderManager.LoaderCallbacks<Boolean>() {
-                            @Override
-                            public Loader<Boolean> onCreateLoader(int id, Bundle args) {
-                                int arg[] = args.getIntArray("RATE");
-                                return new RateUpdateLoader(ShowActivity.this, arg[0], arg[1]);
-                            }
-
-                            @Override
-                            public void onLoadFinished(Loader<Boolean> loader, Boolean data) {
-
-                            }
-
-                            @Override
-                            public void onLoaderReset(Loader<Boolean> loader) {
-
-                            }
-                        });
-            }
-        });
+        rateTextView = (TextView) findViewById(R.id.activity_show_rate_view);
+        rateTextView.setText(String.valueOf(show.getRating()));
     }
 }

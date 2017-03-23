@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.interactor.Answer;
+import com.nikart.interactor.loaders.RateUpdateLoader;
 import com.nikart.interactor.loaders.ShowsListFromDataBaseLoader;
 import com.nikart.interactor.loaders.UserProfileLoader;
 import com.nikart.myshows.R;
@@ -38,7 +39,7 @@ import java.util.List;
  * Фрагмент для отображения информации об аккаунте
  */
 
-public class AccountFragment extends Fragment {
+public class AccountFragment extends Fragment implements AccountShowAdapter.RateShowChangedListener{
 
     private RecyclerView recyclerView;
     private AccountShowAdapter showsAdapter;
@@ -113,7 +114,7 @@ public class AccountFragment extends Fragment {
     private void initRecycler(List shows) {
         layoutManager = new LinearLayoutManager(this.getContext()); // two columns
 
-        showsAdapter = new AccountShowAdapter(shows);
+        showsAdapter = new AccountShowAdapter(shows, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
     }
@@ -173,5 +174,35 @@ public class AccountFragment extends Fragment {
         getActivity().getSupportLoaderManager().initLoader(0, null, loaderUserProfileCallbacks);
         getActivity().getSupportLoaderManager().initLoader(1, null, loaderShowListCallbacks);
 
+    }
+
+    @Override
+    public void rateUpdate(int showId, int rate) {
+        getActivity().getSupportLoaderManager().restartLoader(2, RateUpdateLoader.args(showId, rate),
+                new LoaderManager.LoaderCallbacks<Boolean>() {
+                    @Override
+                    public Loader<Boolean> onCreateLoader(int id, Bundle args) {
+                        int arguments[] = args.getIntArray(RateUpdateLoader.ARGS_RATE);
+                        int showId = arguments.length != 0 ? arguments[0] : null;
+                        int rate = arguments.length != 0 ? arguments[1] : null;
+                        return new RateUpdateLoader(getContext(), showId, rate);
+                    }
+
+                    @Override
+                    public void onLoadFinished(Loader<Boolean> loader, Boolean data) {
+                        if ( data ) {
+                            Toast.makeText(getContext(), "Show is rated successfully", Toast.LENGTH_SHORT)
+                                    .show();
+                        } else {
+                            Toast.makeText(getContext(), "Show is not rated", Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                    }
+
+                    @Override
+                    public void onLoaderReset(Loader<Boolean> loader) {
+
+                    }
+                });
     }
 }

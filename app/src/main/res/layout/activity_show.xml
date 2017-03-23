@@ -103,12 +103,15 @@
                             android:textColor="@color/primary_text_material_dark"
                             android:textSize="18sp" />
 
-                        <com.nikart.screens.util.RateCustomView
+                        <TextView
                             android:id="@+id/activity_show_rate_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:padding="5dp"
                             android:layout_marginLeft="20dp"
-                            android:layout_marginStart="20dp" />
+                            android:layout_marginStart="20dp"
+                            android:textSize="18sp"
+                            android:textColor="@color/colorAccent"/>
                     </LinearLayout>
 
 

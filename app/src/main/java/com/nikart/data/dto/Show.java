@@ -208,8 +208,8 @@ public class Show {
         this.voted = voted;
     }
 
-    public int getRating() {
-        return Math.round(rating);
+    public float getRating() {
+        return rating;
     }
 
     public void setRating(int rating) {
