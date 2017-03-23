@@ -33,4 +33,7 @@ public interface MyShowsApi {
     @GET("shows/{id}")
     Call<Show> getShowById(@Path("id") int id);
 
+    @GET("profile/shows/{id}/rate/{rate}")
+    Call<ResponseBody> updateShowRate(@Path("id") int id, @Path("rate") int rate);
+
 }

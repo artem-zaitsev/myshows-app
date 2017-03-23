@@ -5,6 +5,7 @@ import android.util.Log;
 import com.nikart.util.PreferencesWorker;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Interceptor;
@@ -20,11 +21,21 @@ public class ReceivedCookieInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Response origResponse = chain.proceed(chain.request());
-
-        if (!origResponse.headers("Set-Cookie").isEmpty()) {
+        List<String> savedHeaders = PreferencesWorker.getInstance().getCookies();
+        List<String> cookies = new ArrayList<>();
+        if (!origResponse.headers("Set-Cookie").isEmpty()
+                && origResponse.headers("Set-Cookie").get(0).contains("PHPSESID")) {
             List<String> headers = origResponse.headers("Set-Cookie");
+            cookies.addAll(headers);
+            if (headers.size() == 1) {
+                cookies.add(savedHeaders.get(0));
+                cookies.add(savedHeaders.get(1));
+            }
+
             Log.d("OkHTTP", "Received cookie : " + headers);
-            PreferencesWorker.getInstance().saveCookies(headers);
+            Log.d("OkHTTP", "Saved cookie : " + savedHeaders);
+            Log.d("OkHTTP", "Saving cookie : " + cookies);
+            PreferencesWorker.getInstance().saveCookies(cookies);
         }
         return origResponse;
     }

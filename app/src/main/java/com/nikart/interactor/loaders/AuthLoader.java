@@ -8,6 +8,7 @@ import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
 import com.nikart.interactor.Answer;
 import com.nikart.util.Md5Converter;
+import com.nikart.util.PreferencesWorker;
 
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ import okhttp3.Response;
 
 public class AuthLoader extends BaseLoader<Answer> {
 
-    public static final String ARGS = "ARGS";
+    public static final String AUTH_ARGS = "AUTH_ARGS";
     private String login;
     private String password;
     private OkHttpClient client;
@@ -38,7 +39,7 @@ public class AuthLoader extends BaseLoader<Answer> {
     public static Bundle args(String login, String password) {
         Bundle args = new Bundle();
         String[] array = {login, password};
-        args.putStringArray(ARGS, array);
+        args.putStringArray(AUTH_ARGS, array);
         return args;
     }
 
@@ -50,7 +51,7 @@ public class AuthLoader extends BaseLoader<Answer> {
         /*Подставляем логин и пароль из EditText'ов*/
         Request request = new Request.Builder()
                 .url("https://api.myshows.me/profile/login?login=" + login + "&password=" +
-                        Md5Converter.MD5_Hash(password))
+                        Md5Converter.Md5Hash(password))
                 .build();
 
         Response response = null;
@@ -58,6 +59,10 @@ public class AuthLoader extends BaseLoader<Answer> {
             response = client.newCall(request).execute();
             Log.d("OkHTTP", response.toString());
             Log.d("HTTP_RESPONSE", response.headers().get("Set-Cookie"));
+            if (response.isSuccessful()){
+                PreferencesWorker.getInstance().saveLogin(login);
+                PreferencesWorker.getInstance().savePassword(password);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

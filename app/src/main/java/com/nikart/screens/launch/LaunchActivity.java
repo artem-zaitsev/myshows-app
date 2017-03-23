@@ -1,5 +1,7 @@
 package com.nikart.screens.launch;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +28,10 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
 
+    public static void start(Context context) {
+        Intent intent = new Intent(context, LaunchActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

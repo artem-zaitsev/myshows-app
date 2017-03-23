@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public Loader<Answer> onCreateLoader(int i, Bundle bundle) {
-                String[] params = bundle.getStringArray(AuthLoader.ARGS);
+                String[] params = bundle.getStringArray(AuthLoader.AUTH_ARGS);
 
                 if (params != null) {
                     return new AuthLoader(LoginActivity.this, params[0], params[1]);

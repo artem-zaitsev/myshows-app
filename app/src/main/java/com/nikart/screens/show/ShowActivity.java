@@ -20,7 +20,8 @@ import com.bumptech.glide.Glide;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
-import com.nikart.interactor.loaders.ShowByIdFromDataBaseLoader;
+import com.nikart.interactor.loaders.RateUpdateLoader;
+import com.nikart.interactor.loaders.ShowByIdLoader;
 import com.nikart.myshows.R;
 import com.nikart.screens.util.RateCustomView;
 
@@ -54,8 +55,8 @@ public class ShowActivity extends AppCompatActivity {
         LoaderManager.LoaderCallbacks showLoaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
             @Override
             public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                return new ShowByIdFromDataBaseLoader(ShowActivity.this,
-                        args.getInt(ShowByIdFromDataBaseLoader.ARGS_ID));
+                return new ShowByIdLoader(ShowActivity.this,
+                        args.getInt(ShowByIdLoader.ARGS_ID));
             }
 
             @Override
@@ -71,7 +72,7 @@ public class ShowActivity extends AppCompatActivity {
             }
         };
         getSupportLoaderManager().initLoader(0,
-                ShowByIdFromDataBaseLoader.args(getIntent().getIntExtra("ID", 0)),
+                ShowByIdLoader.args(getIntent().getIntExtra("ID", 0)),
                 showLoaderCallbacks);
     }
 
@@ -116,7 +117,6 @@ public class ShowActivity extends AppCompatActivity {
         } else {
             descriptionTextView.setText(Html.fromHtml(show.getDescription()));
         }
-        Log.d("DESCRIPT", show.getDescription());
 
         watchingFab = (FloatingActionButton) findViewById(R.id.activity_show_fab);
         // спорное решение
@@ -147,6 +147,24 @@ public class ShowActivity extends AppCompatActivity {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                getSupportLoaderManager().restartLoader(1, RateUpdateLoader.args(show.getId(), rate),
+                        new LoaderManager.LoaderCallbacks<Boolean>() {
+                            @Override
+                            public Loader<Boolean> onCreateLoader(int id, Bundle args) {
+                                int arg[] = args.getIntArray("RATE");
+                                return new RateUpdateLoader(ShowActivity.this, arg[0], arg[1]);
+                            }
+
+                            @Override
+                            public void onLoadFinished(Loader<Boolean> loader, Boolean data) {
+
+                            }
+
+                            @Override
+                            public void onLoaderReset(Loader<Boolean> loader) {
+
+                            }
+                        });
             }
         });
     }

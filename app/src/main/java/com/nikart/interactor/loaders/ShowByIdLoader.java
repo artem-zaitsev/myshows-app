@@ -20,13 +20,13 @@ import retrofit2.Response;
  * Лоадер, загружающий информацию о сериале из базы
  */
 
-public class ShowByIdFromDataBaseLoader extends BaseLoader<Answer> {
+public class ShowByIdLoader extends BaseLoader<Answer> {
 
     public static final String ARGS_ID = "ID";
 
     private int id;
 
-    public ShowByIdFromDataBaseLoader(Context context, int id) {
+    public ShowByIdLoader(Context context, int id) {
         super(context);
         this.id = id;
     }
@@ -46,6 +46,8 @@ public class ShowByIdFromDataBaseLoader extends BaseLoader<Answer> {
             data.setAnswer(response.body());
             if (response.body() == null) {
                     data.setAnswer(HelperFactory.getHelper().getShowDAO().queryForId(id));
+            } else {
+                HelperFactory.getHelper().getShowDAO().update(response.body());
             }
         } catch (IOException | SQLException e) {
             e.printStackTrace();
