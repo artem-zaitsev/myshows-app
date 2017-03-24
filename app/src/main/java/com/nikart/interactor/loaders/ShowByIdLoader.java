@@ -12,6 +12,7 @@ import com.nikart.interactor.Answer;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import retrofit2.Response;
 
@@ -42,12 +43,17 @@ public class ShowByIdLoader extends BaseLoader<Answer> {
         data = new Answer();
 
         try {
+            Show show = HelperFactory.getHelper().getShowDAO().queryForId(id);
+            String watchStatus = show.getWatchStatus();
+
             Response<Show> response = App.getInstance().getApi().getShowById(id).execute();
             data.setAnswer(response.body());
             if (response.body() == null) {
-                    data.setAnswer(HelperFactory.getHelper().getShowDAO().queryForId(id));
+                    data.setAnswer(show);
             } else {
-                HelperFactory.getHelper().getShowDAO().update(response.body());
+                show = response.body();
+                show.setWatchStatus(watchStatus);
+                HelperFactory.getHelper().getShowDAO().update(show);
             }
         } catch (IOException | SQLException e) {
             e.printStackTrace();
