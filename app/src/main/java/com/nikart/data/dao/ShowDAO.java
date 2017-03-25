@@ -27,7 +27,7 @@ public class ShowDAO extends BaseDaoImpl<Show, Integer> {
     public void createInDataBase(List<Show> shows) throws IOException {
         for (Show s : shows) {
             try {
-                this.createOrUpdate(s);
+                this.createIfNotExists(s);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

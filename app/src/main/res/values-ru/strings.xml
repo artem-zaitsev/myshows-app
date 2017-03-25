@@ -47,6 +47,22 @@
         <item quantity="other">%d серии</item>
     </plurals>
 
+    <plurals name="episodes">
+        <item quantity="one">%d эпизод</item>
+        <item quantity="two">%d эпизода</item>
+        <item quantity="few">%d эпизодов</item>
+        <item quantity="many">%d эпизодов</item>
+        <item quantity="other">%d эпизодов</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="one">%d час</item>
+        <item quantity="two">%d часа</item>
+        <item quantity="few">%d часов</item>
+        <item quantity="many">%d часов</item>
+        <item quantity="other">%d часов</item>
+    </plurals>
+
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>

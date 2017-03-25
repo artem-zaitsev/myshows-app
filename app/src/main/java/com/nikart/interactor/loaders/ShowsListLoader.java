@@ -32,7 +32,7 @@ public class ShowsListLoader extends BaseLoader<Answer> {
 
     @Override
     public Answer loadInBackground() {
-        List<Show> shows = new ArrayList<>();
+        List<Show> shows = null;
         data = new Answer();
 
         Response<ResponseBody> response = null;

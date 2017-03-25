@@ -62,13 +62,30 @@
 
     <plurals name="series">
         <item quantity="zero">No series</item>
-        <item quantity="one">%d serieы</item>
+        <item quantity="one">%d series</item>
         <item quantity="two">%d series</item>
         <item quantity="few">%d series</item>
         <item quantity="many">%d series</item>
         <item quantity="other">%d series</item>
     </plurals>
 
+    <plurals name="episodes">
+        <item quantity="zero">No episodes</item>
+        <item quantity="one">%d episode</item>
+        <item quantity="two">%d episodes</item>
+        <item quantity="few">%d episodes</item>
+        <item quantity="many">%d episodes</item>
+        <item quantity="other">%d episodes</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="zero">No hours</item>
+        <item quantity="one">%d hour</item>
+        <item quantity="two">%d hours</item>
+        <item quantity="few">%d hours</item>
+        <item quantity="many">%d hours</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
 
     <string-array name="months">
         <item>January</item>
@@ -85,42 +102,5 @@
         <item>December</item>
     </string-array>
 
-    <string name="test" translatable="false">Встречайте Android CoordinatorLayout
-
-        Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
-
-        Всё, что нужно сделать — обернуть необходимые нам виджеты в CoordinatorLayout. Давайте посмотрим, как это будет выглядеть в коде. Наш демонстрационный код очень прост — Floating Action Button, по нажатию на которую на экране появляется Snackbar.
-
-        Сначала добавим Support Design Library в gradle:
-
-        Теперь создадим разметку для нашей Activity:
-
-
-        И, заодно, саму MainActivity:
-        Встречайте Android CoordinatorLayout
-
-        Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
-
-        Всё, что нужно сделать — обернуть необходимые нам виджеты
-        Встречайте Android CoordinatorLayout
-
-        Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
-
-        Всё, что нужно сделать — обернуть необходимые нам виджеты
-        Встречайте Android CoordinatorLayout
-
-        Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
-
-        Всё, что нужно сделать — обернуть необходимые нам виджеты
-        Встречайте Android CoordinatorLayout
-
-        Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
-
-        Всё, что нужно сделать — обернуть необходимые нам виджеты
-        Встречайте Android CoordinatorLayout
-
-        Из всех компонентов, включенных в Android Design Support Library, наиболее интересным выглядит новый «прокачанный FrameLayout», он же герой нашей статьи — CoordinatorLayout. По названию можно догадаться, что CoordinatorLayout позволяет координировать некие зависимости между включенными в него виджетами.
-
-        Всё, что нужно сделать — обернуть необходимые нам виджеты</string>
 
 </resources>

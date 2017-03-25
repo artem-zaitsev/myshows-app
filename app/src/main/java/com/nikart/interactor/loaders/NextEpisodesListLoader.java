@@ -7,7 +7,6 @@ import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Episode;
-import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
 import com.nikart.util.JsonParser;
 
@@ -35,7 +34,7 @@ public class NextEpisodesListLoader extends BaseLoader<Answer> {
     public Answer loadInBackground() {
         data = new Answer();
 
-        List<Episode> episodes = new ArrayList<>();
+        List<Episode> episodes = null;
         try {
             Response<ResponseBody> response = App.getInstance().getApi().getNextEpisodes().execute();
             Log.d("LOADERS", this.toString() +

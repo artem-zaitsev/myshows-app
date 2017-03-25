@@ -18,7 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +35,8 @@ import java.util.List;
  * Fragment class for MyShows fragment.
  * There is information about user's shows.
  */
-public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.LayoutSwitcherDialogListener {
+public class MyShowsFragment extends Fragment
+        implements LayoutSwitcherDialog.LayoutSwitcherDialogListener {
 
     static public boolean IS_GRID; // для смены layout'ов в адаптере
 
@@ -45,7 +46,7 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
     private List<Show> shows;
     private ViewGroup container;
     private Toolbar toolbar;
-    private ProgressBar progressLoad;
+    private FrameLayout progressLoadFrame;
 
 
     private String SHOWS_FRAGMENT_TITLE;
@@ -108,8 +109,8 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
             bar.setDisplayShowTitleEnabled(false);
         }
 
-        progressLoad = (ProgressBar) rootView.findViewById(R.id.fragment_my_shows_progress);
-        progressLoad.setVisibility(View.VISIBLE);
+        progressLoadFrame = (FrameLayout) rootView.findViewById(R.id.fragment_my_shows_progress);
+        progressLoadFrame.setVisibility(View.VISIBLE);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_my_show_recycler_view);
     }
@@ -144,19 +145,17 @@ public class MyShowsFragment extends Fragment implements LayoutSwitcherDialog.La
                         }
                         showsAdapter.notifyDataSetChanged();
                     }
-                    progressLoad.setVisibility(View.GONE);
+                    progressLoadFrame.setVisibility(View.GONE);
                     Log.d("LOADERS", "Load finished. Shows count: " + shows.size() + " " + sh.size());
                 } else {
                     Toast.makeText(MyShowsFragment.this.getContext(), "Troubles!", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onLoaderReset(Loader<Answer> loader) {
                 //reset
             }
-
         };
 
         getLoaderManager().restartLoader(0, null, loaderCallbacks);

@@ -5,14 +5,15 @@
     android:layout_marginBottom="56dp"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_toolbar"/>
+    <include layout="@layout/layout_toolbar" />
 
-    <ProgressBar
+    <FrameLayout
         android:id="@+id/fragment_episodes_progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/layout_load_content" />
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_myepisodes_rv"

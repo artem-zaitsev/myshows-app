@@ -2,7 +2,6 @@ package com.nikart.interactor.loaders;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
@@ -12,7 +11,6 @@ import com.nikart.interactor.Answer;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import retrofit2.Response;
 
@@ -41,24 +39,23 @@ public class ShowByIdLoader extends BaseLoader<Answer> {
     @Override
     public Answer loadInBackground() {
         data = new Answer();
-
+        Show show = null;
         try {
-            Show show = HelperFactory.getHelper().getShowDAO().queryForId(id);
+            show = HelperFactory.getHelper().getShowDAO().queryForId(id);
             String watchStatus = show.getWatchStatus();
 
             Response<Show> response = App.getInstance().getApi().getShowById(id).execute();
-            data.setAnswer(response.body());
-            if (response.body() == null) {
-                    data.setAnswer(show);
-            } else {
+
+            if (response.body() != null) {
                 show = response.body();
+                show.setId(id);
                 show.setWatchStatus(watchStatus);
                 HelperFactory.getHelper().getShowDAO().update(show);
             }
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
-
+        data.setAnswer(show);
         return data;
     }
 }

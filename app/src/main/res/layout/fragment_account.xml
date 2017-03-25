@@ -59,56 +59,54 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:orientation="horizontal"
                     android:padding="10dp">
 
                     <TextView
                         android:id="@+id/fragment_account_episodes_count_text_view"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="match_parent"
                         android:layout_margin="2dp"
                         android:layout_weight="1"
                         android:background="@color/colorAccent"
                         android:gravity="center"
                         android:text="EPISODES_COUNT"
-                        android:textScaleX="0.6"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/fragment_account_hours_count_text_view"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="match_parent"
                         android:layout_margin="2dp"
                         android:layout_weight="1"
                         android:background="#00AAAA"
                         android:gravity="center"
                         android:text="HOURS_COUNT"
-                        android:textScaleX="0.6"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/fragment_account_days_count_text_view"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
+                        android:layout_height="match_parent"
                         android:layout_margin="2dp"
                         android:layout_weight="1"
                         android:background="#0077DD"
                         android:gravity="center"
                         android:text="DAYS_COUNT"
-                        android:textScaleX="0.6"
                         android:textSize="14sp" />
                 </LinearLayout>
 
             </LinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/fragment_account_toolbar_watching"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
-            app:layout_scrollFlags="enterAlwaysCollapsed"
-            app:layout_collapseMode="pin">
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="enterAlwaysCollapsed">
 
             <TextView
                 android:layout_width="match_parent"
@@ -140,7 +138,9 @@
         android:id="@+id/fragment_account_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/toolbar_height"
         android:background="@color/background">
-        <include layout="@layout/layout_load_content"/>
+
+        <include layout="@layout/layout_load_content" />
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

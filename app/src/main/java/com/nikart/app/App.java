@@ -1,8 +1,8 @@
 package com.nikart.app;
 
 import android.app.Application;
-import android.util.Log;
 
+import com.facebook.stetho.Stetho;
 import com.nikart.data.HelperFactory;
 import com.nikart.interactor.interceptors.AddCookiesInterceptor;
 import com.nikart.interactor.interceptors.ReceivedCookieInterceptor;
@@ -48,6 +48,7 @@ public class App extends Application {
         initRetrofit();
         initApi();
         initPreferences();
+        initStetho();
     }
 
     @Override
@@ -79,5 +80,9 @@ public class App extends Application {
         //Инициализируем статическую sharedPreferences в PrefWorker
         PreferencesWorker.getInstance().initSharedPreferences(
                 getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE));
+    }
+
+    private void initStetho() {
+        Stetho.initializeWithDefaults(this);
     }
 }

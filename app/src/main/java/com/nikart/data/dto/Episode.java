@@ -28,6 +28,10 @@ public class Episode implements Parcelable {
     public final static String FIELD_NAME_SHORT_NAME = "short_name";
     public final static String FIELD_NAME_AIR_DATE = "air_date";
     public final static String FIELD_NAME_RATING = "rating";
+    public final static String FIELD_NAME_SEASON_NUMBER = "season_number";
+    public final static String FIELD_NAME_EPISODE_NUMBER = "episode_number";
+    public final static String FIELD_NAME_SHOW_ID = "show_id";
+
     public static final Creator<Episode> CREATOR = new Creator<Episode>() {
         @Override
         public Episode createFromParcel(Parcel in) {
@@ -39,14 +43,17 @@ public class Episode implements Parcelable {
             return new Episode[size];
         }
     };
+
     @DatabaseField(columnName = FIELD_NAME_ID, id = true)
     @SerializedName("episodeId")
     private int id;
     @DatabaseField(columnName = FIELD_NAME_TITLE)
     @SerializedName("title")
     private String title;
+    @DatabaseField(columnName = FIELD_NAME_SEASON_NUMBER)
     @SerializedName("seasonNumber")
     private int seasonNumber;
+    @DatabaseField(columnName = FIELD_NAME_EPISODE_NUMBER)
     @SerializedName("episodeNumber")
     private int episodeNumber;
     @DatabaseField(columnName = FIELD_NAME_SHORT_NAME)
@@ -58,6 +65,7 @@ public class Episode implements Parcelable {
     private int rate;
     @DatabaseField(columnName = FIELD_NAME_SHOW, foreign = true, foreignAutoRefresh = true)
     private Show show;
+    @DatabaseField(columnName = FIELD_NAME_SHOW_ID)
     @SerializedName("showId")
     private int showId;
 

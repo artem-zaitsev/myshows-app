@@ -107,13 +107,12 @@
                             android:id="@+id/activity_show_rate_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="5dp"
                             android:layout_marginLeft="20dp"
                             android:layout_marginStart="20dp"
-                            android:textSize="18sp"
-                            android:textColor="@color/colorAccent"/>
+                            android:padding="5dp"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
                     </LinearLayout>
-
 
                 </LinearLayout>
 
@@ -132,7 +131,6 @@
                     android:layout_height="match_parent"
                     android:background="@color/background"
                     android:padding="5dp"
-                    android:text="@string/test"
                     android:textColor="@color/primary_text_material_dark"
                     android:textSize="18sp" />
             </android.support.v7.widget.CardView>

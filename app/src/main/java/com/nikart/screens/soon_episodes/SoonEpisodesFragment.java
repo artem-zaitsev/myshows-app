@@ -17,7 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nikart.data.dto.Episode;
@@ -40,7 +40,7 @@ public class SoonEpisodesFragment extends Fragment {
     private RecyclerView.LayoutManager manager;
     private EpisodesInMonthAdapter monthAdapter;
     private Toolbar toolbar;
-    private ProgressBar progressLoad;
+    private FrameLayout progressLoadFrame;
 
     private String EPISODES_FRAGMENT_TITLE;
     private LoaderManager.LoaderCallbacks<Answer> loaderCallbacks;
@@ -105,7 +105,7 @@ public class SoonEpisodesFragment extends Fragment {
             bar.setDisplayShowTitleEnabled(false);
         }
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_myepisodes_rv);
-        progressLoad = (ProgressBar) rootView.findViewById(R.id.fragment_episodes_progress);
+        progressLoadFrame = (FrameLayout) rootView.findViewById(R.id.fragment_episodes_progress);
     }
 
     private void initRecycler() {
@@ -142,8 +142,6 @@ public class SoonEpisodesFragment extends Fragment {
                         maximumDate = (today.compareTo(episodes.get(i).getAirDate()) < 0)
                                 ? episodes.get(i).getAirDate()
                                 : today;
-                        Log.d("TAG", "Ep date: " + episodes.get(i).getAirDate().getMonth());
-                        Log.d("TAG", String.valueOf(maximumDate.getMonth()));
                     }
 
                     //Использую устаревший метод, так как не сильно вдался в подробности
@@ -163,7 +161,7 @@ public class SoonEpisodesFragment extends Fragment {
                     }
 
                     Log.d("LOADERS", "Load finished on " + SoonEpisodesFragment.class.toString());
-                    progressLoad.setVisibility(View.GONE);
+                    progressLoadFrame.setVisibility(View.GONE);
                     initRecycler();
                 }
             }

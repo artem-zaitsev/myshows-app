@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.internal.LinkedTreeMap;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.interactor.Answer;
@@ -32,14 +33,13 @@ import com.nikart.interactor.loaders.ShowsListFromDataBaseLoader;
 import com.nikart.interactor.loaders.UserProfileLoader;
 import com.nikart.myshows.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Фрагмент для отображения информации об аккаунте
  */
 
-public class AccountFragment extends Fragment implements AccountShowAdapter.RateShowChangedListener{
+public class AccountFragment extends Fragment implements AccountShowAdapter.RateShowChangedListener {
 
     private RecyclerView recyclerView;
     private AccountShowAdapter showsAdapter;
@@ -49,6 +49,9 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     private Toolbar toolbar;
     private ImageView accountPic;
     private TextView usernameTextView;
+    private TextView watchedEpisodes;
+    private TextView watchedDays;
+    private TextView watchedHours;
     private FrameLayout progressLayout;
 
     private String ACCOUNT_FRAGMENT_TITLE;
@@ -64,10 +67,6 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
                              Bundle savedInstanceState) {
 
         this.container = container;
-        shows = new ArrayList<>(30);
-        for (int i = 0; i < 30; i++) {
-            shows.add(i, new Show());
-        }
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
         initFragment(rootView);
         loadData();
@@ -95,7 +94,7 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     }
 
     private void initFragment(View rootView) {
-        progressLayout  =(FrameLayout) rootView.findViewById(R.id.fragment_account_progress);
+        progressLayout = (FrameLayout) rootView.findViewById(R.id.fragment_account_progress);
         progressLayout.setVisibility(View.VISIBLE);
         toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(ACCOUNT_FRAGMENT_TITLE);
@@ -108,6 +107,11 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
         accountPic = (ImageView) rootView.findViewById(R.id.fragment_account_userpic);
         usernameTextView =
                 (TextView) rootView.findViewById(R.id.fragment_account_username_text_view);
+        watchedEpisodes =
+                (TextView) rootView.findViewById(R.id.fragment_account_episodes_count_text_view);
+        watchedHours =
+                (TextView) rootView.findViewById(R.id.fragment_account_hours_count_text_view);
+        watchedDays = (TextView) rootView.findViewById(R.id.fragment_account_days_count_text_view);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
     }
 
@@ -133,15 +137,23 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
                         UserProfile user = data.getTypedAnswer();
                         if (user != null) {
                             usernameTextView.setText((String) user.getLogin());
+
+                            //Надо сделать объект Stats. Чтобы распарсить ответ на запрос профиля.
+                            watchedEpisodes.setText(
+                                    ((LinkedTreeMap) user.getStats()).get("watchedEpisodes").toString()
+                            );
+                            watchedHours.setText(
+                                    ((LinkedTreeMap) user.getStats()).get("watchedHours").toString()
+                            );
+                            watchedDays.setText(
+                                    ((LinkedTreeMap) user.getStats()).get("watchedDays").toString()
+                            );
+
                             Glide.with(AccountFragment.this)
                                     .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
                                     .into(accountPic);
                             progressLayout.setVisibility(View.GONE);
                         } else {
-                            usernameTextView.setText(" ");
-                            Glide.with(AccountFragment.this)
-                                    .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
-                                    .into(accountPic);
                             Toast.makeText(getContext(), "Sorry. There are some problems.", Toast.LENGTH_SHORT)
                                     .show();
                         }
@@ -160,7 +172,7 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
 
             @Override
             public void onLoadFinished(Loader<Answer> loader, Answer data) {
-                if(data.getTypedAnswer() != null) {
+                if (data.getTypedAnswer() != null) {
                     shows = data.getTypedAnswer();
                     initRecycler(shows);
                 }
@@ -190,7 +202,7 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
 
                     @Override
                     public void onLoadFinished(Loader<Boolean> loader, Boolean data) {
-                        if ( data ) {
+                        if (data) {
                             Toast.makeText(getContext(), "Show is rated successfully", Toast.LENGTH_SHORT)
                                     .show();
                         } else {

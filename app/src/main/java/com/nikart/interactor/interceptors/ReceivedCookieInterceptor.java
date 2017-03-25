@@ -24,7 +24,7 @@ public class ReceivedCookieInterceptor implements Interceptor {
         List<String> savedHeaders = PreferencesWorker.getInstance().getCookies();
         List<String> cookies = new ArrayList<>();
         if (!origResponse.headers("Set-Cookie").isEmpty()
-                && origResponse.headers("Set-Cookie").get(0).contains("PHPSESID")) {
+                && origResponse.headers("Set-Cookie").get(0).contains("PHPSESSID")) {
             List<String> headers = origResponse.headers("Set-Cookie");
             cookies.addAll(headers);
             if (headers.size() == 1) {

@@ -17,15 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.interactor.Answer;
-import com.nikart.interactor.loaders.RateUpdateLoader;
 import com.nikart.interactor.loaders.ShowByIdLoader;
 import com.nikart.myshows.R;
-import com.nikart.screens.util.RateCustomView;
-
-import java.sql.SQLException;
 
 public class ShowActivity extends AppCompatActivity {
 
@@ -113,9 +108,14 @@ public class ShowActivity extends AppCompatActivity {
 
         descriptionTextView = (TextView) findViewById(R.id.activity_show_description);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            descriptionTextView.setText(Html.fromHtml(show.getDescription(), Html.FROM_HTML_MODE_COMPACT));
+            descriptionTextView.setText(Html.fromHtml(show.getDescription() != null
+                            ? show.getDescription()
+                            : "No connection, sorry.",
+                    Html.FROM_HTML_MODE_COMPACT));
         } else {
-            descriptionTextView.setText(Html.fromHtml(show.getDescription()));
+            descriptionTextView.setText(Html.fromHtml(show.getDescription() != null
+                    ? show.getDescription()
+                    : "No connection, sorry."));
         }
 
         watchingFab = (FloatingActionButton) findViewById(R.id.activity_show_fab);

@@ -12,9 +12,7 @@ import com.nikart.data.dao.ShowDAO;
 import com.nikart.data.dto.Episode;
 import com.nikart.data.dto.Show;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by Artem on 05.03.2017.
@@ -59,7 +57,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             e.printStackTrace();
         }
     }
-
 
 
     /*Show*/

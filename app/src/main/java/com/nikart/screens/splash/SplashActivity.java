@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.nikart.interactor.Answer;
 import com.nikart.interactor.loaders.AuthLoader;
@@ -31,8 +32,8 @@ public class SplashActivity extends AppCompatActivity {
     private void initActivity() {
         String login = PreferencesWorker.getInstance().getLogin();
         String password = PreferencesWorker.getInstance().getPassword();
-        if ( login != null
-                &&  password != null
+        if (login != null
+                && password != null
                 && PreferencesWorker.getInstance().isSignedIn()) {
             getSupportLoaderManager().restartLoader(0, AuthLoader.args(login, password),
                     new LoaderManager.LoaderCallbacks<Answer>() {
@@ -40,15 +41,16 @@ public class SplashActivity extends AppCompatActivity {
                         public Loader<Answer> onCreateLoader(int id, Bundle args) {
                             String l = args.getStringArray(AuthLoader.AUTH_ARGS)[0];
                             String p = args.getStringArray(AuthLoader.AUTH_ARGS)[1];
-                            return new AuthLoader(SplashActivity.this, l, p) ;
+                            return new AuthLoader(SplashActivity.this, l, p);
                         }
 
                         @Override
                         public void onLoadFinished(Loader<Answer> loader, Answer data) {
                             Response response = data.getTypedAnswer();
-                            if (response.isSuccessful()) {
-                                MainActivity.start(SplashActivity.this);
+                            if (response != null && response.isSuccessful()) {
+                                Log.d("AUTH", "Authorization " + response.isSuccessful());
                             }
+                            MainActivity.start(SplashActivity.this);
                         }
 
                         @Override
