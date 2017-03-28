@@ -11,6 +11,7 @@ import com.nikart.util.PreferencesWorker;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -68,6 +69,7 @@ public class App extends Application {
         retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

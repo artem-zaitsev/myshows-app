@@ -9,7 +9,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
  */
 
 
-/* Сделал такой класс, ориентировался на гай Неклюдова с Хабра*/
+/* Сделал такой класс, ориентировался на гайд Неклюдова с Хабра*/
 public class HelperFactory {
 
     private static DatabaseHelper databaseHelper;

@@ -1,6 +1,5 @@
 package com.nikart.screens.soon_episodes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -39,19 +38,9 @@ public class SoonEpisodesFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager manager;
     private EpisodesInMonthAdapter monthAdapter;
-    private Toolbar toolbar;
     private FrameLayout progressLoadFrame;
-
-    private String EPISODES_FRAGMENT_TITLE;
     private LoaderManager.LoaderCallbacks<Answer> loaderCallbacks;
-
     private List<Month> months;
-
-    @Override
-    public void onAttach(Context context) {
-        EPISODES_FRAGMENT_TITLE = getString(R.string.my_episodes);
-        super.onAttach(context);
-    }
 
     // Приделан ExpandedRecyclerView!!!!!!
     @Override
@@ -59,7 +48,7 @@ public class SoonEpisodesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_soon_episodes, container, false);
         initFragment(rootView);
-        initLoader();
+        loadData();
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -96,9 +85,8 @@ public class SoonEpisodesFragment extends Fragment {
     }
 
     private void initFragment(View rootView) {
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(EPISODES_FRAGMENT_TITLE);
-
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(getString(R.string.my_episodes));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (bar != null) {
@@ -115,7 +103,7 @@ public class SoonEpisodesFragment extends Fragment {
         recyclerView.setAdapter(monthAdapter);
     }
 
-    private void initLoader() {
+    private void loadData() {
         loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
             @Override
             public Loader<Answer> onCreateLoader(int id, Bundle args) {
@@ -146,13 +134,18 @@ public class SoonEpisodesFragment extends Fragment {
 
                     //Использую устаревший метод, так как не сильно вдался в подробности
                     //как применить Calendar к имеющейся дате.
+                    Calendar maxCalendar = Calendar.getInstance();
+                    Calendar airCalendar = Calendar.getInstance();
+                    maxCalendar.setTime(maximumDate);
+
                     for (int i = Calendar.getInstance().get(Calendar.MONTH);
-                         i <= maximumDate.getMonth(); i++) {
+                         i <= maxCalendar.get(Calendar.MONTH); i++) {
                         List<Episode> tmp = new ArrayList<>();
 
                         for (Episode ep : episodes) {
+                            airCalendar.setTime(ep.getAirDate());
                             if (today.compareTo(ep.getAirDate()) <= 0 &&
-                                    ep.getAirDate().getMonth() == i) {
+                                    airCalendar.get(Calendar.MONTH) == i) {
                                 tmp.add(ep);
                             }
                         }

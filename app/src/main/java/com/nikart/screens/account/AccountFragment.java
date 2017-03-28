@@ -1,6 +1,5 @@
 package com.nikart.screens.account;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,15 +25,24 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.internal.LinkedTreeMap;
+import com.nikart.app.App;
+import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
-import com.nikart.interactor.Answer;
 import com.nikart.interactor.loaders.RateUpdateLoader;
-import com.nikart.interactor.loaders.ShowsListFromDataBaseLoader;
-import com.nikart.interactor.loaders.UserProfileLoader;
 import com.nikart.myshows.R;
+import com.nikart.util.JsonParser;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Фрагмент для отображения информации об аккаунте
@@ -46,21 +55,12 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     private RecyclerView.LayoutManager layoutManager;
     private List<Show> shows;
     private ViewGroup container;
-    private Toolbar toolbar;
     private ImageView accountPic;
     private TextView usernameTextView;
     private TextView watchedEpisodes;
     private TextView watchedDays;
     private TextView watchedHours;
     private FrameLayout progressLayout;
-
-    private String ACCOUNT_FRAGMENT_TITLE;
-
-    @Override
-    public void onAttach(Context context) {
-        ACCOUNT_FRAGMENT_TITLE = getString(R.string.my_account);
-        super.onAttach(context);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -96,8 +96,9 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     private void initFragment(View rootView) {
         progressLayout = (FrameLayout) rootView.findViewById(R.id.fragment_account_progress);
         progressLayout.setVisibility(View.VISIBLE);
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(ACCOUNT_FRAGMENT_TITLE);
+
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(getString(R.string.my_account));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (bar != null) {
@@ -124,68 +125,65 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     }
 
     private void loadData() {
-        LoaderManager.LoaderCallbacks loaderUserProfileCallbacks =
-                new LoaderManager.LoaderCallbacks<Answer>() {
+        Observable<UserProfile> userProfileObservable = App.getInstance().getApi().getUserProfile();
+        userProfileObservable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        user -> {
+                            if (user != null) {
+                                usernameTextView.setText((String) user.getLogin());
 
-                    @Override
-                    public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                        return new UserProfileLoader(getContext());
-                    }
+                                //Надо сделать объект Stats. Чтобы распарсить ответ на запрос профиля.
+                                watchedEpisodes.setText(
+                                        ((LinkedTreeMap) user.getStats()).get("watchedEpisodes").toString()
+                                );
+                                watchedHours.setText(
+                                        ((LinkedTreeMap) user.getStats()).get("watchedHours").toString()
+                                );
+                                watchedDays.setText(
+                                        ((LinkedTreeMap) user.getStats()).get("watchedDays").toString()
+                                );
 
-                    @Override
-                    public void onLoadFinished(Loader<Answer> loader, Answer data) {
-                        UserProfile user = data.getTypedAnswer();
-                        if (user != null) {
-                            usernameTextView.setText((String) user.getLogin());
+                                Glide.with(AccountFragment.this)
+                                        .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
+                                        .into(accountPic);
+                                progressLayout.setVisibility(View.GONE);
+                            } else {
+                                Toast.makeText(getContext(), "Sorry. There are some problems.", Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        },
+                        Throwable::printStackTrace,
+                        () -> Log.d("RX_ACCOUNT", "Completed")
+                );
 
-                            //Надо сделать объект Stats. Чтобы распарсить ответ на запрос профиля.
-                            watchedEpisodes.setText(
-                                    ((LinkedTreeMap) user.getStats()).get("watchedEpisodes").toString()
-                            );
-                            watchedHours.setText(
-                                    ((LinkedTreeMap) user.getStats()).get("watchedHours").toString()
-                            );
-                            watchedDays.setText(
-                                    ((LinkedTreeMap) user.getStats()).get("watchedDays").toString()
-                            );
-
-                            Glide.with(AccountFragment.this)
-                                    .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
-                                    .into(accountPic);
-                            progressLayout.setVisibility(View.GONE);
-                        } else {
-                            Toast.makeText(getContext(), "Sorry. There are some problems.", Toast.LENGTH_SHORT)
-                                    .show();
+        Observable<ResponseBody> showListObservable = App.getInstance().getApi().getShows();
+        showListObservable
+                .map(
+                        responseBody -> {
+                            JsonParser<Show> parser = new JsonParser<>(responseBody);
+                            List<Show> shows = null;
+                            try {
+                                shows = parser.getParsedList(Show.class);
+                                if (shows != null) {
+                                    HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
+                                } else {
+                                    shows = HelperFactory.getHelper().getShowDAO().getAllShows();
+                                }
+                            } catch (IOException | JSONException | SQLException e) {
+                                e.printStackTrace();
+                            }
+                            return shows;
                         }
-                    }
-
-                    @Override
-                    public void onLoaderReset(Loader<Answer> loader) {
-
-                    }
-                };
-        LoaderManager.LoaderCallbacks loaderShowListCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
-            @Override
-            public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                return new ShowsListFromDataBaseLoader(getContext());
-            }
-
-            @Override
-            public void onLoadFinished(Loader<Answer> loader, Answer data) {
-                if (data.getTypedAnswer() != null) {
-                    shows = data.getTypedAnswer();
-                    initRecycler(shows);
-                }
-            }
-
-            @Override
-            public void onLoaderReset(Loader<Answer> loader) {
-
-            }
-        };
-        getActivity().getSupportLoaderManager().initLoader(0, null, loaderUserProfileCallbacks);
-        getActivity().getSupportLoaderManager().initLoader(1, null, loaderShowListCallbacks);
-
+                )
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        this::initRecycler,
+                        Throwable::printStackTrace,
+                        () -> Log.d("RX_ACCOUNT", "Complete load show list")
+                );
     }
 
     @Override

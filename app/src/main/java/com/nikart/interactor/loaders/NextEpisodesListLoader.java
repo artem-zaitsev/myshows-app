@@ -39,7 +39,7 @@ public class NextEpisodesListLoader extends BaseLoader<Answer> {
             Response<ResponseBody> response = App.getInstance().getApi().getNextEpisodes().execute();
             Log.d("LOADERS", this.toString() +
                     "ResponseBody: " + response.body() + " Message: " + response.message());
-            JsonParser<Episode> parser = new JsonParser<>(response);
+            JsonParser<Episode> parser = new JsonParser<>(response.body());
             episodes = parser.getParsedList(Episode.class);
         } catch (IOException | JSONException e) {
             e.printStackTrace();

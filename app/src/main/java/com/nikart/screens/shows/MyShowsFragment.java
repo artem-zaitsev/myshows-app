@@ -1,10 +1,7 @@
 package com.nikart.screens.shows;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -22,14 +19,26 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nikart.app.App;
+import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
-import com.nikart.interactor.Answer;
-import com.nikart.interactor.loaders.ShowsListLoader;
+import com.nikart.data.dto.UserProfile;
 import com.nikart.myshows.R;
+import com.nikart.util.JsonParser;
 import com.nikart.util.LayoutSwitcherDialog;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 
 /**
  * Fragment class for MyShows fragment.
@@ -43,19 +52,9 @@ public class MyShowsFragment extends Fragment
     private RecyclerView recyclerView;
     private ShowsAdapter showsAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<Show> shows;
     private ViewGroup container;
-    private Toolbar toolbar;
     private FrameLayout progressLoadFrame;
-
-
-    private String SHOWS_FRAGMENT_TITLE;
-
-    @Override
-    public void onAttach(Context context) {
-        SHOWS_FRAGMENT_TITLE = getString(R.string.my_shows);
-        super.onAttach(context);
-    }
+    private List<Show> shows;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,9 +62,19 @@ public class MyShowsFragment extends Fragment
 
         this.container = container;
         View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
-
         initFragment(rootView);
-        initLoader();
+        initRecycler();
+        loadData();
+
+        //Тест rxJava
+        Observable<UserProfile> profileObservable = App.getInstance().getApi().getAnyUserProfile("RetAm");
+        profileObservable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        v -> Log.d("RX", v.getLogin().toString()),
+                        e -> Log.d("RX", "Exception: " + e.toString()),
+                        () -> Log.d("RX", "Complete ")
+                );
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -88,12 +97,11 @@ public class MyShowsFragment extends Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_my_shows, menu);
-
         menu.getItem(0).setIcon(
                 !isGridLayoutManager()
                         ? R.drawable.grid_layout_manager
                         : R.drawable.linear_layout_manager
-        );   // ВНИМАНИЕ!! Перед условием стоит !
+        );
     }
 
     public boolean isGridLayoutManager() {
@@ -101,8 +109,8 @@ public class MyShowsFragment extends Fragment
     }
 
     private void initFragment(View rootView) {
-        toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(SHOWS_FRAGMENT_TITLE);
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(getString(R.string.my_shows));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (bar != null) {
@@ -111,12 +119,11 @@ public class MyShowsFragment extends Fragment
 
         progressLoadFrame = (FrameLayout) rootView.findViewById(R.id.fragment_my_shows_progress);
         progressLoadFrame.setVisibility(View.VISIBLE);
-
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_my_show_recycler_view);
     }
 
     private void initRecycler() {
-        shows = new ArrayList<>(10);
+        shows = new ArrayList<>();
         layoutManager = new GridLayoutManager(container.getContext(), 2); // two columns
 
         IS_GRID = true;
@@ -126,40 +133,50 @@ public class MyShowsFragment extends Fragment
         recyclerView.setAdapter(showsAdapter);
     }
 
-    private void initLoader() {
-        LoaderManager.LoaderCallbacks loaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
-            @Override
-            public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                return new ShowsListLoader(MyShowsFragment.this.getContext());
-            }
-
-            @Override
-            public void onLoadFinished(Loader<Answer> loader, Answer data) {
-                List<Show> sh = data.getTypedAnswer();
-                if (sh != null && !sh.isEmpty()) {
-                    for (Show s : sh) {
-                        if (shows.size() < sh.size()) {
-                            shows.add(sh.indexOf(s), s);
-                        } else {
-                            shows.set(sh.indexOf(s), s);
+    private void loadData() {
+        Observable<ResponseBody> showListObservable = App.getInstance().getApi().getShows();
+        showListObservable
+                .map(
+                        responseBody -> {
+                            JsonParser<Show> parser = new JsonParser<>(responseBody);
+                            List<Show> shows = null;
+                            try {
+                                shows = parser.getParsedList(Show.class);
+                                if (shows != null) {
+                                    HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
+                                } else {
+                                    shows = HelperFactory.getHelper().getShowDAO().getAllShows();
+                                }
+                            } catch (IOException | JSONException | SQLException e) {
+                                e.printStackTrace();
+                            }
+                            return shows;
                         }
-                        showsAdapter.notifyDataSetChanged();
-                    }
-                    progressLoadFrame.setVisibility(View.GONE);
-                    Log.d("LOADERS", "Load finished. Shows count: " + shows.size() + " " + sh.size());
-                } else {
-                    Toast.makeText(MyShowsFragment.this.getContext(), "Troubles!", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onLoaderReset(Loader<Answer> loader) {
-                //reset
-            }
-        };
-
-        getLoaderManager().restartLoader(0, null, loaderCallbacks);
-        initRecycler();
+                )
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        sh -> {
+                            if (sh != null && !sh.isEmpty()) {
+                                // не shows.addAll т.к. нужно не всегда добавлять новые в ресайклер
+                                // а addAll вроде как просто добавляет коллекцию.
+                                for (Show s : sh) {
+                                    if (shows.size() < sh.size()) {
+                                        shows.add(sh.indexOf(s), s);
+                                    } else {
+                                        shows.set(sh.indexOf(s), s);
+                                    }
+                                    showsAdapter.notifyDataSetChanged();
+                                }
+                                progressLoadFrame.setVisibility(View.GONE);
+                                Log.d("LOADERS", "Load finished. Shows count: " + sh.size() + " " + sh.size());
+                            } else {
+                                Toast.makeText(MyShowsFragment.this.getContext(), "Troubles!", Toast.LENGTH_SHORT).show();
+                            }
+                        },
+                        Throwable::printStackTrace,
+                        () -> Log.d("RX_SHOW_FRAGMENT", "Complete load show list")
+                );
     }
 
     @Override

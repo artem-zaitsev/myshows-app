@@ -14,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 /**
  * Created by Artem on 17.03.2017.
@@ -23,10 +22,10 @@ import retrofit2.Response;
 public class JsonParser<T> {
 
     private List<T> list;
-    private Response<ResponseBody> response;
+    private ResponseBody responseBody;
 
-    public JsonParser(Response<ResponseBody> response) {
-        this.response = response;
+    public JsonParser(ResponseBody responseBody) {
+        this.responseBody = responseBody;
     }
 
     public List<T> getParsedList(Class<T> c) throws IOException, JSONException {
@@ -52,6 +51,6 @@ public class JsonParser<T> {
 
     @Nullable
     private JSONObject getJSONObject() throws IOException, JSONException {
-        return response.body() != null ? new JSONObject(response.body().string()) : null;
+        return responseBody != null ? new JSONObject(responseBody.string()) : null;
     }
 }
