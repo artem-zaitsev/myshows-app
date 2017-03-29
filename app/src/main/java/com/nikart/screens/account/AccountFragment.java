@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,7 +27,6 @@ import com.nikart.app.App;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
-import com.nikart.interactor.loaders.RateUpdateLoader;
 import com.nikart.myshows.R;
 import com.nikart.util.JsonParser;
 
@@ -39,10 +36,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import retrofit2.Response;
 
 /**
  * Фрагмент для отображения информации об аккаунте
@@ -188,31 +186,18 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
 
     @Override
     public void rateUpdate(int showId, int rate) {
-        getActivity().getSupportLoaderManager().restartLoader(2, RateUpdateLoader.args(showId, rate),
-                new LoaderManager.LoaderCallbacks<Boolean>() {
-                    @Override
-                    public Loader<Boolean> onCreateLoader(int id, Bundle args) {
-                        int arguments[] = args.getIntArray(RateUpdateLoader.ARGS_RATE);
-                        int showId = arguments.length != 0 ? arguments[0] : null;
-                        int rate = arguments.length != 0 ? arguments[1] : null;
-                        return new RateUpdateLoader(getContext(), showId, rate);
-                    }
-
-                    @Override
-                    public void onLoadFinished(Loader<Boolean> loader, Boolean data) {
-                        if (data) {
-                            Toast.makeText(getContext(), "Show is rated successfully", Toast.LENGTH_SHORT)
-                                    .show();
-                        } else {
-                            Toast.makeText(getContext(), "Show is not rated", Toast.LENGTH_SHORT)
-                                    .show();
-                        }
-                    }
-
-                    @Override
-                    public void onLoaderReset(Loader<Boolean> loader) {
-
-                    }
-                });
+        Observable<Response<ResponseBody>> rateUpdateObservable =
+                App.getInstance().getApi().updateShowRate(showId, rate);
+        rateUpdateObservable
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(
+                        Response::isSuccessful
+                )
+                .subscribe(
+                        is -> Log.d("RX_RATE_UPDATE", is.toString()),
+                        e -> Log.d("RX_RATE_UPDATE", e.toString()),
+                        () -> Log.d("RX_RATE_UPDATE", "Complete")
+                );
     }
 }

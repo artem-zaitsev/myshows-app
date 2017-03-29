@@ -5,25 +5,30 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.nikart.app.App;
+import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
-import com.nikart.interactor.Answer;
-import com.nikart.interactor.loaders.ShowByIdLoader;
 import com.nikart.myshows.R;
+
+import java.sql.SQLException;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class ShowActivity extends AppCompatActivity {
 
+    private int id;
     private Show show;
     private String title;
     private TextView titleTextView,
@@ -42,33 +47,39 @@ public class ShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_load_content);
-
-        loadFromIntent();
+        id = getIntent().getIntExtra("ID", 0);
+        loadData();
     }
 
-    private void loadFromIntent() {
-        LoaderManager.LoaderCallbacks showLoaderCallbacks = new LoaderManager.LoaderCallbacks<Answer>() {
-            @Override
-            public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                return new ShowByIdLoader(ShowActivity.this,
-                        args.getInt(ShowByIdLoader.ARGS_ID));
-            }
-
-            @Override
-            public void onLoadFinished(Loader<Answer> loader, Answer data) {
-                show = data.getTypedAnswer();
-                Log.d("LOADERS", "Finished load show on ShowActivity.");
-                initActivity();
-            }
-
-            @Override
-            public void onLoaderReset(Loader<Answer> loader) {
-
-            }
-        };
-        getSupportLoaderManager().initLoader(0,
-                ShowByIdLoader.args(getIntent().getIntExtra("ID", 0)),
-                showLoaderCallbacks);
+    private void loadData() {
+        // Проблема с этим запросом. Обнуляет аргумент.
+        Observable<Show> showObservable = App.getInstance().getApi().getShowById(id);
+        showObservable
+                .subscribeOn(Schedulers.io())
+                .map(
+                        sh -> {
+                            Show tmpShow = null;
+                            try {
+                                tmpShow = HelperFactory.getHelper().getShowDAO().queryForId(id);
+                                String watchStatus = tmpShow.getWatchStatus();
+                                sh.setId(id);
+                                sh.setWatchStatus(watchStatus);
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                            return sh;
+                        }
+                )
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        show -> {
+                            this.show = show;
+                            Log.d("LOADERS", "Finished load show on ShowActivity.");
+                            initActivity();
+                        },
+                        e -> Log.d("RX_SHOW_BY_ID", e.toString()),
+                        () -> Log.d("RX_SHOW_BY_ID", "Complete")
+                );
     }
 
     private void setShowWatching() {
@@ -84,12 +95,7 @@ public class ShowActivity extends AppCompatActivity {
     private void initActivity() {
         setContentView(R.layout.activity_show);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_show_toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         showImageView = (ImageView) findViewById(R.id.activity_show_image);
         Glide.with(this)
@@ -124,16 +130,13 @@ public class ShowActivity extends AppCompatActivity {
                 ? R.drawable.check_mark
                 : R.drawable.eye);
 
-        watchingFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setShowWatching();
-                Toast.makeText(ShowActivity.this, "Show is " + show.getWatchStatus(), Toast.LENGTH_SHORT)
-                        .show();
-                watchingFab.setImageResource(isShowWatching()
-                        ? R.drawable.check_mark
-                        : R.drawable.eye);
-            }
+        watchingFab.setOnClickListener(view -> {
+            setShowWatching();
+            Toast.makeText(ShowActivity.this, "Show is " + show.getWatchStatus(), Toast.LENGTH_SHORT)
+                    .show();
+            watchingFab.setImageResource(isShowWatching()
+                    ? R.drawable.check_mark
+                    : R.drawable.eye);
         });
 
         rateTextView = (TextView) findViewById(R.id.activity_show_rate_view);

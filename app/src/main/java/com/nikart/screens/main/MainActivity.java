@@ -1,19 +1,16 @@
 package com.nikart.screens.main;
 
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 
-
+import com.nikart.myshows.R;
 import com.nikart.screens.account.AccountFragment;
 import com.nikart.screens.shows.MyShowsFragment;
-import com.nikart.myshows.R;
 import com.nikart.screens.soon_episodes.SoonEpisodesFragment;
 import com.nikart.screens.util.NavigationController;
 import com.nikart.util.PreferencesWorker;
@@ -62,12 +59,9 @@ public class MainActivity extends AppCompatActivity {
         controller = new NavigationController(getSupportFragmentManager(), fragmentList);
         controller.setupWithBottomNavigation(bottomNavigationView);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                controller.switchFragments(item);
-                return true;
-            }
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            controller.switchFragments(item);
+            return true;
         });
     }
 

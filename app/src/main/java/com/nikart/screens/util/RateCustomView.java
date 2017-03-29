@@ -42,8 +42,6 @@ public class RateCustomView extends LinearLayout implements View.OnClickListener
         for (int i = 0; i < 5; i++) {
             stars[i].setOnClickListener(this);
         }
-
-
     }
 
     private void fillStars(int rate) {
@@ -101,7 +99,7 @@ public class RateCustomView extends LinearLayout implements View.OnClickListener
         this.clickListener = clickListener;
     }
 
-    //Interface for observer
+    //Interface for listener
     public interface OnRateCustomViewClickListener {
         void onClick(int rate);
     }

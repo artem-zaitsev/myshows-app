@@ -45,19 +45,11 @@ public class RateDialog extends DialogFragment
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
         builder.setView(inflater.inflate(R.layout.dialog_rate, null))
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ///do something
-                        listener.onRateDialogPositiveClick(RateDialog.this);
-                    }
+                .setPositiveButton("OK", (dialogInterface, i) -> {
+                    ///do something
+                    listener.onRateDialogPositiveClick(RateDialog.this);
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
-                    }
-                });
+                .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
         return builder.create();
     }
 

@@ -40,12 +40,9 @@ public class AccountShowAdapter extends RecyclerView.Adapter<AccountShowAdapter.
         holder.showTitle.setText(show.getTitle());
         holder.showTitleOriginal.setText(show.getTitleOriginal());
         holder.ratingView.setRate(Math.round(show.getRating()));
-        holder.ratingView.setClickListener(new RateCustomView.OnRateCustomViewClickListener() {
-            @Override
-            public void onClick(int rate) {
-                show.setRating(rate);
-                if (listener != null) listener.rateUpdate(show.getId(), rate);
-            }
+        holder.ratingView.setClickListener(rate -> {
+            show.setRating(rate);
+            if (listener != null) listener.rateUpdate(show.getId(), rate);
         });
     }
 

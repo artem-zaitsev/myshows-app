@@ -17,6 +17,7 @@ import retrofit2.Response;
  * Created by Artem on 22.03.2017.
  */
 
+@Deprecated
 public class RateUpdateLoader extends AsyncTaskLoader<Boolean> {
 
     public static final String ARGS_RATE = "RATE";
@@ -48,12 +49,12 @@ public class RateUpdateLoader extends AsyncTaskLoader<Boolean> {
     @Override
     public Boolean loadInBackground() {
         Boolean success = Boolean.FALSE;
-        try {
+       /* try {
             success = App.getInstance().getApi().updateShowRate(id, rate).execute().isSuccessful();
             Log.d("LOADERS", "Update " + success);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
         return success;
     }
 

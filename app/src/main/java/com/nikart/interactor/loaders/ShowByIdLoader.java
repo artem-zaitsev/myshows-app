@@ -40,7 +40,7 @@ public class ShowByIdLoader extends BaseLoader<Answer> {
     public Answer loadInBackground() {
         data = new Answer();
         Show show = null;
-        try {
+       /* try {
             show = HelperFactory.getHelper().getShowDAO().queryForId(id);
             String watchStatus = show.getWatchStatus();
 
@@ -54,7 +54,7 @@ public class ShowByIdLoader extends BaseLoader<Answer> {
             }
         } catch (IOException | SQLException e) {
             e.printStackTrace();
-        }
+        }*/
         data.setAnswer(show);
         return data;
     }
