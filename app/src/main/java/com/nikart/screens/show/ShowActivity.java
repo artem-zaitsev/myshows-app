@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,15 +48,15 @@ public class ShowActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_load_content);
+        setContentView(R.layout.activity_show);
         id = getIntent().getIntExtra("ID", 0);
-        loadData();
+        loadData(id);
     }
 
-    private void loadData() {
+    private void loadData(int id) {
         // Проблема с этим запросом. Обнуляет аргумент.
         int tstId = 7;
-        Observable<Show> showObservable = App.getInstance().getApi().getShowById(7);
+        Observable<Show> showObservable = App.getInstance().getApi().getShowById(id);
         showObservable
                 .subscribeOn(Schedulers.io())
                 .map(
@@ -75,7 +77,7 @@ public class ShowActivity extends AppCompatActivity {
                 .subscribe(
                         show -> {
                             this.show = show;
-                            Log.d("LOADERS", "Finished load show on ShowActivity.");
+                            Log.d("LOADERS", "Finished load show on ShowActivity." + show.getTitle());
                             initActivity();
                         },
                         e -> Log.d("RX_SHOW_BY_ID", e.toString()),
@@ -94,7 +96,7 @@ public class ShowActivity extends AppCompatActivity {
     }
 
     private void initActivity() {
-        setContentView(R.layout.activity_show);
+        ((FrameLayout)findViewById(R.id.activity_show_progress_load)).setVisibility(View.GONE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_show_toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
 

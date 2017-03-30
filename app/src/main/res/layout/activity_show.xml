@@ -151,4 +151,18 @@
         app:layout_anchor="@id/activity_show_appbar"
         app:layout_anchorGravity="bottom|right|end"
         app:theme="@style/AppMaterial" />
+
+    <FrameLayout
+        android:id="@+id/activity_show_progress_load"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:elevation="20dp">
+
+        <include layout="@layout/layout_load_content"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" />
+
+    </FrameLayout>
+
 </android.support.design.widget.CoordinatorLayout>
