@@ -34,10 +34,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
 
 
 /**
@@ -158,16 +158,8 @@ public class MyShowsFragment extends Fragment
                 .subscribe(
                         sh -> {
                             if (sh != null && !sh.isEmpty()) {
-                                // не shows.addAll т.к. нужно не всегда добавлять новые в ресайклер
-                                // а addAll вроде как просто добавляет коллекцию.
-                                for (Show s : sh) {
-                                    if (shows.size() < sh.size()) {
-                                        shows.add(sh.indexOf(s), s);
-                                    } else {
-                                        shows.set(sh.indexOf(s), s);
-                                    }
-                                    showsAdapter.notifyDataSetChanged();
-                                }
+                                shows.clear();
+                                shows.addAll(sh);
                                 progressLoadFrame.setVisibility(View.GONE);
                                 Log.d("LOADERS", "Load finished. Shows count: " + sh.size() + " " + sh.size());
                             } else {

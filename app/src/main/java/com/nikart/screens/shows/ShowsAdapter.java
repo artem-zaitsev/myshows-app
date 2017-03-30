@@ -25,12 +25,8 @@ import java.util.List;
 
 public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHolder> {
 
-    public static final String TITLE_KEY = "TITLE";
-
     private List<Show> showsList;
-
     private Context context;
-
 
     // Используется статическое поле IS_GRID для смены layout'ов
 
@@ -43,7 +39,6 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
     public ShowsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         Log.d("TEST", String.valueOf(MyShowsFragment.IS_GRID));
-
         context = parent.getContext();
 
         View view = LayoutInflater.from(parent.getContext()).inflate(
@@ -70,12 +65,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         holder.title.setText(show.getTitle());
         holder.titleOriginal.setText(show.getTitleOriginal());
         holder.episodesUnwatched.setText(context.getString(R.string.unwatched_episodes, show.getUnwatchedEpisodes()));
-        holder.root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShowActivity.start(view.getContext(), show.getId());
-            }
-        });
+        holder.root.setOnClickListener(view -> ShowActivity.start(view.getContext(), show.getId()));
     }
 
     @Override

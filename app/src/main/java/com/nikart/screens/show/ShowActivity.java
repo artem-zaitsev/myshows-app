@@ -53,7 +53,8 @@ public class ShowActivity extends AppCompatActivity {
 
     private void loadData() {
         // Проблема с этим запросом. Обнуляет аргумент.
-        Observable<Show> showObservable = App.getInstance().getApi().getShowById(id);
+        int tstId = 7;
+        Observable<Show> showObservable = App.getInstance().getApi().getShowById(7);
         showObservable
                 .subscribeOn(Schedulers.io())
                 .map(

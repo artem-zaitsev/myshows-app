@@ -44,7 +44,7 @@ public class App extends Application {
         super.onCreate();
         appInstance = this;
 
-        HelperFactory.setHelper(getApplicationContext());
+        initDataBaseHelper();
         initClient();
         initRetrofit();
         initApi();
@@ -72,6 +72,10 @@ public class App extends Application {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+    }
+
+    private void initDataBaseHelper() {
+        HelperFactory.setHelper(getApplicationContext());
     }
 
     private void initApi() {
