@@ -32,7 +32,6 @@ public class ShowActivity extends AppCompatActivity {
 
     private int id;
     private Show show;
-    private String title;
     private TextView titleTextView,
             informationTextView, descriptionTextView;
     private FloatingActionButton watchingFab;
@@ -54,9 +53,10 @@ public class ShowActivity extends AppCompatActivity {
     }
 
     private void loadData(int id) {
-        // Проблема с этим запросом. Обнуляет аргумент.
-        int tstId = 7;
-        Observable<Show> showObservable = App.getInstance().getApi().getShowById(id);
+        Observable<Show> showObservable = App
+                .getInstance()
+                .getApi()
+                .getShowById(id);
         showObservable
                 .subscribeOn(Schedulers.io())
                 .map(
@@ -96,7 +96,7 @@ public class ShowActivity extends AppCompatActivity {
     }
 
     private void initActivity() {
-        ((FrameLayout)findViewById(R.id.activity_show_progress_load)).setVisibility(View.GONE);
+        ((FrameLayout) findViewById(R.id.activity_show_progress_load)).setVisibility(View.GONE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_show_toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
 
