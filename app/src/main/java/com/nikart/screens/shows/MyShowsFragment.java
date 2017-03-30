@@ -142,35 +142,35 @@ public class MyShowsFragment extends Fragment
                             List<Show> shows = null;
                             try {
                                 shows = parser.getParsedList(Show.class);
-                                if (shows != null) {
-                                    HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
-                                } else {
-                                    shows = HelperFactory.getHelper().getShowDAO().getAllShows();
-                                }
+                                HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
                             } catch (IOException | JSONException | SQLException e) {
                                 e.printStackTrace();
                             }
                             return shows;
                         }
                 )
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        sh -> {
-                            if (sh != null && !sh.isEmpty()) {
+                        shws -> {
                                 shows.clear();
-                                shows.addAll(sh);
+                                shows.addAll(shws);
                                 progressLoadFrame.setVisibility(View.GONE);
-                                Log.d("LOADERS", "Load finished. Shows count: " + sh.size() + " " + sh.size());
-                            } else {
-                                Toast.makeText(MyShowsFragment.this.getContext(), "Troubles!", Toast.LENGTH_SHORT).show();
-                            }
+                                Log.d("LOADERS", "Load finished. Shows count: " + shws.size() + " " + shws.size());
                         },
-                        Throwable::printStackTrace,
+                        e -> {
+                            loadContentFromDb();
+                            Log.d("RX_SHOW_LIST", e.toString());
+                        },
                         () -> Log.d("RX_SHOW_FRAGMENT", "Complete load show list")
                 );
     }
 
+    private void loadContentFromDb() throws SQLException {
+        shows.clear();
+        shows.addAll(HelperFactory.getHelper().getShowDAO().getAllShows());
+        progressLoadFrame.setVisibility(View.GONE);
+    }
     @Override
     public void OnItemClickListener(int i) {
         layoutManager = (i == 1)

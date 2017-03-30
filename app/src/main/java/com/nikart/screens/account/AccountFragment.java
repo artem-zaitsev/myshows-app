@@ -68,7 +68,6 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
         initFragment(rootView);
         loadData();
-
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -115,8 +114,7 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     }
 
     private void initRecycler(List shows) {
-        layoutManager = new LinearLayoutManager(this.getContext()); // two columns
-
+        layoutManager = new LinearLayoutManager(this.getContext());
         showsAdapter = new AccountShowAdapter(shows, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
@@ -152,7 +150,7 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
                                         .show();
                             }
                         },
-                        Throwable::printStackTrace,
+                        Throwable::toString,
                         () -> Log.d("RX_ACCOUNT", "Completed")
                 );
 
@@ -164,11 +162,7 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
                             List<Show> shows = null;
                             try {
                                 shows = parser.getParsedList(Show.class);
-                                if (shows != null) {
-                                    HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
-                                } else {
-                                    shows = HelperFactory.getHelper().getShowDAO().getAllShows();
-                                }
+                                HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
                             } catch (IOException | JSONException | SQLException e) {
                                 e.printStackTrace();
                             }
@@ -179,7 +173,10 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         this::initRecycler,
-                        Throwable::printStackTrace,
+                        e -> {
+                            Log.d("RX_ACCOUNT", e.toString());
+                            initRecycler(HelperFactory.getHelper().getShowDAO().getAllShows());
+                        },
                         () -> Log.d("RX_ACCOUNT", "Complete load show list")
                 );
     }

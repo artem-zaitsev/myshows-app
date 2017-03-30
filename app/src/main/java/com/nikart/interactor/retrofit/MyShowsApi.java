@@ -32,7 +32,6 @@ public interface MyShowsApi {
     @GET("profile/episodes/next/")
     Call<ResponseBody> getNextEpisodes();
 
-    //Проблема с этим методом
     @GET("shows/{id}")
     Observable<Show> getShowById(@Path("id") int id);
 

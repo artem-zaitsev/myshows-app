@@ -80,7 +80,11 @@ public class ShowActivity extends AppCompatActivity {
                             Log.d("LOADERS", "Finished load show on ShowActivity." + show.getTitle());
                             initActivity();
                         },
-                        e -> Log.d("RX_SHOW_BY_ID", e.toString()),
+                        e -> {
+                            Log.d("RX_SHOW_BY_ID", e.toString());
+                            this.show = HelperFactory.getHelper().getShowDAO().queryForId(id);
+                            initActivity();
+                        },
                         () -> Log.d("RX_SHOW_BY_ID", "Complete")
                 );
     }
