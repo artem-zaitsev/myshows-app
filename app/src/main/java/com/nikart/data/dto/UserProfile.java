@@ -31,7 +31,7 @@ public class UserProfile {
     private Object isPro;
     @SerializedName("stats")
     @Expose
-    private Object stats;
+    private Stats stats;
 
     public Object getLogin() {
         return login;
@@ -73,11 +73,11 @@ public class UserProfile {
         this.isPro = isPro;
     }
 
-    public Object getStats() {
+    public Stats getStats() {
         return stats;
     }
 
-    public void setStats(Object stats) {
+    public void setStats(Stats stats) {
         this.stats = stats;
     }
 

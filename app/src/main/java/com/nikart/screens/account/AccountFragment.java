@@ -51,8 +51,6 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     private RecyclerView recyclerView;
     private AccountShowAdapter showsAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<Show> shows;
-    private ViewGroup container;
     private ImageView accountPic;
     private TextView usernameTextView;
     private TextView watchedEpisodes;
@@ -63,8 +61,6 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        this.container = container;
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
         initFragment(rootView);
         loadData();
@@ -132,13 +128,13 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
 
                                 //Надо сделать объект Stats. Чтобы распарсить ответ на запрос профиля.
                                 watchedEpisodes.setText(
-                                        ((LinkedTreeMap) user.getStats()).get("watchedEpisodes").toString()
+                                        user.getStats().getWatchedEpisodes().toString()
                                 );
                                 watchedHours.setText(
-                                        ((LinkedTreeMap) user.getStats()).get("watchedHours").toString()
+                                        String.valueOf(user.getStats().getWatchedHours().intValue())
                                 );
                                 watchedDays.setText(
-                                        ((LinkedTreeMap) user.getStats()).get("watchedDays").toString()
+                                        String.valueOf(user.getStats().getWatchedDays().intValue())
                                 );
 
                                 Glide.with(AccountFragment.this)

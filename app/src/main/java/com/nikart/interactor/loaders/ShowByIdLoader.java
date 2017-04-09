@@ -19,6 +19,7 @@ import retrofit2.Response;
  * Лоадер, загружающий информацию о сериале из базы
  */
 
+@Deprecated
 public class ShowByIdLoader extends BaseLoader<Answer> {
 
     public static final String ARGS_ID = "ID";

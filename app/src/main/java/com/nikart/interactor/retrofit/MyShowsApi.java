@@ -5,7 +5,6 @@ import com.nikart.data.dto.UserProfile;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -30,7 +29,8 @@ public interface MyShowsApi {
     Observable<UserProfile> getUserProfile();
 
     @GET("profile/episodes/next/")
-    Call<ResponseBody> getNextEpisodes();
+   /* Call<ResponseBody> getNextEpisodes();*/
+    Observable<ResponseBody> getNextEpisodes();
 
     @GET("shows/{id}")
     Observable<Show> getShowById(@Path("id") int id);

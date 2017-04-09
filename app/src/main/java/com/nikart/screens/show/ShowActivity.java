@@ -67,6 +67,7 @@ public class ShowActivity extends AppCompatActivity {
                                 String watchStatus = tmpShow.getWatchStatus();
                                 sh.setId(id);
                                 sh.setWatchStatus(watchStatus);
+                                HelperFactory.getHelper().getShowDAO().update(sh);
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }

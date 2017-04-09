@@ -24,6 +24,7 @@ import retrofit2.Response;
  * Created by Artem on 19.03.2017.
  */
 
+@Deprecated
 public class NextEpisodesListLoader extends BaseLoader<Answer> {
 
     public NextEpisodesListLoader(Context context) {
@@ -35,7 +36,7 @@ public class NextEpisodesListLoader extends BaseLoader<Answer> {
         data = new Answer();
 
         List<Episode> episodes = null;
-        try {
+       /* try {
             Response<ResponseBody> response = App.getInstance().getApi().getNextEpisodes().execute();
             Log.d("LOADERS", this.toString() +
                     "ResponseBody: " + response.body() + " Message: " + response.message());
@@ -43,7 +44,7 @@ public class NextEpisodesListLoader extends BaseLoader<Answer> {
             episodes = parser.getParsedList(Episode.class);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
-        }
+        }*/
 
         if (episodes != null) {
             createEpisodesInDb(episodes);
