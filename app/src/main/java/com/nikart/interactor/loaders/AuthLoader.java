@@ -21,6 +21,7 @@ import okhttp3.Response;
  * Loader для авторизации. Пока забиты только тестовые данные.
  */
 
+@Deprecated
 public class AuthLoader extends BaseLoader<Answer> {
 
     public static final String AUTH_ARGS = "AUTH_ARGS";

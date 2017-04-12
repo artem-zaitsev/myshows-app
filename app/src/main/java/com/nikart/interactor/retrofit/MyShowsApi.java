@@ -29,7 +29,6 @@ public interface MyShowsApi {
     Observable<UserProfile> getUserProfile();
 
     @GET("profile/episodes/next/")
-   /* Call<ResponseBody> getNextEpisodes();*/
     Observable<ResponseBody> getNextEpisodes();
 
     @GET("shows/{id}")

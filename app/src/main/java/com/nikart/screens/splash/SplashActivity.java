@@ -2,18 +2,21 @@ package com.nikart.screens.splash;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.nikart.interactor.Answer;
-import com.nikart.interactor.loaders.AuthLoader;
+import com.nikart.app.App;
 import com.nikart.myshows.R;
 import com.nikart.screens.launch.LaunchActivity;
 import com.nikart.screens.main.MainActivity;
+import com.nikart.util.Md5Converter;
 import com.nikart.util.PreferencesWorker;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.Call;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -35,29 +38,30 @@ public class SplashActivity extends AppCompatActivity {
         if (login != null
                 && password != null
                 && PreferencesWorker.getInstance().isSignedIn()) {
-            getSupportLoaderManager().restartLoader(0, AuthLoader.args(login, password),
-                    new LoaderManager.LoaderCallbacks<Answer>() {
-                        @Override
-                        public Loader<Answer> onCreateLoader(int id, Bundle args) {
-                            String l = args.getStringArray(AuthLoader.AUTH_ARGS)[0];
-                            String p = args.getStringArray(AuthLoader.AUTH_ARGS)[1];
-                            return new AuthLoader(SplashActivity.this, l, p);
-                        }
-
-                        @Override
-                        public void onLoadFinished(Loader<Answer> loader, Answer data) {
-                            Response response = data.getTypedAnswer();
-                            if (response != null && response.isSuccessful()) {
-                                Log.d("AUTH", "Authorization " + response.isSuccessful());
-                            }
-                            MainActivity.start(SplashActivity.this);
-                        }
-
-                        @Override
-                        public void onLoaderReset(Loader<Answer> loader) {
-
-                        }
-                    });
+            Observable
+                    .just(App.getInstance().getClient().newCall(
+                            new Request.Builder()
+                                    .url("https://api.myshows.me/profile/login?login="
+                                            + login + "&password=" +
+                                            Md5Converter.Md5Hash(password))
+                                    .build()
+                            )
+                    )
+                    .subscribeOn(Schedulers.io())
+                    .map(Call::execute)
+                    .map(Response::isSuccessful)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            isSuccessful -> {
+                                PreferencesWorker.getInstance().saveSignedIn(isSuccessful);
+                                MainActivity.start(SplashActivity.this);
+                            },
+                            e -> {
+                                Log.d("RX_AUTH", e.toString());
+                                MainActivity.start(SplashActivity.this);
+                            },
+                            () -> Log.d("RX_AUTH", "Complete authorization")
+                    );
         } else {
             LaunchActivity.start(this);
         }
