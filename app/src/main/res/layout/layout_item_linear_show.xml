@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:elevation="4dp"
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:focusable="false"
+    android:foreground="@drawable/ripple_item"
+    android:background="?android:selectableItemBackground"
+    android:id="@+id/item_show_root">
+
+    <ImageView
+        android:id="@+id/show_image"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_gravity="start|center"
+        android:foregroundGravity="center"
+        android:scaleType="fitXY"
+        android:src="@drawable/sherlock" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/show_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:text="She"
+            android:textColor="@color/primary_text_material_dark"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/show_orig_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:text="Sherlock"
+            android:textColor="@color/secondary_text"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/show_episodes_unwatched"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
+            android:text="99"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <ImageButton
+        android:id="@+id/rate_one"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:scaleType="center"
+        android:src="@drawable/star_rate"
+        app:srcCompat = "@drawable/star_rate"/>
+
+    <ImageButton
+        android:id="@+id/rate_two"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:scaleType="center"
+        app:srcCompat = "@drawable/star_rate" />
+
+    <ImageButton
+        android:id="@+id/rate_three"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:scaleType="center"
+        app:srcCompat = "@drawable/star_rate" />
+
+    <ImageButton
+        android:id="@+id/rate_four"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:scaleType="center"
+        app:srcCompat = "@drawable/star_rate" />
+
+    <ImageButton
+        android:id="@+id/rate_five"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/background"
+        android:scaleType="center"
+        app:srcCompat = "@drawable/star_rate" />
+</LinearLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme.NoActionBar"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:padding="5dp"
+    android:background="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="@drawable/ripple_item"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|start"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
+            android:gravity="start"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/episode_show_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|start"
+                android:text="SHOW_TITLE - "
+                android:textColor="@color/primary_text_material_dark"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/episode_season"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="_s10e2_"
+                android:textColor="@color/secondary_text"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/episode_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:lines="1"
+            android:text="EPISODE_TITLE"
+            android:textColor="@color/secondary_text_material_dark"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:gravity="center|end">
+        <TextView
+            android:id="@+id/episode_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center|end"
+            android:lines="1"
+            android:text="DD,EE"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/layout_item_episode_days_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+
+            android:gravity="center_vertical|end"
+            android:text="DAYS_LEFT"
+            android:textColor="@color/secondary_text"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

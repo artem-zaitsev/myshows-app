@@ -7,7 +7,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/background_material_light</item>
-        <item name="android:textColorPrimary">@color/primary_text_material_light</item>
+        <item name="android:textColorPrimary">@color/secondary_text_material_dark</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_material_dark</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_material_dark</item>
+
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.NoActionBar"   parent="Theme.AppCompat.NoActionBar">
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:colorForeground">@color/foreground_material_dark</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorSecondary">@color/secondary_text_material_dark</item>
+        <item name="android:textColorPrimary">@color/primary_text_material_dark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+
+
     </style>
 
 </resources>

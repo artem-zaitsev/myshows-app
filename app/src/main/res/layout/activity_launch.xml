@@ -8,43 +8,51 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.nikart.myshows.LaunchActivity">
+    tools:context="com.nikart.screens.launch.LaunchActivity"
+    android:background="@color/colorPrimaryDark">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/launch_pager"
-        android:layout_width="200dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp">
+        android:layout_marginBottom="100dp"
+        android:paddingTop="50dp">
 
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/buttons_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="50dp"
+        android:padding="10dp"
+        style="?android:attr/buttonBarStyle">
 
         <Button
             android:id="@+id/register_btn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="REGISTER"
+            android:layout_weight="2"
+            android:text="@string/sign_up"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
 
         <Button
             android:id="@+id/login_btn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:text="LOG IN"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="@string/sign_in"
             android:textAlignment="center"
-            android:textSize="20sp"
-            android:gravity="center"/>
+            android:textSize="15sp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,3 +1,106 @@
 <resources>
-    <string name="app_name">MyShows</string>
+    <string name="app_name">My Shows</string>
+    <string name="welcome">Welcome to MyShows.</string>
+    <string name="promo1">Create your own episodes list</string>
+    <string name="promo2">Don\'t miss when episode airs</string>
+    <string name="promo3">Track and rate watched episodes</string>
+    <string name="promo4">Leave comments, unlock achievements</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="email" translatable="false">E-mail</string>
+    <string name="password_confirm">Confirm the password</string>
+    <string name="empty_content">There is nothing, yet…</string>
+    <string name="no_shows">You don\'t watch any shows, yet.</string>
+    <string name="no_episodes">We can not find the episodes, yet.</string>
+    <string name="no_account_information">Empty Account.</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="my_shows">My Shows</string>
+    <string name="my_episodes">Soon</string>
+    <string name="my_account">My Account</string>
+
+    <string name="rating">Rating: </string>
+    <string name="watch">Watching: </string>
+
+    <string name="unwatched_episodes">Unwatched : %1$d </string>
+
+    <string name="fragment_episodes_show_title" translatable="false">"%1$s - "</string>
+    <string name="fragment_episodes_short_name" translatable="false"> %1$s, </string>
+
+    <string name="menu_layout_switch">Switch layouts</string>
+    <string name="choose_layout">Choose layout: </string>
+
+    <string name="expand">Expand all</string>
+    <string name="collapse">Collapse all</string>
+
+    <string name="open_site">Open on myshows.me</string>
+
+    <string name="quit">Quit</string>
+    <string name="incorrect_data">Login or Password is incorrect. Please try again.</string>
+    <string name="empty_fields">Fill all fields!</string>
+    <string-array name="layouts_variants">
+        <item>Grid</item>
+        <item>Linear</item>
+    </string-array>
+    <string name="grid">Grid</string>
+    <string name="linear">Linear</string>
+
+    <plurals name="days_left">
+        <item quantity="zero">Today</item>
+        <item quantity="one">%d day</item>
+        <item quantity="two">%d days</item>
+        <item quantity="few">%d days</item>
+        <item quantity="many">%d days</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <plurals name="series">
+        <item quantity="zero">No series</item>
+        <item quantity="one">%d series</item>
+        <item quantity="two">%d series</item>
+        <item quantity="few">%d series</item>
+        <item quantity="many">%d series</item>
+        <item quantity="other">%d series</item>
+    </plurals>
+
+    <plurals name="episodes">
+        <item quantity="zero">No episodes</item>
+        <item quantity="one">%d episode</item>
+        <item quantity="two">%d episodes</item>
+        <item quantity="few">%d episodes</item>
+        <item quantity="many">%d episodes</item>
+        <item quantity="other">%d episodes</item>
+    </plurals>
+
+    <plurals name="hours">
+        <item quantity="zero">No hours</item>
+        <item quantity="one">%d hour</item>
+        <item quantity="two">%d hours</item>
+        <item quantity="few">%d hours</item>
+        <item quantity="many">%d hours</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+
 </resources>
