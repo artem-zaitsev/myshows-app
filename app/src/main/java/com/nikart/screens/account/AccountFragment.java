@@ -28,6 +28,7 @@ import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.myshows.R;
+import com.nikart.presenter.AccountPresenter;
 import com.nikart.util.JsonParser;
 
 import org.json.JSONException;
@@ -57,13 +58,15 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     private TextView watchedDays;
     private TextView watchedHours;
     private FrameLayout progressLayout;
+    private AccountPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
         initFragment(rootView);
-        loadData();
+        presenter = new AccountPresenter(this);
+        presenter.loadData();
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -109,88 +112,41 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
     }
 
-    private void initRecycler(List shows) {
+   public void initRecycler(List shows) {
         layoutManager = new LinearLayoutManager(this.getContext());
         showsAdapter = new AccountShowAdapter(shows, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
     }
 
-    private void loadData() {
-        Observable<UserProfile> userProfileObservable = App.getInstance().getApi().getUserProfile();
-        userProfileObservable
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        user -> {
-                            if (user != null) {
-                                usernameTextView.setText((String) user.getLogin());
+    public void loadUserInfo(UserProfile user) {
+        usernameTextView.setText((String) user.getLogin());
 
-                                //Надо сделать объект Stats. Чтобы распарсить ответ на запрос профиля.
-                                watchedEpisodes.setText(
-                                        user.getStats().getWatchedEpisodes().toString()
-                                );
-                                watchedHours.setText(
-                                        String.valueOf(user.getStats().getWatchedHours().intValue())
-                                );
-                                watchedDays.setText(
-                                        String.valueOf(user.getStats().getWatchedDays().intValue())
-                                );
+        //Надо сделать объект Stats. Чтобы распарсить ответ на запрос профиля.
+        watchedEpisodes.setText(
+                user.getStats().getWatchedEpisodes().toString()
+        );
+        watchedHours.setText(
+                String.valueOf(user.getStats().getWatchedHours().intValue())
+        );
+        watchedDays.setText(
+                String.valueOf(user.getStats().getWatchedDays().intValue())
+        );
 
-                                Glide.with(AccountFragment.this)
-                                        .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
-                                        .into(accountPic);
-                                progressLayout.setVisibility(View.GONE);
-                            } else {
-                                Toast.makeText(getContext(), "Sorry. There are some problems.", Toast.LENGTH_SHORT)
-                                        .show();
-                            }
-                        },
-                        Throwable::toString,
-                        () -> Log.d("RX_ACCOUNT", "Completed")
-                );
+        Glide.with(AccountFragment.this)
+                .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
+                .into(accountPic);
+        progressLayout.setVisibility(View.GONE);
+    }
 
-        Observable<ResponseBody> showListObservable = App.getInstance().getApi().getShows();
-        showListObservable
-                .map(
-                        responseBody -> {
-                            JsonParser<Show> parser = new JsonParser<>(responseBody);
-                            List<Show> shows = null;
-                            try {
-                                shows = parser.getParsedList(Show.class);
-                                HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
-                            } catch (IOException | JSONException | SQLException e) {
-                                e.printStackTrace();
-                            }
-                            return shows;
-                        }
-                )
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        this::initRecycler,
-                        e -> {
-                            Log.d("RX_ACCOUNT", e.toString());
-                            initRecycler(HelperFactory.getHelper().getShowDAO().getAllShows());
-                        },
-                        () -> Log.d("RX_ACCOUNT", "Complete load show list")
-                );
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.onStop();
     }
 
     @Override
     public void rateUpdate(int showId, int rate) {
-        Observable<Response<ResponseBody>> rateUpdateObservable =
-                App.getInstance().getApi().updateShowRate(showId, rate);
-        rateUpdateObservable
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(
-                        Response::isSuccessful
-                )
-                .subscribe(
-                        is -> Log.d("RX_RATE_UPDATE", is.toString()),
-                        e -> Log.d("RX_RATE_UPDATE", e.toString()),
-                        () -> Log.d("RX_RATE_UPDATE", "Complete")
-                );
+        presenter.rateUpdate(showId, rate);
     }
 }
