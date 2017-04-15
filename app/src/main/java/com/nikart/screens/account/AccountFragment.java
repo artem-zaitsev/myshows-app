@@ -3,6 +3,7 @@ package com.nikart.screens.account;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -137,6 +138,17 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
                 .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
                 .into(accountPic);
         progressLayout.setVisibility(View.GONE);
+    }
+
+    public void showErrorSnackbar(Throwable e) {
+        Snackbar.make(getActivity()
+                        .findViewById(R.id.main_activity_layout),
+                "No Internet connection",
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction("ON", view ->
+                        startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)))
+                .show();
+        Log.d("RX_ACCOUNT", e.toString());
     }
 
     @Override

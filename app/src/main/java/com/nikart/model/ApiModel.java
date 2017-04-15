@@ -15,12 +15,15 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.Response;
 
 /**
  * Created by Artem on 15.04.2017.
+ * Implementation of Model
  */
 
-public class ModelImp implements Model {
+public class ApiModel implements Model {
 
     @Override
     public Observable<List<Show>> getShows() {
@@ -38,14 +41,21 @@ public class ModelImp implements Model {
                             return shows;
                         }
                 )
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
     public Observable<UserProfile> getUserInfo() {
         return App.getInstance().getApi().getUserProfile()
-                .subscribeOn(Schedulers.newThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<Response<ResponseBody>> updateRateShow(int showId, int rate) {
+        return App.getInstance().getApi().updateShowRate(showId, rate)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 }
