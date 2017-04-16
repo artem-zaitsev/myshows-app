@@ -1,5 +1,6 @@
 package com.nikart.model;
 
+import com.nikart.data.dto.Episode;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 
@@ -16,6 +17,8 @@ import io.reactivex.Observable;
 public interface Model {
 
     public Observable<List<Show>> getShows();
+
+    public Observable<List<Episode>> getNextEpisodes();
 
     public Observable<UserProfile> getUserInfo();
 

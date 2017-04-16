@@ -2,6 +2,7 @@ package com.nikart.interactor;
 
 import com.nikart.app.App;
 import com.nikart.data.HelperFactory;
+import com.nikart.data.dto.Episode;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.interactor.retrofit.MyShowsApi;
@@ -44,6 +45,18 @@ public class ApiManager {
                     }
                     return shows;
                 });
+    }
+
+    public Observable<List<Episode>> getNextEpisodes() {
+        return api.getNextEpisodes()
+                .map(
+                        body -> {
+                            JsonParser<Episode> parser = new JsonParser<>(body);
+                            List<Episode> episodes = parser.getParsedList(Episode.class);
+                            HelperFactory.getHelper().getEpisodeDAO().createInDataBase(episodes);
+                            return episodes;
+                        }
+                );
     }
 
     public Observable<UserProfile> getUserProfile() {

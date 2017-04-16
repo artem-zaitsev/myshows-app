@@ -1,8 +1,10 @@
-package com.nikart.model;
+package com.nikart.model.api;
 
+import com.nikart.data.dto.Episode;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.interactor.ApiManager;
+import com.nikart.model.Model;
 
 import java.util.List;
 
@@ -20,6 +22,13 @@ public class ApiModel implements Model {
     @Override
     public Observable<List<Show>> getShows() {
         return ApiManager.getInstance().getShows()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<List<Episode>> getNextEpisodes() {
+        return ApiManager.getInstance().getNextEpisodes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

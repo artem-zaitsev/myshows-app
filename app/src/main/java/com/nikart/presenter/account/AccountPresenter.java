@@ -1,12 +1,13 @@
-package com.nikart.presenter;
+package com.nikart.presenter.account;
 
 import android.util.Log;
 
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
-import com.nikart.model.ApiModel;
+import com.nikart.model.api.ApiModel;
 import com.nikart.model.Model;
+import com.nikart.presenter.Presenter;
 import com.nikart.screens.account.AccountFragment;
 
 import java.sql.SQLException;
@@ -29,7 +30,7 @@ public class AccountPresenter implements Presenter {
 
     public AccountPresenter(AccountFragment view) {
         this.view = view;
-        model = new ApiModel();
+        model = new ApiModel(); // не нравится!!!!
     }
 
     public void loadData() {

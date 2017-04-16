@@ -24,7 +24,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.myshows.R;
-import com.nikart.presenter.AccountPresenter;
+import com.nikart.presenter.account.AccountPresenter;
 
 import java.util.List;
 
