@@ -20,29 +20,13 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.internal.LinkedTreeMap;
-import com.nikart.app.App;
-import com.nikart.data.HelperFactory;
-import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.myshows.R;
 import com.nikart.presenter.AccountPresenter;
-import com.nikart.util.JsonParser;
 
-import org.json.JSONException;
-
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 /**
  * Фрагмент для отображения информации об аккаунте
@@ -113,14 +97,14 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
     }
 
-   public void initRecycler(List shows) {
+    public void initRecycler(List shows) {
         layoutManager = new LinearLayoutManager(this.getContext());
         showsAdapter = new AccountShowAdapter(shows, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
     }
 
-    public void loadUserInfo(UserProfile user) {
+    public void showUserInfo(UserProfile user) {
         usernameTextView.setText((String) user.getLogin());
 
         //Надо сделать объект Stats. Чтобы распарсить ответ на запрос профиля.

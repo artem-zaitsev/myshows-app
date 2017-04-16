@@ -1,7 +1,6 @@
 package com.nikart.presenter;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
@@ -16,8 +15,6 @@ import java.util.List;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 /**
  * Created by Artem on 15.04.2017.
@@ -39,7 +36,7 @@ public class AccountPresenter implements Presenter {
         Observable<UserProfile> userProfileObservable = model.getUserInfo();
         userProfileObservable
                 .subscribe(
-                        user -> view.loadUserInfo(user),
+                        user -> view.showUserInfo(user),
                         view::showErrorSnackbar,
                         () -> Log.d("RX_ACCOUNT", "Completed")
                 );
@@ -64,10 +61,8 @@ public class AccountPresenter implements Presenter {
     }
 
     public void rateUpdate(int showId, int rate) {
-        Observable<Response<ResponseBody>> rateUpdateObservable =
-                model.updateRateShow(showId, rate);
+        Observable<Boolean> rateUpdateObservable = model.updateRateShow(showId, rate);
         rateUpdateObservable
-                .map(Response::isSuccessful)
                 .subscribe(
                         is -> Log.d("RX_RATE_UPDATE", is.toString()),
                         e -> Log.d("RX_RATE_UPDATE", e.toString()),

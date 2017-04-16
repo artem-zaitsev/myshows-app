@@ -7,9 +7,6 @@ import java.util.List;
 
 import io.reactivex.Observable;
 
-import okhttp3.ResponseBody;
-import retrofit2.Response;
-
 
 /**
  * Created by Artem on 15.04.2017.
@@ -19,7 +16,9 @@ import retrofit2.Response;
 public interface Model {
 
     public Observable<List<Show>> getShows();
+
     public Observable<UserProfile> getUserInfo();
-    public Observable<Response<ResponseBody>> updateRateShow(int showId, int rate);
+
+    public Observable<Boolean> updateRateShow(int showId, int rate);
 
 }
