@@ -14,6 +14,7 @@ import com.nikart.util.PreferencesWorker;
 public class App extends Application {
 
     private static App appInstance;
+    private AppComponent component;
 
     public static App getInstance() {
         return appInstance;
@@ -23,6 +24,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         appInstance = this;
+        component = DaggerAppComponent.create();
         initRetrofit();
         initDataBaseHelper();
         initPreferences();
@@ -36,7 +38,7 @@ public class App extends Application {
     }
 
     private void initRetrofit() {
-        ApiHelper.getInstance().initRetrofit();
+        component.getApiHelper().initRetrofit();
     }
 
     private void initDataBaseHelper() {
@@ -45,7 +47,7 @@ public class App extends Application {
 
     private void initPreferences() {
         //Инициализируем статическую sharedPreferences в PrefWorker
-        PreferencesWorker.getInstance().initSharedPreferences(
+        component.getPreferences().initSharedPreferences(
                 getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE));
     }
 

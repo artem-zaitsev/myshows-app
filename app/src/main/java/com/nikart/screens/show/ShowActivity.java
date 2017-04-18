@@ -57,28 +57,31 @@ public class ShowActivity extends AppCompatActivity {
         return (show.getWatchStatus() != null && show.getWatchStatus().equals("watching"));
     }
 
-    public void initActivity(Show show) {
-        this.show = show;
-        ((FrameLayout) findViewById(R.id.activity_show_progress_load)).setVisibility(View.GONE);
+    public void initActivity() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_show_toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
-
         showImageView = (ImageView) findViewById(R.id.activity_show_image);
+        titleTextView = (TextView) findViewById(R.id.activity_show_toolbar_title_textview);
+        titleTextView.setText(show.getTitle());
+        informationTextView = (TextView) findViewById(R.id.activity_show_information_textview);
+        descriptionTextView = (TextView) findViewById(R.id.activity_show_description);
+        watchingFab = (FloatingActionButton) findViewById(R.id.activity_show_fab);
+        rateTextView = (TextView) findViewById(R.id.activity_show_rate_view);
+
+    }
+
+    public void showData(Show show) {
+        ((FrameLayout) findViewById(R.id.activity_show_progress_load)).setVisibility(View.GONE);
+        this.show = show;
         Glide.with(this)
                 .load(show.getImageUrl())
                 .centerCrop()
                 .into(showImageView);
-        titleTextView = (TextView) findViewById(R.id.activity_show_toolbar_title_textview);
-        titleTextView.setText(show.getTitle());
-
-        informationTextView = (TextView) findViewById(R.id.activity_show_information_textview);
         informationTextView.setText(
                 show.getTitleOriginal() + "\n"
                         + show.getCountry() + "\n"
                         + show.getStatus() + "\n"
                         + show.getYear());
-
-        descriptionTextView = (TextView) findViewById(R.id.activity_show_description);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             descriptionTextView.setText(Html.fromHtml(show.getDescription() != null
                             ? show.getDescription()
@@ -89,8 +92,6 @@ public class ShowActivity extends AppCompatActivity {
                     ? show.getDescription()
                     : "No connection, sorry."));
         }
-
-        watchingFab = (FloatingActionButton) findViewById(R.id.activity_show_fab);
         // спорное решение
         watchingFab.setImageResource(isShowWatching()
                 ? R.drawable.check_mark
@@ -104,8 +105,6 @@ public class ShowActivity extends AppCompatActivity {
                     ? R.drawable.check_mark
                     : R.drawable.eye);
         });
-
-        rateTextView = (TextView) findViewById(R.id.activity_show_rate_view);
         rateTextView.setText(String.valueOf(show.getRating()));
     }
 }

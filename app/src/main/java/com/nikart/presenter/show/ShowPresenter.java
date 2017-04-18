@@ -27,7 +27,7 @@ public class ShowPresenter extends BasePresenter {
                 .onErrorResumeNext(throwable -> {
                             Log.d("RX_SHOW_BY_ID", throwable.toString());
                             try {
-                                view.initActivity(HelperFactory.getHelper().getShowDAO().queryForId(id));
+                                view.showData(HelperFactory.getHelper().getShowDAO().queryForId(id));
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
@@ -36,7 +36,7 @@ public class ShowPresenter extends BasePresenter {
                 .subscribe(
                         show -> {
                             Log.d("RX_SHOW_BY_ID", "Finished load show on ShowActivity." + show.getTitle());
-                            view.initActivity(show);
+                            view.showData(show);
                         },
                         e -> Log.d("RX_SHOW_BY_ID", e.toString()),
                         () -> Log.d("RX_SHOW_BY_ID", "Complete")
