@@ -27,7 +27,14 @@ public class ApiModel implements Model {
     }
 
     @Override
-    public Observable<List<Episode>> getNextEpisodes() {
+    public Observable<Boolean> signIn(String login, String password) {
+        return ApiManager.getInstance().signIn(login, password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    @Override
+    public Observable<List<List<Episode>>> getNextEpisodes() {
         return ApiManager.getInstance().getNextEpisodes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());

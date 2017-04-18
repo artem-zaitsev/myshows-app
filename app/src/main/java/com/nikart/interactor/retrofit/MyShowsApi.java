@@ -20,6 +20,10 @@ public interface MyShowsApi {
     @GET("profile/{login}")
     Observable<UserProfile> getAnyUserProfile(@Path("login") String login);
 
+    //Авторизация
+    @GET("profile/login?login={login}&password={password}")
+    Observable<Response> signIn(@Path("login") String login, @Path("password") String password);
+
     //Список сериалов
     @GET("profile/shows/")
     Observable<ResponseBody> getShows();

@@ -16,12 +16,14 @@ import io.reactivex.Observable;
 
 public interface Model {
 
-    public Observable<List<Show>> getShows();
+    Observable<List<Show>> getShows();
 
-    public Observable<List<Episode>> getNextEpisodes();
+    Observable<Boolean> signIn(String login, String password);
 
-    public Observable<UserProfile> getUserInfo();
+    Observable<List<List<Episode>>> getNextEpisodes();
 
-    public Observable<Boolean> updateRateShow(int showId, int rate);
+    Observable<UserProfile> getUserInfo();
+
+    Observable<Boolean> updateRateShow(int showId, int rate);
 
 }

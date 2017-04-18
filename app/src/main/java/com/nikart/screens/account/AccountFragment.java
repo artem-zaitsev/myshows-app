@@ -141,6 +141,7 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
         presenter.onStop();
     }
 
+    //callback
     @Override
     public void rateUpdate(int showId, int rate) {
         presenter.rateUpdate(showId, rate);
