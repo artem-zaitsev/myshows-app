@@ -1,12 +1,13 @@
 package com.nikart.interactor;
 
-import com.nikart.app.App;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Episode;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
+import com.nikart.interactor.retrofit.ApiHelper;
 import com.nikart.interactor.retrofit.MyShowsApi;
 import com.nikart.util.JsonParser;
+import com.nikart.util.Md5Converter;
 import com.nikart.util.PreferencesWorker;
 
 import org.json.JSONException;
@@ -16,7 +17,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
@@ -29,7 +32,7 @@ import retrofit2.Response;
 public class ApiManager {
 
     private static ApiManager apiManager;
-    private MyShowsApi api = App.getInstance().getApi();
+    private MyShowsApi api = ApiHelper.getInstance().getApi();
 
     public static ApiManager getInstance() {
         if (apiManager == null) apiManager = new ApiManager();
@@ -37,7 +40,10 @@ public class ApiManager {
     }
 
     public Observable<Boolean> signIn(String login, String password) {
-        return api.signIn(login, password)
+        Map<String, String> query = new HashMap<>();
+        query.put("login", login);
+        query.put("password", Md5Converter.Md5Hash(password));
+        return api.signIn(query)
                 .map(response -> {
                     if (response.isSuccessful()) {
                         PreferencesWorker.getInstance().saveLogin(login);
@@ -105,12 +111,24 @@ public class ApiManager {
     }
 
     public Observable<UserProfile> getUserProfile() {
-        return App.getInstance().getApi().getUserProfile();
+        return api.getUserProfile();
     }
 
     public Observable<Boolean> updateRateShow(int showId, int rate) {
-        return App.getInstance().getApi().updateShowRate(showId, rate)
+        return api.updateShowRate(showId, rate)
                 .map(Response::isSuccessful);
     }
 
+    public Observable<Show> getShowById(int id) {
+        return api.getShowById(id)
+                .map(sh -> {
+                            Show tmpShow = null;
+                            tmpShow = HelperFactory.getHelper().getShowDAO().queryForId(id);
+                            String watchStatus = tmpShow.getWatchStatus();
+                            sh.setId(id);
+                            sh.setWatchStatus(watchStatus);
+                            HelperFactory.getHelper().getShowDAO().update(sh);
+                            return sh;
+                        });
+    }
 }

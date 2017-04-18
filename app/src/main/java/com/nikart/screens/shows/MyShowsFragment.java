@@ -1,6 +1,8 @@
 package com.nikart.screens.shows;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,27 +19,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.nikart.app.App;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
-import com.nikart.data.dto.UserProfile;
 import com.nikart.myshows.R;
-import com.nikart.util.JsonParser;
+import com.nikart.presenter.shows.ShowListPresenter;
 import com.nikart.util.LayoutSwitcherDialog;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 
 
 /**
@@ -55,6 +46,7 @@ public class MyShowsFragment extends Fragment
     private ViewGroup container;
     private FrameLayout progressLoadFrame;
     private List<Show> shows;
+    ShowListPresenter presenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,17 +56,8 @@ public class MyShowsFragment extends Fragment
         View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
         initFragment(rootView);
         initRecycler();
-        loadData();
-
-        //Тест rxJava
-        Observable<UserProfile> profileObservable = App.getInstance().getApi().getAnyUserProfile("RetAm");
-        profileObservable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        v -> Log.d("RX", v.getLogin().toString()),
-                        e -> Log.d("RX", "Exception: " + e.toString()),
-                        () -> Log.d("RX", "Complete ")
-                );
+        presenter = new ShowListPresenter(this);
+        presenter.loadData();
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -133,44 +116,27 @@ public class MyShowsFragment extends Fragment
         recyclerView.setAdapter(showsAdapter);
     }
 
-    private void loadData() {
-        Observable<ResponseBody> showListObservable = App.getInstance().getApi().getShows();
-        showListObservable
-                .map(
-                        responseBody -> {
-                            JsonParser<Show> parser = new JsonParser<>(responseBody);
-                            List<Show> shows = null;
-                            try {
-                                shows = parser.getParsedList(Show.class);
-                                HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
-                            } catch (IOException | JSONException | SQLException e) {
-                                e.printStackTrace();
-                            }
-                            return shows;
-                        }
-                )
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        shws -> {
-                                shows.clear();
-                                shows.addAll(shws);
-                                progressLoadFrame.setVisibility(View.GONE);
-                                Log.d("LOADERS", "Load finished. Shows count: " + shws.size() + " " + shws.size());
-                        },
-                        e -> {
-                            loadContentFromDb();
-                            Log.d("RX_SHOW_LIST", e.toString());
-                        },
-                        () -> Log.d("RX_SHOW_FRAGMENT", "Complete load show list")
-                );
+    public void loadContentFromDb() throws SQLException {
+        updateRecycler(HelperFactory.getHelper().getShowDAO().getAllShows());
     }
 
-    private void loadContentFromDb() throws SQLException {
+    public void updateRecycler(List<Show> shws) {
         shows.clear();
-        shows.addAll(HelperFactory.getHelper().getShowDAO().getAllShows());
+        shows.addAll(shws);
         progressLoadFrame.setVisibility(View.GONE);
     }
+
+    public void showErrorSnackbar(Throwable e) {
+        Snackbar.make(getActivity()
+                        .findViewById(R.id.main_activity_layout),
+                "No Internet connection",
+                Snackbar.LENGTH_INDEFINITE)
+                .setAction("ON", view ->
+                        startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)))
+                .show();
+        Log.d("RX_ACCOUNT", e.toString());
+    }
+
     @Override
     public void OnItemClickListener(int i) {
         layoutManager = (i == 1)

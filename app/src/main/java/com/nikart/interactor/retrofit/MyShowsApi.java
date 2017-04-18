@@ -3,11 +3,15 @@ package com.nikart.interactor.retrofit;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 
+import java.util.Map;
+
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by Artem on 11.03.2017.
@@ -21,8 +25,8 @@ public interface MyShowsApi {
     Observable<UserProfile> getAnyUserProfile(@Path("login") String login);
 
     //Авторизация
-    @GET("profile/login?login={login}&password={password}")
-    Observable<Response> signIn(@Path("login") String login, @Path("password") String password);
+    @GET("profile/login")
+    Observable<Response<ResponseBody>> signIn(@QueryMap Map<String,String> auth);
 
     //Список сериалов
     @GET("profile/shows/")
@@ -39,6 +43,6 @@ public interface MyShowsApi {
     Observable<Show> getShowById(@Path("id") int id);
 
     @GET("profile/shows/{id}/rate/{rate}")
-    Observable<Response<ResponseBody>> updateShowRate(@Path("id") int id, @Path("rate") int rate);
+    Observable<retrofit2.Response<ResponseBody>> updateShowRate(@Path("id") int id, @Path("rate") int rate);
 
 }

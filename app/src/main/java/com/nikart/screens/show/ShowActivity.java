@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -16,16 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.nikart.app.App;
-import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
-
-import java.sql.SQLException;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import com.nikart.presenter.show.ShowPresenter;
 
 
 public class ShowActivity extends AppCompatActivity {
@@ -37,6 +29,7 @@ public class ShowActivity extends AppCompatActivity {
     private FloatingActionButton watchingFab;
     private TextView rateTextView;
     private ImageView showImageView;
+    private ShowPresenter presenter;
 
     public static void start(Context context, int id) {
         Intent intent = new Intent(context, ShowActivity.class);
@@ -49,46 +42,10 @@ public class ShowActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         id = getIntent().getIntExtra("ID", 0);
-        loadData(id);
+        presenter = new ShowPresenter();
+        presenter.getShow(id);
     }
 
-    private void loadData(int id) {
-        Observable<Show> showObservable = App
-                .getInstance()
-                .getApi()
-                .getShowById(id);
-        showObservable
-                .subscribeOn(Schedulers.io())
-                .map(
-                        sh -> {
-                            Show tmpShow = null;
-                            try {
-                                tmpShow = HelperFactory.getHelper().getShowDAO().queryForId(id);
-                                String watchStatus = tmpShow.getWatchStatus();
-                                sh.setId(id);
-                                sh.setWatchStatus(watchStatus);
-                                HelperFactory.getHelper().getShowDAO().update(sh);
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                            return sh;
-                        }
-                )
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        show -> {
-                            this.show = show;
-                            Log.d("LOADERS", "Finished load show on ShowActivity." + show.getTitle());
-                            initActivity();
-                        },
-                        e -> {
-                            Log.d("RX_SHOW_BY_ID", e.toString());
-                            this.show = HelperFactory.getHelper().getShowDAO().queryForId(id);
-                            initActivity();
-                        },
-                        () -> Log.d("RX_SHOW_BY_ID", "Complete")
-                );
-    }
 
     private void setShowWatching() {
         show.setWatchStatus(isShowWatching()
@@ -100,7 +57,8 @@ public class ShowActivity extends AppCompatActivity {
         return (show.getWatchStatus() != null && show.getWatchStatus().equals("watching"));
     }
 
-    private void initActivity() {
+    public void initActivity(Show show) {
+        this.show = show;
         ((FrameLayout) findViewById(R.id.activity_show_progress_load)).setVisibility(View.GONE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.activity_show_toolbar);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());

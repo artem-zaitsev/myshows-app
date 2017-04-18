@@ -18,6 +18,8 @@ public interface Model {
 
     Observable<List<Show>> getShows();
 
+    Observable<Show> getShowById(int id);
+
     Observable<Boolean> signIn(String login, String password);
 
     Observable<List<List<Episode>>> getNextEpisodes();

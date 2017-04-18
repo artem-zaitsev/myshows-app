@@ -30,19 +30,16 @@ public class LoginPresenter implements Presenter {
     }
 
     public void signIn(String login, String password) {
-        Observable<Boolean> authObservable = Observable.empty();
         if (!login.equals("")
                 && !password.equals("")) {
-           authObservable = model.signIn(login, password);
+           disposable = model.signIn(login, password)
+                    .subscribe(isSuccessful -> view.startActivityIfSignedIn(isSuccessful),
+                            e -> Log.d("RX_AUTH", e.toString()),
+                            () -> Log.d("RX_AUTH", "Complete authorization"));
         } else {
             Toast.makeText(view, view.getString(R.string.empty_fields), Toast.LENGTH_SHORT).show();
         }
-        authObservable
-                .subscribe(
-                        isSuccessful -> view.startActivityIfSignedIn(isSuccessful),
-                        e -> Log.d("RX_AUTH", e.toString()),
-                        () -> Log.d("RX_AUTH", "Complete authorization")
-                );
+
     }
     @Override
     public void onStop() {

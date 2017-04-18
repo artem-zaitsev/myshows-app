@@ -46,10 +46,10 @@ public class AuthLoader extends BaseLoader<Answer> {
 
     @Override
     public Answer loadInBackground() {
-        Answer answer = new Answer();
+        /*Answer answer = new Answer();
         client = App.getInstance().getClient();
 
-        /*Подставляем логин и пароль из EditText'ов*/
+        *//*Подставляем логин и пароль из EditText'ов*//*
         Request request = new Request.Builder()
                 .url("https://api.myshows.me/profile/login?login=" + login + "&password=" +
                         Md5Converter.Md5Hash(password))
@@ -67,7 +67,7 @@ public class AuthLoader extends BaseLoader<Answer> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        answer.setAnswer(response);
-        return answer;
+        answer.setAnswer(response);*/
+        return null;
     }
 }
