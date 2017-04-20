@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initActivity() {
+        //так как наследуюсь от базовой, нужно проиницилизировать презентер
         setPresenter(new Presenter() {
             @Override
             public void loadData() {

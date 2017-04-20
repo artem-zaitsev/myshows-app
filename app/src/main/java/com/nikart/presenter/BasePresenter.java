@@ -23,7 +23,7 @@ public abstract class BasePresenter implements Presenter {
     protected ApiModel model;
 
     public BasePresenter() {
-        ApiModel.getComponent().inject(this);
+        ApiModel.getComponent().inject(this); // не красиво, но пока не до конца разобрался
     }
 
     protected void addDisposable(Disposable disposable) {
