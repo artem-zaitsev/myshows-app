@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.nikart.data.HelperFactory;
 import com.nikart.presenter.BasePresenter;
+import com.nikart.screens.IView;
 import com.nikart.screens.show.ShowActivity;
 
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ import io.reactivex.disposables.Disposables;
 
 public class ShowPresenter extends BasePresenter {
 
-    private ShowActivity view;
+    private IView view;
     private Disposable disposable = Disposables.empty();
     int id;
 
@@ -27,7 +28,7 @@ public class ShowPresenter extends BasePresenter {
 
     @Override
     public void loadData() {
-        id = view.getShowId();
+        id = ((ShowActivity) view).getShowId();
         disposable = model.getShowById(id)
                 .onErrorResumeNext(throwable -> {
                             Log.d("RX_SHOW_BY_ID", throwable.toString());
@@ -38,14 +39,13 @@ public class ShowPresenter extends BasePresenter {
                             }
                         }
                 )
-                .subscribe(
-                        show -> {
+                .subscribe(show -> {
                             Log.d("RX_SHOW_BY_ID", "Finished load show on ShowActivity." + show.getTitle());
                             view.showData(show);
                         },
                         e -> Log.d("RX_SHOW_BY_ID", e.toString()),
                         () -> Log.d("RX_SHOW_BY_ID", "Complete")
                 );
-       addDisposable(disposable);
+        addDisposable(disposable);
     }
 }

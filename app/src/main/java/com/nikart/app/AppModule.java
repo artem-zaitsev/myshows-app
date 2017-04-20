@@ -10,6 +10,7 @@ import dagger.Provides;
 
 /**
  * Created by Artem on 18.04.2017.
+ * App module. Dagger2.@
  */
 
 @Module

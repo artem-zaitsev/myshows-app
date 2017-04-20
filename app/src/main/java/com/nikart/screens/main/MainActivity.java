@@ -12,6 +12,7 @@ import com.nikart.app.App;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.presenter.Presenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.account.AccountFragment;
 import com.nikart.screens.shows.MyShowsFragment;
@@ -45,6 +46,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initActivity() {
+        setPresenter(new Presenter() {
+            @Override
+            public void loadData() {
+
+            }
+
+            @Override
+            public void onStop() {
+
+            }
+        });
         fragmentList = new ArrayList<>();
         fragmentList.add(new MyShowsFragment());
         fragmentList.add(new SoonEpisodesFragment());

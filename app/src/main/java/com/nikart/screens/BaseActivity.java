@@ -32,4 +32,10 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     protected Presenter getPresenter() {
         return  presenter;
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        presenter.onStop();
+    }
 }

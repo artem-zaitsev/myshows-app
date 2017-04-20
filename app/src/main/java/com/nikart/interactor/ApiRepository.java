@@ -6,6 +6,7 @@ import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.interactor.retrofit.ApiHelper;
 import com.nikart.interactor.retrofit.MyShowsApi;
+import com.nikart.model.Model;
 import com.nikart.util.JsonParser;
 import com.nikart.util.Md5Converter;
 import com.nikart.util.PreferencesWorker;
@@ -29,14 +30,14 @@ import retrofit2.Response;
  * Manager for API api.myshows.me.
  */
 
-public class ApiManager {
+public class ApiRepository implements Model {
 
-    private static ApiManager apiManager;
+    private static ApiRepository apiRepository;
     private MyShowsApi api = ApiHelper.getInstance().getApi();
 
-    public static ApiManager getInstance() {
-        if (apiManager == null) apiManager = new ApiManager();
-        return apiManager;
+    public static ApiRepository getInstance() {
+        if (apiRepository == null) apiRepository = new ApiRepository();
+        return apiRepository;
     }
 
     public Observable<Boolean> signIn(String login, String password) {
@@ -110,7 +111,7 @@ public class ApiManager {
                 });
     }
 
-    public Observable<UserProfile> getUserProfile() {
+    public Observable<UserProfile> getUserInfo() {
         return api.getUserProfile();
     }
 

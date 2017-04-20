@@ -113,16 +113,15 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
         recyclerView.setAdapter(showsAdapter);
     }
 
-    private void updateRecycler(List<Show> shows) {
-        this.shows.clear();
-        this.shows.addAll(shows);
+    private void updateRecycler(List<Show> shws) {
+        shows.clear();
+        shows.addAll(shws);
+        showsAdapter.notifyDataSetChanged();
         progressLayout.setVisibility(View.GONE);
     }
 
     public void showUserInfo(UserProfile user) {
         usernameTextView.setText((String) user.getLogin());
-
-        //Надо сделать объект Stats. Чтобы распарсить ответ на запрос профиля.
         watchedEpisodes.setText(
                 user.getStats().getWatchedEpisodes().toString()
         );

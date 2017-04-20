@@ -1,26 +1,32 @@
 package com.nikart.presenter;
 
 import com.nikart.model.Model;
+import com.nikart.model.ModelComponent;
+import com.nikart.model.ModelModule;
 import com.nikart.model.api.ApiModel;
+
+import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
 
 /**
  * Created by Artem on 18.04.2017.
+ * Base Presenter class.
  */
 
 public abstract class BasePresenter implements Presenter {
 
     CompositeDisposable disposables = new CompositeDisposable();
-    protected Model model;
+
+    @Inject
+    protected ApiModel model;
 
     public BasePresenter() {
-        this.model = new ApiModel();
+        ApiModel.getComponent().inject(this);
     }
 
-    protected void addDisposable(Disposable disposable){
+    protected void addDisposable(Disposable disposable) {
         disposables.add(disposable);
     }
 

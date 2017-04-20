@@ -1,6 +1,6 @@
 package com.nikart.app;
 
-import com.nikart.interactor.ApiManager;
+import com.nikart.interactor.ApiRepository;
 import com.nikart.interactor.retrofit.ApiHelper;
 import com.nikart.util.PreferencesWorker;
 
@@ -20,5 +20,5 @@ public interface AppComponent {
 
     PreferencesWorker getPreferences();
 
-    void inject(ApiManager manager);
+    void inject(ApiRepository repository);
 }

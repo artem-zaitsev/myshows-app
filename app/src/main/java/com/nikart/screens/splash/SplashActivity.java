@@ -7,6 +7,11 @@ import android.util.Log;
 
 import com.nikart.model.api.ApiModel;
 import com.nikart.myshows.R;
+import com.nikart.presenter.Presenter;
+import com.nikart.presenter.account.AccountPresenter;
+import com.nikart.presenter.login.LoginPresenter;
+import com.nikart.presenter.show.ShowPresenter;
+import com.nikart.presenter.shows.ShowListPresenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.launch.LaunchActivity;
 import com.nikart.screens.main.MainActivity;
@@ -25,6 +30,17 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initActivity() {
+        setPresenter(new Presenter() {
+            @Override
+            public void loadData() {
+
+            }
+
+            @Override
+            public void onStop() {
+
+            }
+        });
         String login = PreferencesWorker.getInstance().getLogin();
         String password = PreferencesWorker.getInstance().getPassword();
         if (login != null

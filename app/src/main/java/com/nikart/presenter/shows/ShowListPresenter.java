@@ -6,10 +6,7 @@ import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.screens.shows.MyShowsFragment;
 
-import java.sql.SQLException;
-
 import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
 
 /**
  * Created by Artem on 18.04.2017.
