@@ -38,4 +38,10 @@ public abstract class BaseFragment extends Fragment implements IView {
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.onStop();
+    }
 }

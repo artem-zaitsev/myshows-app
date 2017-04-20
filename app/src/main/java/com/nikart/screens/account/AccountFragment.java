@@ -150,12 +150,6 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
         Log.d("RX_ACCOUNT", e.toString());
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        presenter.onStop();
-    }
-
     //callback
     @Override
     public void rateUpdate(int showId, int rate) {
