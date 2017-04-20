@@ -13,13 +13,12 @@ import io.reactivex.disposables.Disposables;
 
 public abstract class BasePresenter implements Presenter {
 
-    CompositeDisposable disposables;
+    CompositeDisposable disposables = new CompositeDisposable();
     protected Model model;
 
     public BasePresenter() {
         this.model = new ApiModel();
     }
-    public abstract void loadData();
 
     protected void addDisposable(Disposable disposable){
         disposables.add(disposable);

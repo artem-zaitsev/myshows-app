@@ -3,22 +3,23 @@ package com.nikart.screens.auth.signin;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.nikart.myshows.R;
+import com.nikart.presenter.Presenter;
 import com.nikart.presenter.login.LoginPresenter;
+import com.nikart.screens.BaseActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private Button signInButton;
     private EditText loginEditText;
     private EditText passwordEditText;
-    private LoginPresenter presenter;
+    private Presenter presenter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -26,19 +27,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void setLayout() {
         setContentView(R.layout.activity_login);
-        presenter = new LoginPresenter(this);
-        initActivity();
     }
 
     @Override
     public void onClick(View view) {
-        presenter.signIn(loginEditText.getText().toString(), passwordEditText.getText().toString());
+        setPresenter(new LoginPresenter(this));
+        presenter.loadData();
     }
 
-    private void initActivity() {
+    @Override
+    protected void initActivity() {
+        presenter = new LoginPresenter(this);
         signInButton = (Button) findViewById(R.id.sign_in_btn);
         loginEditText = (EditText) findViewById(R.id.login_edittext);
         passwordEditText = (EditText) findViewById(R.id.password_edittext);
@@ -48,5 +49,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void startActivityIfSignedIn(Boolean isSuccessful) {
         PreferencesWorker.getInstance().saveSignedIn(isSuccessful);
         MainActivity.start(LoginActivity.this);
+    }
+
+    public String getLogin() {
+        return loginEditText.getText().toString();
+    }
+
+    public String getPassword() {
+        return passwordEditText.getText().toString();
+    }
+
+    @Override
+    public <T> void showData(T data) {
+        startActivityIfSignedIn((Boolean)data);
+    }
+
+    @Override
+    public void showError(Throwable t) {
+
     }
 }

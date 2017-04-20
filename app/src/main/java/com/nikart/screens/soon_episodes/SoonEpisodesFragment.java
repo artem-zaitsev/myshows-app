@@ -1,58 +1,44 @@
 package com.nikart.screens.soon_episodes;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nikart.myshows.R;
 import com.nikart.presenter.soon_episodes.SoonEpisodesPresenter;
+import com.nikart.screens.BaseFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Фрагмент для отображения списка серий
  */
 
-public class SoonEpisodesFragment extends Fragment {
+public class SoonEpisodesFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager manager;
     private EpisodesInMonthAdapter monthAdapter;
     private FrameLayout progressLoadFrame;
-    private SoonEpisodesPresenter presenter;
     private List<Month> months;
 
 
     // Приделан ExpandedRecyclerView!!!!!!
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_soon_episodes, container, false);
-        initFragment(rootView);
-        presenter = new SoonEpisodesPresenter(this);
-        presenter.loadData();
-        setHasOptionsMenu(true);
-        return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
+        setPresenter(new SoonEpisodesPresenter(this));
         presenter.loadData();
     }
 
@@ -81,7 +67,8 @@ public class SoonEpisodesFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initFragment(View rootView) {
+    @Override
+    protected void initFragment(View rootView) {
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(getString(R.string.my_episodes));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -91,14 +78,26 @@ public class SoonEpisodesFragment extends Fragment {
         }
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_myepisodes_rv);
         progressLoadFrame = (FrameLayout) rootView.findViewById(R.id.fragment_episodes_progress);
+       // initRecycler();
     }
 
-    public void initRecycler(List<Month> months) {
-        this.months = months;
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_soon_episodes;
+    }
+
+    private void initRecycler() {
         monthAdapter = new EpisodesInMonthAdapter(months);
-        manager = new LinearLayoutManager(getActivity().getApplicationContext());
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(monthAdapter);
+    }
+
+    public void updateRecycler(List<Month> months) {
+        this.months = months;
+        initRecycler();
+        /*this.months.clear();
+        this.months.addAll(months);*/
         progressLoadFrame.setVisibility(View.GONE);
     }
 
@@ -111,5 +110,15 @@ public class SoonEpisodesFragment extends Fragment {
                         startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)))
                 .show();
         Log.d("RX_SOON_EPS", e.toString());
+    }
+
+    @Override
+    public <T> void showData(T data) {
+        updateRecycler((List<Month>) data);
+    }
+
+    @Override
+    public void showError(Throwable t) {
+        showErrorSnackbar(t);
     }
 }

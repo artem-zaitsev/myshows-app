@@ -17,12 +17,17 @@ import io.reactivex.disposables.Disposables;
 
 public class ShowPresenter extends BasePresenter {
 
-    ShowActivity view;
+    private ShowActivity view;
     private Disposable disposable = Disposables.empty();
     int id;
 
+    public ShowPresenter(ShowActivity view) {
+        this.view = view;
+    }
+
     @Override
     public void loadData() {
+        id = view.getShowId();
         disposable = model.getShowById(id)
                 .onErrorResumeNext(throwable -> {
                             Log.d("RX_SHOW_BY_ID", throwable.toString());
@@ -41,11 +46,6 @@ public class ShowPresenter extends BasePresenter {
                         e -> Log.d("RX_SHOW_BY_ID", e.toString()),
                         () -> Log.d("RX_SHOW_BY_ID", "Complete")
                 );
-       // addDisposable(disposable);
-    }
-
-    public void getShow(int id) {
-        this.id = id;
-        loadData();
+       addDisposable(disposable);
     }
 }

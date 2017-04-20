@@ -3,6 +3,8 @@ package com.nikart.interactor.retrofit;
 import com.nikart.interactor.interceptors.AddCookiesInterceptor;
 import com.nikart.interactor.interceptors.ReceivedCookieInterceptor;
 
+import javax.inject.Singleton;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -11,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Artem on 18.04.2017.
  */
+
 
 public class ApiHelper {
 

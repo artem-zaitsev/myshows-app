@@ -7,6 +7,8 @@ package com.nikart.presenter;
 
 public interface Presenter {
 
-    public void onStop();
+    void loadData();
+
+    void onStop();
 
 }

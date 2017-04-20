@@ -3,7 +3,6 @@ package com.nikart.screens.shows;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,6 +23,7 @@ import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
 import com.nikart.presenter.shows.ShowListPresenter;
+import com.nikart.screens.BaseFragment;
 import com.nikart.util.LayoutSwitcherDialog;
 
 import java.sql.SQLException;
@@ -35,7 +35,7 @@ import java.util.List;
  * Fragment class for MyShows fragment.
  * There is information about user's shows.
  */
-public class MyShowsFragment extends Fragment
+public class MyShowsFragment extends BaseFragment
         implements LayoutSwitcherDialog.LayoutSwitcherDialogListener {
 
     static public boolean IS_GRID; // для смены layout'ов в адаптере
@@ -43,25 +43,15 @@ public class MyShowsFragment extends Fragment
     private RecyclerView recyclerView;
     private ShowsAdapter showsAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ViewGroup container;
     private FrameLayout progressLoadFrame;
     private List<Show> shows;
-    ShowListPresenter presenter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        this.container = container;
-        View rootView = inflater.inflate(R.layout.fragment_my_shows, container, false);
-        initFragment(rootView);
-        initRecycler();
-        presenter = new ShowListPresenter(this);
+    public void onStart() {
+        super.onStart();
+        setPresenter(new ShowListPresenter(this));
         presenter.loadData();
-        setHasOptionsMenu(true);
-        return rootView;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -91,7 +81,8 @@ public class MyShowsFragment extends Fragment
         return layoutManager.getClass().equals(GridLayoutManager.class);
     }
 
-    private void initFragment(View rootView) {
+    @Override
+    protected void initFragment(View rootView) {
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         ((TextView) rootView.findViewById(R.id.toolbar_title)).setText(getString(R.string.my_shows));
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -103,11 +94,17 @@ public class MyShowsFragment extends Fragment
         progressLoadFrame = (FrameLayout) rootView.findViewById(R.id.fragment_my_shows_progress);
         progressLoadFrame.setVisibility(View.VISIBLE);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_my_show_recycler_view);
+        initRecycler();
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_my_shows;
     }
 
     private void initRecycler() {
         shows = new ArrayList<>();
-        layoutManager = new GridLayoutManager(container.getContext(), 2); // two columns
+        layoutManager = new GridLayoutManager(getContext(), 2); // two columns
 
         IS_GRID = true;
 
@@ -140,14 +137,27 @@ public class MyShowsFragment extends Fragment
     @Override
     public void OnItemClickListener(int i) {
         layoutManager = (i == 1)
-                ? new LinearLayoutManager(container.getContext())
-                : new GridLayoutManager(container.getContext(), 2);
+                ? new LinearLayoutManager(getContext())
+                : new GridLayoutManager(getContext(), 2);
         IS_GRID = isGridLayoutManager();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
+    }
 
-        /*item.setIcon(!isGridLayoutManager()
-                ? R.drawable.grid_layout_manager
-                : R.drawable.linear_layout_manager);*/
+    @Override
+    public <T> void showData(T data) {
+        if (data != null) {
+            updateRecycler((List<Show>) data);
+        } else try {
+            loadContentFromDb();
+        } catch (SQLException e) {
+            Log.d("RX_SHOWS_LIST", "Can not load from database. " + e.toString());
+        }
+
+    }
+
+    @Override
+    public void showError(Throwable t) {
+        showErrorSnackbar(t);
     }
 }

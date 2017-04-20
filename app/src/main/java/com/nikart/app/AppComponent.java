@@ -1,7 +1,10 @@
 package com.nikart.app;
 
+import com.nikart.interactor.ApiManager;
 import com.nikart.interactor.retrofit.ApiHelper;
 import com.nikart.util.PreferencesWorker;
+
+import javax.inject.Singleton;
 
 import dagger.Component;
 
@@ -10,9 +13,12 @@ import dagger.Component;
  */
 
 @Component(modules = {AppModule.class})
+@Singleton
 public interface AppComponent {
 
     ApiHelper getApiHelper();
 
     PreferencesWorker getPreferences();
+
+    void inject(ApiManager manager);
 }

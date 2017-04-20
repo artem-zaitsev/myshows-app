@@ -5,9 +5,10 @@ import android.util.Log;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
-import com.nikart.model.api.ApiModel;
 import com.nikart.model.Model;
-import com.nikart.presenter.Presenter;
+import com.nikart.model.api.ApiModel;
+import com.nikart.presenter.BasePresenter;
+import com.nikart.screens.IView;
 import com.nikart.screens.account.AccountFragment;
 
 import java.sql.SQLException;
@@ -15,64 +16,58 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.disposables.Disposables;
 
 /**
  * Created by Artem on 15.04.2017.
  * Presenter for AccountFragment
  */
 
-public class AccountPresenter implements Presenter {
+public class AccountPresenter extends BasePresenter {
 
-    private AccountFragment view;
-    private Disposable disposable = Disposables.empty();
-    private Model model;
+    private IView view;
 
     public AccountPresenter(AccountFragment view) {
         this.view = view;
-        model = new ApiModel(); // не нравится!!!!
     }
 
+    @Override
     public void loadData() {
         Observable<UserProfile> userProfileObservable = model.getUserInfo();
         userProfileObservable
                 .subscribe(
-                        user -> view.showUserInfo(user),
-                        view::showErrorSnackbar,
+                        user -> view.showData(user),
+                        view::showError,
                         () -> Log.d("RX_ACCOUNT", "Completed")
                 );
 
         Observable<List<Show>> showListObservable = model.getShows();
-        disposable = showListObservable
+        Disposable showListDisposable = showListObservable
                 .onErrorResumeNext(
                         error -> {
                             Log.d("RX_ACCOUNT", error.toString());
                             try {
-                                view.initRecycler(HelperFactory.getHelper().getShowDAO().getAllShows());
+                                view.showData(HelperFactory.getHelper().getShowDAO().getAllShows());
                             } catch (SQLException e) {
-                                e.printStackTrace();
+                                Log.d("RX_ACCOUNT", "Error load from db. " + e.toString());
                             }
                         }
                 )
                 .subscribe(
-                        view::initRecycler,
+                        view::showData,
                         e -> Log.d("RX_ACCOUNT", e.toString()),
                         () -> Log.d("RX_ACCOUNT", "Complete load show list")
                 );
+        addDisposable(showListDisposable);
     }
 
     public void rateUpdate(int showId, int rate) {
         Observable<Boolean> rateUpdateObservable = model.updateRateShow(showId, rate);
-        rateUpdateObservable
+        Disposable rateDisposable = rateUpdateObservable
                 .subscribe(
                         is -> Log.d("RX_RATE_UPDATE", is.toString()),
                         e -> Log.d("RX_RATE_UPDATE", e.toString()),
                         () -> Log.d("RX_RATE_UPDATE", "Complete")
                 );
-    }
-
-    @Override
-    public void onStop() {
-        disposable.dispose();
+        addDisposable(rateDisposable);
     }
 }

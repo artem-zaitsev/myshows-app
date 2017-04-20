@@ -12,6 +12,7 @@ import com.nikart.app.App;
 import com.nikart.data.HelperFactory;
 import com.nikart.data.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.screens.BaseActivity;
 import com.nikart.screens.account.AccountFragment;
 import com.nikart.screens.shows.MyShowsFragment;
 import com.nikart.screens.soon_episodes.SoonEpisodesFragment;
@@ -27,7 +28,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private NavigationController controller;
     private List<Fragment> fragmentList;
@@ -38,24 +39,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void setLayout() {
         setContentView(R.layout.activity_main);
-        Log.d("PREFERENCES", "MainActivity. Cookie from prefs:" + PreferencesWorker.getInstance().getCookies());
-        initActivity();
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    private void initActivity() {
+    protected void initActivity() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new MyShowsFragment());
         fragmentList.add(new SoonEpisodesFragment());
@@ -73,4 +62,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public <T> void showData(T data) {
+
+    }
+
+    @Override
+    public void showError(Throwable t) {
+
+    }
 }

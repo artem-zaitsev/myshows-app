@@ -22,17 +22,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.nikart.data.dto.Show;
 import com.nikart.data.dto.UserProfile;
 import com.nikart.myshows.R;
 import com.nikart.presenter.account.AccountPresenter;
+import com.nikart.screens.BaseFragment;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Singleton;
 
 /**
  * Фрагмент для отображения информации об аккаунте
  */
 
-public class AccountFragment extends Fragment implements AccountShowAdapter.RateShowChangedListener {
+public class AccountFragment extends BaseFragment implements AccountShowAdapter.RateShowChangedListener {
 
     private RecyclerView recyclerView;
     private AccountShowAdapter showsAdapter;
@@ -43,17 +48,13 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     private TextView watchedDays;
     private TextView watchedHours;
     private FrameLayout progressLayout;
-    private AccountPresenter presenter;
+    private List<Show> shows;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_account, container, false);
-        initFragment(rootView);
-        presenter = new AccountPresenter(this);
+    public void onStart() {
+        super.onStart();
+        setPresenter(new AccountPresenter(this));
         presenter.loadData();
-        setHasOptionsMenu(true);
-        return rootView;
     }
 
     @Override
@@ -74,7 +75,8 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
         return true;
     }
 
-    private void initFragment(View rootView) {
+    @Override
+    protected void initFragment(View rootView) {
         progressLayout = (FrameLayout) rootView.findViewById(R.id.fragment_account_progress);
         progressLayout.setVisibility(View.VISIBLE);
 
@@ -95,13 +97,26 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
                 (TextView) rootView.findViewById(R.id.fragment_account_hours_count_text_view);
         watchedDays = (TextView) rootView.findViewById(R.id.fragment_account_days_count_text_view);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_account_rv);
+        initRecycler();
     }
 
-    public void initRecycler(List shows) {
-        layoutManager = new LinearLayoutManager(this.getContext());
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_account;
+    }
+
+    public void initRecycler() {
+        shows = new ArrayList<>();
+        layoutManager = new LinearLayoutManager(getContext());
         showsAdapter = new AccountShowAdapter(shows, this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(showsAdapter);
+    }
+
+    private void updateRecycler(List<Show> shows) {
+        this.shows.clear();
+        this.shows.addAll(shows);
+        progressLayout.setVisibility(View.GONE);
     }
 
     public void showUserInfo(UserProfile user) {
@@ -121,7 +136,7 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
         Glide.with(AccountFragment.this)
                 .load("https://api.myshows.me/shared/img/fe/default-user-avatar-normal.png")
                 .into(accountPic);
-        progressLayout.setVisibility(View.GONE);
+
     }
 
     public void showErrorSnackbar(Throwable e) {
@@ -144,6 +159,20 @@ public class AccountFragment extends Fragment implements AccountShowAdapter.Rate
     //callback
     @Override
     public void rateUpdate(int showId, int rate) {
-        presenter.rateUpdate(showId, rate);
+        ((AccountPresenter)presenter).rateUpdate(showId, rate);
+    }
+
+    @Override
+    public <T> void showData(T data) {
+        if (data.getClass() == UserProfile.class) {
+            showUserInfo((UserProfile)data);
+        } else if (data.getClass() == ArrayList.class) {
+            updateRecycler((List<Show>)data);
+        }
+    }
+
+    @Override
+    public void showError(Throwable t) {
+        showErrorSnackbar(t);
     }
 }

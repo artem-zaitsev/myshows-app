@@ -14,12 +14,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.nikart.myshows.R;
+import com.nikart.screens.BaseActivity;
 import com.nikart.screens.auth.signin.LoginActivity;
 import com.nikart.screens.auth.signup.SignUpActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
 
-public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
+public class LaunchActivity extends BaseActivity implements View.OnClickListener {
 
     static private final int NUM_PAGES = 2;
     private Button registerButton;
@@ -34,11 +35,8 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void setLayout() {
         setContentView(R.layout.activity_launch);
-        Log.d("PREFERENCES", "LaunchActivity. Cookie from prefs:" + PreferencesWorker.getInstance().getCookies());
-        initActivity();
     }
 
     @Override
@@ -62,7 +60,7 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void initActivity() {
+    protected void initActivity() {
         registerButton = (Button) findViewById(R.id.register_btn);
         loginButton = (Button) findViewById(R.id.login_btn);
 
@@ -72,6 +70,16 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         pager = (ViewPager) findViewById(R.id.launch_pager);
         pagerAdapter = new WelcomePagesSlideAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
+    }
+
+    @Override
+    public <T> void showData(T data) {
+
+    }
+
+    @Override
+    public void showError(Throwable t) {
+
     }
 
     // Делаем внутренний класс для адаптера фрагментов.

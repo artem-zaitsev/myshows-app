@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.nikart.model.api.ApiModel;
 import com.nikart.myshows.R;
+import com.nikart.screens.BaseActivity;
 import com.nikart.screens.launch.LaunchActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
@@ -15,16 +16,15 @@ import com.nikart.util.PreferencesWorker;
  * Created by Artem on 23.03.2017.
  */
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void setLayout() {
         setContentView(R.layout.activity_splash);
-        initActivity();
     }
 
-    private void initActivity() {
+    @Override
+    protected void initActivity() {
         String login = PreferencesWorker.getInstance().getLogin();
         String password = PreferencesWorker.getInstance().getPassword();
         if (login != null
@@ -45,5 +45,15 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             LaunchActivity.start(this);
         }
+    }
+
+    @Override
+    public <T> void showData(T data) {
+
+    }
+
+    @Override
+    public void showError(Throwable t) {
+
     }
 }
