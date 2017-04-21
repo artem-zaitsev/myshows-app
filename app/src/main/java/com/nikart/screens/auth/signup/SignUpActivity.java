@@ -25,8 +25,8 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    protected void setLayout() {
-        setContentView(R.layout.activity_signup);
+    protected int getLayoutId() {
+        return R.layout.activity_signup;
     }
 
     @Override

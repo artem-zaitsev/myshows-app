@@ -10,6 +10,7 @@ import com.nikart.model.api.ApiModel;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.screens.account.AccountFragment;
+import com.nikart.util.PreferencesWorker;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -32,6 +33,7 @@ public class AccountPresenter extends BasePresenter {
 
     @Override
     public void loadData() {
+        if (!PreferencesWorker.getInstance().isSignedIn()) signIn();
         Observable<UserProfile> userProfileObservable = model.getUserInfo();
         userProfileObservable
                 .subscribe(

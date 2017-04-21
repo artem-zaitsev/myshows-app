@@ -1,9 +1,7 @@
 package com.nikart.presenter;
 
-import com.nikart.model.Model;
-import com.nikart.model.ModelComponent;
-import com.nikart.model.ModelModule;
 import com.nikart.model.api.ApiModel;
+import com.nikart.util.PreferencesWorker;
 
 import javax.inject.Inject;
 
@@ -24,6 +22,10 @@ public abstract class BasePresenter implements Presenter {
 
     public BasePresenter() {
         ApiModel.getComponent().inject(this); // не красиво, но пока не до конца разобрался
+    }
+
+    protected void signIn() {
+        model.signIn(PreferencesWorker.getInstance().getLogin(), PreferencesWorker.getInstance().getPassword());
     }
 
     protected void addDisposable(Disposable disposable) {

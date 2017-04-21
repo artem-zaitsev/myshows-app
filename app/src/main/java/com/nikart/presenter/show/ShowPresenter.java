@@ -6,6 +6,7 @@ import com.nikart.data.HelperFactory;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.screens.show.ShowActivity;
+import com.nikart.util.PreferencesWorker;
 
 import java.sql.SQLException;
 
@@ -28,6 +29,7 @@ public class ShowPresenter extends BasePresenter {
 
     @Override
     public void loadData() {
+        if (!PreferencesWorker.getInstance().isSignedIn()) signIn();
         id = ((ShowActivity) view).getShowId();
         disposable = model.getShowById(id)
                 .onErrorResumeNext(throwable -> {

@@ -5,6 +5,7 @@ import android.util.Log;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.screens.shows.MyShowsFragment;
+import com.nikart.util.PreferencesWorker;
 
 import io.reactivex.disposables.Disposable;
 
@@ -23,6 +24,7 @@ public class ShowListPresenter extends BasePresenter {
 
     @Override
     public void loadData() {
+        if (!PreferencesWorker.getInstance().isSignedIn()) signIn();
         Disposable disposable = model.getShows()
                 .onErrorResumeNext(throwable -> {
                     Log.d("RX_SHOW_LIST", throwable.toString());

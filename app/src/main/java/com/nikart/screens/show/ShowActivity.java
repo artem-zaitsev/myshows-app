@@ -37,10 +37,9 @@ public class ShowActivity extends BaseActivity {
     }
 
     @Override
-    protected void setLayout() {
-        setContentView(R.layout.activity_show);
+    protected int getLayoutId() {
+        return R.layout.activity_show;
     }
-
     @Override
     protected void onResume() {
         super.onResume();

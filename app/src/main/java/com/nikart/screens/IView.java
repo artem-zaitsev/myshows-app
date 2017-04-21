@@ -1,6 +1,5 @@
 package com.nikart.screens;
 
-import android.view.View;
 
 /**
  * Created by Artem on 18.04.2017.

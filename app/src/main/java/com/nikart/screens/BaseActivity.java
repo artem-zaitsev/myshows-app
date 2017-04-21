@@ -18,11 +18,11 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setLayout();
+        setContentView(getLayoutId());
         initActivity();
     }
 
-    protected abstract void setLayout();
+    protected abstract int getLayoutId();
     protected abstract void initActivity();
 
     protected void setPresenter(Presenter presenter) {
@@ -36,6 +36,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     @Override
     protected void onStop() {
         super.onStop();
-        presenter.onStop();
+        if (presenter != null) presenter.onStop();
     }
 }

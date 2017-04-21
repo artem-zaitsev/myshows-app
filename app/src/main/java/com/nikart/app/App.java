@@ -9,6 +9,7 @@ import com.nikart.util.PreferencesWorker;
 
 /**
  * Created by Artem on 07.03.2017.
+ * App class.
  */
 
 public class App extends Application {
@@ -23,7 +24,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        appInstance = this;
+        appInstance = (App)getApplicationContext();
         component = DaggerAppComponent.create();
         initRetrofit();
         initDataBaseHelper();

@@ -9,6 +9,7 @@ import com.nikart.myshows.R;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.screens.soon_episodes.Month;
+import com.nikart.util.PreferencesWorker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +35,7 @@ public class SoonEpisodesPresenter extends BasePresenter {
 
     @Override
     public void loadData() {
+        if (!PreferencesWorker.getInstance().isSignedIn()) signIn();
         Observable<List<List<Episode>>> soonEpisodesObservable = apiModel.getNextEpisodes();
         Disposable subscription = soonEpisodesObservable
                 .subscribe(this::groupEpisodes,

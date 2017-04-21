@@ -35,8 +35,8 @@ public class LaunchActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
-    protected void setLayout() {
-        setContentView(R.layout.activity_launch);
+    protected int getLayoutId() {
+        return R.layout.activity_launch;
     }
 
     @Override

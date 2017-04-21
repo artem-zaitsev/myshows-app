@@ -19,7 +19,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button signInButton;
     private EditText loginEditText;
     private EditText passwordEditText;
-    private Presenter presenter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -27,8 +26,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     @Override
-    protected void setLayout() {
-        setContentView(R.layout.activity_login);
+    protected int getLayoutId() {
+        return R.layout.activity_login;
     }
 
     @Override
@@ -39,7 +38,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initActivity() {
-        presenter = new LoginPresenter(this);
+        setPresenter(new Presenter() {
+            @Override
+            public void loadData() {
+
+            }
+
+            @Override
+            public void onStop() {
+
+            }
+        });
         signInButton = (Button) findViewById(R.id.sign_in_btn);
         loginEditText = (EditText) findViewById(R.id.login_edittext);
         passwordEditText = (EditText) findViewById(R.id.password_edittext);

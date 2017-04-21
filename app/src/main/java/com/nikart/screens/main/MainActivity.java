@@ -40,8 +40,8 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void setLayout() {
-        setContentView(R.layout.activity_main);
+    protected int getLayoutId() {
+        return R.layout.activity_main;
     }
 
     @Override

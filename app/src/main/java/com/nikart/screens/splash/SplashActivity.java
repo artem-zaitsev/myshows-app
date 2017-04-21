@@ -24,24 +24,12 @@ import com.nikart.util.PreferencesWorker;
 public class SplashActivity extends BaseActivity {
 
     @Override
-    protected void setLayout() {
-        setContentView(R.layout.activity_splash);
+    protected int getLayoutId() {
+        return R.layout.activity_splash;
     }
 
     @Override
     protected void initActivity() {
-        //так как наследуюсь от базовой, нужно проиницилизировать презентер
-        setPresenter(new Presenter() {
-            @Override
-            public void loadData() {
-
-            }
-
-            @Override
-            public void onStop() {
-
-            }
-        });
         String login = PreferencesWorker.getInstance().getLogin();
         String password = PreferencesWorker.getInstance().getPassword();
         if (login != null
