@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.nikart.data.dto.Show;
+import com.nikart.model.dto.Show;
 import com.nikart.myshows.R;
 import com.nikart.screens.util.RateCustomView;
 

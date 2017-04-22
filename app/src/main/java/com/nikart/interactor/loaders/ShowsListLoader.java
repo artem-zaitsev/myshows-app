@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.nikart.base.BaseLoader;
 import com.nikart.data.HelperFactory;
-import com.nikart.data.dto.Show;
+import com.nikart.model.dto.Show;
 import com.nikart.interactor.Answer;
 
 import java.io.IOException;

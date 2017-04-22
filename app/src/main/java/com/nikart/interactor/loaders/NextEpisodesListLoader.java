@@ -1,24 +1,15 @@
 package com.nikart.interactor.loaders;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
 import com.nikart.data.HelperFactory;
-import com.nikart.data.dto.Episode;
+import com.nikart.model.dto.Episode;
 import com.nikart.interactor.Answer;
-import com.nikart.util.JsonParser;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 /**
  * Created by Artem on 19.03.2017.

@@ -4,8 +4,11 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 import com.nikart.data.HelperFactory;
-import com.nikart.interactor.retrofit.ApiHelper;
+import com.nikart.interactor.retrofit.DaggerNetworkComponent;
+import com.nikart.interactor.retrofit.NetworkHelper;
 import com.nikart.util.PreferencesWorker;
+
+import javax.inject.Inject;
 
 /**
  * Created by Artem on 07.03.2017.
@@ -15,7 +18,9 @@ import com.nikart.util.PreferencesWorker;
 public class App extends Application {
 
     private static App appInstance;
-    private AppComponent component;
+
+   /* @Inject
+    NetworkHelper helper;*/
 
     public static App getInstance() {
         return appInstance;
@@ -24,9 +29,9 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        appInstance = (App)getApplicationContext();
-        component = DaggerAppComponent.create();
-        initRetrofit();
+        appInstance = (App) getApplicationContext();
+       // DaggerNetworkComponent.builder().build().inject(this);
+       // initRetrofit();
         initDataBaseHelper();
         initPreferences();
         initStetho();
@@ -39,7 +44,7 @@ public class App extends Application {
     }
 
     private void initRetrofit() {
-        component.getApiHelper().initRetrofit();
+        //helper.initRetrofit();
     }
 
     private void initDataBaseHelper() {
@@ -48,7 +53,7 @@ public class App extends Application {
 
     private void initPreferences() {
         //Инициализируем статическую sharedPreferences в PrefWorker
-        component.getPreferences().initSharedPreferences(
+        PreferencesWorker.getInstance().initSharedPreferences(
                 getSharedPreferences(PreferencesWorker.PREF_SIGN_IN, MODE_PRIVATE));
     }
 

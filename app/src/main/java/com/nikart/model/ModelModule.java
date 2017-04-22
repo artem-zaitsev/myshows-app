@@ -1,9 +1,6 @@
 package com.nikart.model;
 
-import com.nikart.interactor.ApiRepository;
-import com.nikart.model.api.ApiModel;
-
-import javax.inject.Singleton;
+import com.nikart.model.api.ApiRepository;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,14 +13,8 @@ import dagger.Provides;
 public class ModelModule {
 
     @Provides
-    public ApiRepository provideRepository() {
+    public Model provideRepository() {
         return ApiRepository.getInstance();
     }
-
-    @Provides
-    public  ApiModel provideApiModel() {
-        return ApiModel.getInstance();
-    }
-
 
 }

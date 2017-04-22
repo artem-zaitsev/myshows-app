@@ -1,6 +1,8 @@
 package com.nikart.presenter;
 
-import com.nikart.model.api.ApiModel;
+import com.nikart.model.DaggerModelComponent;
+import com.nikart.model.Model;
+import com.nikart.model.api.ApiRepository;
 import com.nikart.util.PreferencesWorker;
 
 import javax.inject.Inject;
@@ -18,10 +20,10 @@ public abstract class BasePresenter implements Presenter {
     CompositeDisposable disposables = new CompositeDisposable();
 
     @Inject
-    protected ApiModel model;
+    protected Model model;
 
     public BasePresenter() {
-        ApiModel.getComponent().inject(this); // не красиво, но пока не до конца разобрался
+       DaggerModelComponent.create().inject(this);
     }
 
     protected void signIn() {

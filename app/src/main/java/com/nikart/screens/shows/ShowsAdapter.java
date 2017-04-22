@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.nikart.data.dto.Show;
+import com.nikart.model.dto.Show;
 import com.nikart.myshows.R;
 import com.nikart.screens.show.ShowActivity;
 

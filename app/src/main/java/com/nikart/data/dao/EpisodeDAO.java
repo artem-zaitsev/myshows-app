@@ -3,8 +3,8 @@ package com.nikart.data.dao;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 import com.nikart.data.HelperFactory;
-import com.nikart.data.dto.Episode;
-import com.nikart.data.dto.Show;
+import com.nikart.model.dto.Episode;
+import com.nikart.model.dto.Show;
 
 import java.sql.SQLException;
 import java.util.List;

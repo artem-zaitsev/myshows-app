@@ -1,4 +1,4 @@
-package com.nikart.data.dto;
+package com.nikart.model.dto;
 
 import android.os.Parcel;
 import android.os.Parcelable;

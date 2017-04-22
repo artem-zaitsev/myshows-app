@@ -1,8 +1,9 @@
 package com.nikart.model;
 
-import com.nikart.interactor.ApiRepository;
-import com.nikart.model.api.ApiModel;
 import com.nikart.presenter.BasePresenter;
+import com.nikart.screens.splash.SplashActivity;
+
+import javax.inject.Singleton;
 
 import dagger.Component;
 
@@ -11,11 +12,11 @@ import dagger.Component;
  */
 
 @Component(modules = {ModelModule.class})
+@Singleton
 public interface ModelComponent {
 
-    ApiRepository getApiRepository();
-
-    ApiModel getApiModel();
-
     void inject(BasePresenter presenter);
+
+    void inject(SplashActivity a);
+
 }

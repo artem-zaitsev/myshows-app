@@ -1,4 +1,4 @@
-package com.nikart.data.dto;
+package com.nikart.model.dto;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

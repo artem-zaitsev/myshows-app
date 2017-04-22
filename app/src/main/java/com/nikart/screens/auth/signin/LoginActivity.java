@@ -38,17 +38,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initActivity() {
-        setPresenter(new Presenter() {
-            @Override
-            public void loadData() {
-
-            }
-
-            @Override
-            public void onStop() {
-
-            }
-        });
         signInButton = (Button) findViewById(R.id.sign_in_btn);
         loginEditText = (EditText) findViewById(R.id.login_edittext);
         passwordEditText = (EditText) findViewById(R.id.password_edittext);

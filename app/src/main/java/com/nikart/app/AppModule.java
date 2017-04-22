@@ -1,6 +1,8 @@
 package com.nikart.app;
 
-import com.nikart.interactor.retrofit.ApiHelper;
+import android.content.Context;
+
+import com.nikart.interactor.retrofit.NetworkHelper;
 import com.nikart.util.PreferencesWorker;
 
 import javax.inject.Singleton;
@@ -16,15 +18,16 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    @Provides
-    @Singleton
-    ApiHelper provideApiHelper() {
-        return ApiHelper.getInstance();
+    Context context;
+
+    public AppModule(Context context) {
+        this.context = context;
     }
 
     @Provides
     @Singleton
-    PreferencesWorker providePreferences() {
-        return PreferencesWorker.getInstance();
+    Context provideContext() {
+        return context;
     }
+
 }

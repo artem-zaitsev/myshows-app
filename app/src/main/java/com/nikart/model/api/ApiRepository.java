@@ -1,12 +1,14 @@
-package com.nikart.interactor;
+package com.nikart.model.api;
 
 import com.nikart.data.HelperFactory;
-import com.nikart.data.dto.Episode;
-import com.nikart.data.dto.Show;
-import com.nikart.data.dto.UserProfile;
-import com.nikart.interactor.retrofit.ApiHelper;
+import com.nikart.interactor.retrofit.DaggerNetworkComponent;
 import com.nikart.interactor.retrofit.MyShowsApi;
+import com.nikart.interactor.retrofit.NetworkHelper;
+import com.nikart.interactor.retrofit.NetworkModule;
 import com.nikart.model.Model;
+import com.nikart.model.dto.Episode;
+import com.nikart.model.dto.Show;
+import com.nikart.model.dto.UserProfile;
 import com.nikart.util.JsonParser;
 import com.nikart.util.Md5Converter;
 import com.nikart.util.PreferencesWorker;
@@ -22,6 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import retrofit2.Response;
 
@@ -33,11 +37,21 @@ import retrofit2.Response;
 public class ApiRepository implements Model {
 
     private static ApiRepository apiRepository;
-    private MyShowsApi api = ApiHelper.getInstance().getApi();
+
+    @Inject
+    public NetworkHelper helper;
+    @Inject
+    public MyShowsApi api;
 
     public static ApiRepository getInstance() {
         if (apiRepository == null) apiRepository = new ApiRepository();
         return apiRepository;
+    }
+
+    public ApiRepository() {
+        DaggerNetworkComponent.create()
+                .inject(this);
+      //  api = helper.getApi();
     }
 
     public Observable<Boolean> signIn(String login, String password) {
@@ -123,13 +137,13 @@ public class ApiRepository implements Model {
     public Observable<Show> getShowById(int id) {
         return api.getShowById(id)
                 .map(sh -> {
-                            Show tmpShow = null;
-                            tmpShow = HelperFactory.getHelper().getShowDAO().queryForId(id);
-                            String watchStatus = tmpShow.getWatchStatus();
-                            sh.setId(id);
-                            sh.setWatchStatus(watchStatus);
-                            HelperFactory.getHelper().getShowDAO().update(sh);
-                            return sh;
-                        });
+                    Show tmpShow = null;
+                    tmpShow = HelperFactory.getHelper().getShowDAO().queryForId(id);
+                    String watchStatus = tmpShow.getWatchStatus();
+                    sh.setId(id);
+                    sh.setWatchStatus(watchStatus);
+                    HelperFactory.getHelper().getShowDAO().update(sh);
+                    return sh;
+                });
     }
 }

@@ -1,4 +1,4 @@
-package com.nikart.data.dto;
+package com.nikart.model.dto;
 
 /**
  * Created by Artem on 11.03.2017.

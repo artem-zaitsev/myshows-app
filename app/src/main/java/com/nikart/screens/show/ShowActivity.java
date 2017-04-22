@@ -13,9 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.nikart.data.dto.Show;
+import com.nikart.model.dto.Show;
 import com.nikart.myshows.R;
-import com.nikart.presenter.Presenter;
 import com.nikart.presenter.show.ShowPresenter;
 import com.nikart.screens.BaseActivity;
 
@@ -41,10 +40,10 @@ public class ShowActivity extends BaseActivity {
         return R.layout.activity_show;
     }
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         setPresenter(new ShowPresenter(this));
-        presenter.loadData();
+        getPresenter().loadData();
     }
 
     private void setShowWatching() {

@@ -1,27 +1,29 @@
 package com.nikart.screens.splash;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.nikart.model.api.ApiModel;
+import com.nikart.model.DaggerModelComponent;
+import com.nikart.model.Model;
+import com.nikart.model.api.ApiRepository;
 import com.nikart.myshows.R;
-import com.nikart.presenter.Presenter;
-import com.nikart.presenter.account.AccountPresenter;
-import com.nikart.presenter.login.LoginPresenter;
-import com.nikart.presenter.show.ShowPresenter;
-import com.nikart.presenter.shows.ShowListPresenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.launch.LaunchActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
+
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Artem on 23.03.2017.
  */
 
 public class SplashActivity extends BaseActivity {
+
+    @Inject
+    public Model model;
 
     @Override
     protected int getLayoutId() {
@@ -30,13 +32,15 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initActivity() {
+        DaggerModelComponent.create().inject(this);
         String login = PreferencesWorker.getInstance().getLogin();
         String password = PreferencesWorker.getInstance().getPassword();
         if (login != null
                 && password != null
                 && PreferencesWorker.getInstance().isSignedIn()) {
-            ApiModel model = new ApiModel();
             model.signIn(login, password)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(isSuccessful -> {
                                 PreferencesWorker.getInstance().saveSignedIn(isSuccessful);
                                 MainActivity.start(SplashActivity.this);

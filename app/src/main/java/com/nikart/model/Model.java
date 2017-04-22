@@ -1,8 +1,8 @@
 package com.nikart.model;
 
-import com.nikart.data.dto.Episode;
-import com.nikart.data.dto.Show;
-import com.nikart.data.dto.UserProfile;
+import com.nikart.model.dto.Episode;
+import com.nikart.model.dto.Show;
+import com.nikart.model.dto.UserProfile;
 
 import java.util.List;
 

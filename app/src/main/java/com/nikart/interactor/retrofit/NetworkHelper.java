@@ -15,16 +15,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 
-public class ApiHelper {
+public class NetworkHelper {
 
-    private static ApiHelper helper;
+    private static NetworkHelper helper;
     public final String BASE_URL = "https://api.myshows.me/";
     private MyShowsApi api;
 
 
-    public static ApiHelper getInstance() {
-        if (helper == null) helper = new ApiHelper();
+    public static NetworkHelper getInstance() {
+        if (helper == null) helper = new NetworkHelper();
         return helper;
+    }
+
+    public NetworkHelper() {
+        initRetrofit();
     }
 
     public void initRetrofit() {

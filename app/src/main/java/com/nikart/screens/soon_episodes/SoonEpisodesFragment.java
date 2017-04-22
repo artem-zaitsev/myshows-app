@@ -39,7 +39,7 @@ public class SoonEpisodesFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         setPresenter(new SoonEpisodesPresenter(this));
-        presenter.loadData();
+        getPresenter().loadData();
     }
 
     @Override
@@ -96,8 +96,6 @@ public class SoonEpisodesFragment extends BaseFragment {
     public void updateRecycler(List<Month> months) {
         this.months = months;
         initRecycler();
-        /*this.months.clear();
-        this.months.addAll(months);*/
         progressLoadFrame.setVisibility(View.GONE);
     }
 

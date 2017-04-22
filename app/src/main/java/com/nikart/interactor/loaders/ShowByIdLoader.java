@@ -3,16 +3,9 @@ package com.nikart.interactor.loaders;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.nikart.app.App;
 import com.nikart.base.BaseLoader;
-import com.nikart.data.HelperFactory;
-import com.nikart.data.dto.Show;
+import com.nikart.model.dto.Show;
 import com.nikart.interactor.Answer;
-
-import java.io.IOException;
-import java.sql.SQLException;
-
-import retrofit2.Response;
 
 /**
  * Created by Artem on 14.03.2017.

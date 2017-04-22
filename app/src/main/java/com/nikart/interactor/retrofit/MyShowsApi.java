@@ -1,7 +1,7 @@
 package com.nikart.interactor.retrofit;
 
-import com.nikart.data.dto.Show;
-import com.nikart.data.dto.UserProfile;
+import com.nikart.model.dto.Show;
+import com.nikart.model.dto.UserProfile;
 
 import java.util.Map;
 
@@ -10,7 +10,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**

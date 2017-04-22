@@ -2,9 +2,8 @@ package com.nikart.presenter.soon_episodes;
 
 import android.support.v4.app.Fragment;
 
-import com.nikart.data.dto.Episode;
+import com.nikart.model.dto.Episode;
 import com.nikart.model.Model;
-import com.nikart.model.api.ApiModel;
 import com.nikart.myshows.R;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
@@ -16,7 +15,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Artem on 16.04.2017.
@@ -25,19 +26,19 @@ import io.reactivex.disposables.Disposable;
 
 public class SoonEpisodesPresenter extends BasePresenter {
 
-    private Model apiModel;
     private IView view;
 
     public SoonEpisodesPresenter(IView view) {
         this.view = view;
-        apiModel = new ApiModel();
     }
 
     @Override
     public void loadData() {
         if (!PreferencesWorker.getInstance().isSignedIn()) signIn();
-        Observable<List<List<Episode>>> soonEpisodesObservable = apiModel.getNextEpisodes();
+        Observable<List<List<Episode>>> soonEpisodesObservable = model.getNextEpisodes();
         Disposable subscription = soonEpisodesObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::groupEpisodes,
                         e -> view.showError(e));
         addDisposable(subscription);

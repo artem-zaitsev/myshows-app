@@ -10,8 +10,10 @@ import com.nikart.util.PreferencesWorker;
 
 import java.sql.SQLException;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Artem on 18.04.2017.
@@ -32,6 +34,8 @@ public class ShowPresenter extends BasePresenter {
         if (!PreferencesWorker.getInstance().isSignedIn()) signIn();
         id = ((ShowActivity) view).getShowId();
         disposable = model.getShowById(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(throwable -> {
                             Log.d("RX_SHOW_BY_ID", throwable.toString());
                             try {

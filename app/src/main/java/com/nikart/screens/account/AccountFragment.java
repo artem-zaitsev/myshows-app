@@ -2,36 +2,30 @@ package com.nikart.screens.account;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.nikart.data.dto.Show;
-import com.nikart.data.dto.UserProfile;
+import com.nikart.model.dto.Show;
+import com.nikart.model.dto.UserProfile;
 import com.nikart.myshows.R;
 import com.nikart.presenter.account.AccountPresenter;
 import com.nikart.screens.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Singleton;
 
 /**
  * Фрагмент для отображения информации об аккаунте
@@ -54,7 +48,7 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
     public void onStart() {
         super.onStart();
         setPresenter(new AccountPresenter(this));
-        presenter.loadData();
+        getPresenter().loadData();
     }
 
     @Override
@@ -152,15 +146,15 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
     //callback
     @Override
     public void rateUpdate(int showId, int rate) {
-        ((AccountPresenter)presenter).rateUpdate(showId, rate);
+        ((AccountPresenter) presenter).rateUpdate(showId, rate);
     }
 
     @Override
     public <T> void showData(T data) {
         if (data.getClass() == UserProfile.class) {
-            showUserInfo((UserProfile)data);
+            showUserInfo((UserProfile) data);
         } else if (data.getClass() == ArrayList.class) {
-            updateRecycler((List<Show>)data);
+            updateRecycler((List<Show>) data);
         }
     }
 

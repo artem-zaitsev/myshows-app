@@ -1,6 +1,6 @@
 package com.nikart.screens.soon_episodes;
 
-import com.nikart.data.dto.Episode;
+import com.nikart.model.dto.Episode;
 import com.thoughtbot.expandablerecyclerview.models.ExpandableGroup;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.nikart.data.dao;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
-import com.nikart.data.dto.Show;
+import com.nikart.model.dto.Show;
 
 import java.io.IOException;
 import java.sql.SQLException;

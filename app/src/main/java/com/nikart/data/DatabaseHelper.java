@@ -9,8 +9,8 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.nikart.data.dao.EpisodeDAO;
 import com.nikart.data.dao.ShowDAO;
-import com.nikart.data.dto.Episode;
-import com.nikart.data.dto.Show;
+import com.nikart.model.dto.Episode;
+import com.nikart.model.dto.Show;
 
 import java.sql.SQLException;
 
