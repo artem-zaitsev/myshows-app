@@ -39,6 +39,8 @@ import javax.inject.Inject;
 
 public class AccountFragment extends BaseFragment implements AccountShowAdapter.RateShowChangedListener {
 
+    @Inject
+    public AccountPresenter presenter;
     private RecyclerView recyclerView;
     private AccountShowAdapter showsAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -49,9 +51,6 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
     private TextView watchedHours;
     private FrameLayout progressLayout;
     private List<Show> shows;
-
-    @Inject
-    public AccountPresenter presenter;
 
     @Override
     public void onStart() {

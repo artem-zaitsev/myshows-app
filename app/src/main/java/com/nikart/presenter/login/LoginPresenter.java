@@ -3,7 +3,6 @@ package com.nikart.presenter.login;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.nikart.model.Model;
 import com.nikart.myshows.R;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;

@@ -39,15 +39,13 @@ public class MyShowsFragment extends BaseFragment
         implements LayoutSwitcherDialog.LayoutSwitcherDialogListener {
 
     static public boolean IS_GRID; // для смены layout'ов в адаптере
-
+    @Inject
+    public ShowListPresenter presenter;
     private RecyclerView recyclerView;
     private ShowsAdapter showsAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private FrameLayout progressLoadFrame;
     private List<Show> shows;
-
-    @Inject
-    public ShowListPresenter presenter;
 
     @Override
     public void onStart() {

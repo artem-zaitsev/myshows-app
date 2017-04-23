@@ -3,7 +3,6 @@ package com.nikart.presenter.soon_episodes;
 import android.support.v4.app.Fragment;
 
 import com.nikart.model.dto.Episode;
-import com.nikart.model.Model;
 import com.nikart.myshows.R;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;

@@ -1,7 +1,5 @@
 package com.nikart.presenter.show;
 
-import com.nikart.screens.show.ShowActivity;
-
 import dagger.Module;
 import dagger.Provides;
 

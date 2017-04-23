@@ -24,6 +24,8 @@ import javax.inject.Inject;
 
 public class ShowActivity extends BaseActivity {
 
+    @Inject
+    public ShowPresenter presenter;
     private int id;
     private Show show;
     private TextView titleTextView,
@@ -31,9 +33,6 @@ public class ShowActivity extends BaseActivity {
     private FloatingActionButton watchingFab;
     private TextView rateTextView;
     private ImageView showImageView;
-
-    @Inject
-    public ShowPresenter presenter;
 
     public static void start(Context context, int id) {
         Intent intent = new Intent(context, ShowActivity.class);
@@ -51,6 +50,7 @@ public class ShowActivity extends BaseActivity {
     protected int getLayoutId() {
         return R.layout.activity_show;
     }
+
     @Override
     protected void onStart() {
         super.onStart();

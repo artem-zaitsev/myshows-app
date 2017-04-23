@@ -1,9 +1,5 @@
 package com.nikart.presenter.shows;
 
-import com.nikart.presenter.splash.SplashPresenter;
-import com.nikart.screens.shows.MyShowsFragment;
-import com.nikart.screens.splash.SplashActivity;
-
 import dagger.Module;
 import dagger.Provides;
 

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.Presenter;
 
 /**
@@ -30,12 +29,12 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
 
     protected abstract void initActivity();
 
-    protected void setPresenter(Presenter presenter) {
-        this.presenter = presenter;
-    }
-
     protected Presenter getPresenter() {
         return presenter;
+    }
+
+    protected void setPresenter(Presenter presenter) {
+        this.presenter = presenter;
     }
 
     @Override

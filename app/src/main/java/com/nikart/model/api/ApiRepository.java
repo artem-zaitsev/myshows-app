@@ -42,14 +42,14 @@ public class ApiRepository implements Model {
     @Inject
     public MyShowsApi api;
 
-    public static ApiRepository getInstance() {
-        if (apiRepository == null) apiRepository = new ApiRepository();
-        return apiRepository;
-    }
-
     public ApiRepository() {
         DaggerNetworkComponent.create()
                 .inject(this);
+    }
+
+    public static ApiRepository getInstance() {
+        if (apiRepository == null) apiRepository = new ApiRepository();
+        return apiRepository;
     }
 
     public Observable<Boolean> signIn(String login, String password) {

@@ -2,14 +2,12 @@ package com.nikart.screens.auth.signin;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.nikart.myshows.R;
 import com.nikart.presenter.DaggerPresenterComponent;
-import com.nikart.presenter.Presenter;
 import com.nikart.presenter.login.LoginPresenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.main.MainActivity;
@@ -19,12 +17,11 @@ import javax.inject.Inject;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
+    @Inject
+    public LoginPresenter presenter;
     private Button signInButton;
     private EditText loginEditText;
     private EditText passwordEditText;
-
-    @Inject
-    public LoginPresenter presenter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -71,7 +68,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public <T> void showData(T data) {
-        startActivityIfSignedIn((Boolean)data);
+        startActivityIfSignedIn((Boolean) data);
     }
 
     @Override

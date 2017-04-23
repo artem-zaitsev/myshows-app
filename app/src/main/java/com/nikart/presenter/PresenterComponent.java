@@ -6,7 +6,6 @@ import com.nikart.presenter.show.ShowPresenterModule;
 import com.nikart.presenter.shows.ShowListPresenterModule;
 import com.nikart.presenter.soon_episodes.SoonEpisodesPresenterModule;
 import com.nikart.presenter.splash.SplashPresenterModule;
-import com.nikart.screens.BaseFragment;
 import com.nikart.screens.account.AccountFragment;
 import com.nikart.screens.auth.signin.LoginActivity;
 import com.nikart.screens.show.ShowActivity;

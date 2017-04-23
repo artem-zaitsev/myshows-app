@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
-import com.nikart.screens.shows.MyShowsFragment;
 import com.nikart.util.PreferencesWorker;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

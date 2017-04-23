@@ -1,9 +1,5 @@
 package com.nikart.presenter.login;
 
-import android.util.Log;
-
-import com.nikart.screens.auth.signin.LoginActivity;
-
 import dagger.Module;
 import dagger.Provides;
 

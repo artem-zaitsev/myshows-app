@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.Presenter;
 
 /**

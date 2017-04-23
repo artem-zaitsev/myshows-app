@@ -14,8 +14,8 @@ public class PreferencesWorker {
     public static final String PREFERENCES = "myshows.prefs";
     public static final String PREF_SIGN_IN = "sign in";
     public static final String PREF_COOKIES = "cookies";
-    private static  final String PREF_LOGIN  = "login";
-    private static  final String PREF_PASSWORD = "password";
+    private static final String PREF_LOGIN = "login";
+    private static final String PREF_PASSWORD = "password";
     private static final String COOKIES_SESID = "PHPSESID";
     private static final String COOKIES_LOGIN = "cookies_login";
     private static final String COOKIES_PASS = "cookies_password";
@@ -54,7 +54,7 @@ public class PreferencesWorker {
     }
 
     public String getLogin() {
-        return  getSharedPreferences().getString(PREF_LOGIN, null);
+        return getSharedPreferences().getString(PREF_LOGIN, null);
     }
 
     public void savePassword(String password) {

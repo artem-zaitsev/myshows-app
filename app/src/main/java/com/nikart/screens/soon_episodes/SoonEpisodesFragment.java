@@ -20,7 +20,6 @@ import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.soon_episodes.SoonEpisodesPresenter;
 import com.nikart.screens.BaseFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,13 +30,12 @@ import javax.inject.Inject;
 
 public class SoonEpisodesFragment extends BaseFragment {
 
+    @Inject
+    public SoonEpisodesPresenter presenter;
     private RecyclerView recyclerView;
     private EpisodesInMonthAdapter monthAdapter;
     private FrameLayout progressLoadFrame;
     private List<Month> months;
-
-    @Inject
-    public SoonEpisodesPresenter presenter;
 
     // Приделан ExpandedRecyclerView!!!!!!
     @Override
@@ -90,7 +88,7 @@ public class SoonEpisodesFragment extends BaseFragment {
         }
         recyclerView = (RecyclerView) rootView.findViewById(R.id.fragment_myepisodes_rv);
         progressLoadFrame = (FrameLayout) rootView.findViewById(R.id.fragment_episodes_progress);
-       // initRecycler();
+        // initRecycler();
     }
 
     @Override

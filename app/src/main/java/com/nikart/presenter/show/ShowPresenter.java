@@ -21,9 +21,9 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ShowPresenter extends BasePresenter {
 
+    int id;
     private IView view;
     private Disposable disposable = Disposables.empty();
-    int id;
 
     @Override
     public void onCreate(IView view) {

@@ -3,7 +3,6 @@ package com.nikart.screens.util;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -18,13 +17,8 @@ import com.nikart.myshows.R;
 public class RateDialog extends DialogFragment
         implements RateCustomView.OnRateCustomViewClickListener {
 
-    private RateCustomView rateCustomView;
     public int rate;
-
-    public interface RateDialogListener {
-        public void onRateDialogPositiveClick(DialogFragment dialog);
-    }
-
+    private RateCustomView rateCustomView;
     private RateDialogListener listener;
 
     @Override
@@ -56,5 +50,9 @@ public class RateDialog extends DialogFragment
     @Override
     public void onClick(int rate) {
         this.rate = rate;
+    }
+
+    public interface RateDialogListener {
+        public void onRateDialogPositiveClick(DialogFragment dialog);
     }
 }

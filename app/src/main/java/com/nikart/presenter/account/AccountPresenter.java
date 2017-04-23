@@ -7,7 +7,6 @@ import com.nikart.model.dto.Show;
 import com.nikart.model.dto.UserProfile;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
-import com.nikart.screens.account.AccountFragment;
 import com.nikart.util.PreferencesWorker;
 
 import java.sql.SQLException;

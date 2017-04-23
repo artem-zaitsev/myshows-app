@@ -1,7 +1,6 @@
 package com.nikart.model;
 
 import com.nikart.presenter.BasePresenter;
-import com.nikart.screens.splash.SplashActivity;
 
 import javax.inject.Singleton;
 

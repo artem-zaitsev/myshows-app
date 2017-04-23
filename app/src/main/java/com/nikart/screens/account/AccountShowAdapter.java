@@ -29,7 +29,7 @@ public class AccountShowAdapter extends RecyclerView.Adapter<AccountShowAdapter.
     @Override
     public ShowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_item_account_show,
-                parent,false);
+                parent, false);
         return new ShowViewHolder(view);
     }
 
@@ -52,7 +52,11 @@ public class AccountShowAdapter extends RecyclerView.Adapter<AccountShowAdapter.
         return showList.size();
     }
 
-    class ShowViewHolder extends RecyclerView.ViewHolder{
+    public interface RateShowChangedListener {
+        public void rateUpdate(int showId, int rate);
+    }
+
+    class ShowViewHolder extends RecyclerView.ViewHolder {
 
         public TextView showTitle;
         public TextView showTitleOriginal;
@@ -66,9 +70,5 @@ public class AccountShowAdapter extends RecyclerView.Adapter<AccountShowAdapter.
             ratingView = (RateCustomView) itemView.findViewById(R.id.layout_item_account_rate);
 
         }
-    }
-
-    public interface RateShowChangedListener {
-        public void rateUpdate(int showId, int rate);
     }
 }

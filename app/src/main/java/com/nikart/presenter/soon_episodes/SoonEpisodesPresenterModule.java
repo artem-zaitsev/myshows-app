@@ -1,10 +1,5 @@
 package com.nikart.presenter.soon_episodes;
 
-import com.nikart.presenter.shows.ShowListPresenter;
-import com.nikart.presenter.splash.SplashPresenter;
-import com.nikart.screens.soon_episodes.SoonEpisodesFragment;
-import com.nikart.screens.splash.SplashActivity;
-
 import dagger.Module;
 import dagger.Provides;
 

@@ -2,9 +2,6 @@ package com.nikart.app;
 
 import android.content.Context;
 
-import com.nikart.interactor.retrofit.NetworkHelper;
-import com.nikart.util.PreferencesWorker;
-
 import javax.inject.Singleton;
 
 import dagger.Module;

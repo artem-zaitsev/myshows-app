@@ -1,7 +1,5 @@
 package com.nikart.presenter.account;
 
-import com.nikart.screens.account.AccountFragment;
-
 import dagger.Module;
 import dagger.Provides;
 
