@@ -14,8 +14,8 @@ public class PreferencesWorker {
     public static final String PREFERENCES = "myshows.prefs";
     public static final String PREF_SIGN_IN = "sign in";
     public static final String PREF_COOKIES = "cookies";
-    public static  final String PREF_LOGIN  = "login";
-    public static  final String PREF_PASSWORD = "password";
+    private static  final String PREF_LOGIN  = "login";
+    private static  final String PREF_PASSWORD = "password";
     private static final String COOKIES_SESID = "PHPSESID";
     private static final String COOKIES_LOGIN = "cookies_login";
     private static final String COOKIES_PASS = "cookies_password";
@@ -69,6 +69,13 @@ public class PreferencesWorker {
         edit.putString(COOKIES_SESID, cookies.get(0))
                 .putString(COOKIES_LOGIN, cookies.get(1))
                 .putString(COOKIES_PASS, cookies.get(2))
+                .apply();
+    }
+
+    public void clearCookies() {
+        edit.putString(COOKIES_SESID, "")
+                .putString(COOKIES_LOGIN, "")
+                .putString(COOKIES_PASS, "")
                 .apply();
     }
 

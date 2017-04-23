@@ -27,7 +27,8 @@ public class AccountPresenter extends BasePresenter {
 
     private IView view;
 
-    public AccountPresenter(AccountFragment view) {
+    @Override
+    public void onCreate(IView view) {
         this.view = view;
     }
 

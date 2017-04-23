@@ -19,8 +19,8 @@ public class ShowListPresenter extends BasePresenter {
 
     private IView view;
 
-    public ShowListPresenter(MyShowsFragment view) {
-        super();
+    @Override
+    public void onCreate(IView view) {
         this.view = view;
     }
 

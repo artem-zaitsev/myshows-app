@@ -4,7 +4,6 @@ import com.nikart.data.HelperFactory;
 import com.nikart.interactor.retrofit.DaggerNetworkComponent;
 import com.nikart.interactor.retrofit.MyShowsApi;
 import com.nikart.interactor.retrofit.NetworkHelper;
-import com.nikart.interactor.retrofit.NetworkModule;
 import com.nikart.model.Model;
 import com.nikart.model.dto.Episode;
 import com.nikart.model.dto.Show;
@@ -51,7 +50,6 @@ public class ApiRepository implements Model {
     public ApiRepository() {
         DaggerNetworkComponent.create()
                 .inject(this);
-      //  api = helper.getApi();
     }
 
     public Observable<Boolean> signIn(String login, String password) {

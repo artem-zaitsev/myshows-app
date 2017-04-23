@@ -1,10 +1,7 @@
 package com.nikart.interactor.retrofit;
 
 import com.nikart.app.App;
-import com.nikart.model.Model;
 import com.nikart.model.api.ApiRepository;
-
-import javax.inject.Singleton;
 
 import dagger.Component;
 

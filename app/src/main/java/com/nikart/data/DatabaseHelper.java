@@ -58,6 +58,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    public void deleteAll() {
+        try {
+            getShowDAO().deleteAll();
+            getEpisodeDAO().deleteAll();
+        } catch (SQLException e) {
+            Log.d("DATABASE", e.toString());
+        }
+    }
+
 
     /*Show*/
     public ShowDAO getShowDAO() throws SQLException {

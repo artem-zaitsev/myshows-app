@@ -17,6 +17,4 @@ public interface ModelComponent {
 
     void inject(BasePresenter presenter);
 
-    void inject(SplashActivity a);
-
 }

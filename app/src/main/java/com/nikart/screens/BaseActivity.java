@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.Presenter;
 
 /**
@@ -19,10 +20,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        injectPresenter();
         initActivity();
     }
 
+    protected abstract void injectPresenter();
+
     protected abstract int getLayoutId();
+
     protected abstract void initActivity();
 
     protected void setPresenter(Presenter presenter) {
@@ -30,12 +35,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     }
 
     protected Presenter getPresenter() {
-        return  presenter;
+        return presenter;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         if (presenter != null) presenter.onStop();
+        presenter = null;
     }
 }

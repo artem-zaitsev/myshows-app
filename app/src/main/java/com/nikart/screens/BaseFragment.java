@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.Presenter;
 
 /**
@@ -23,8 +24,11 @@ public abstract class BaseFragment extends Fragment implements IView {
         View rootView = inflater.inflate(getLayoutId(), container, false);
         initFragment(rootView);
         setHasOptionsMenu(true);
+        injectPresenter();
         return rootView;
     }
+
+    protected abstract void injectPresenter();
 
     protected abstract void initFragment(View rootView);
 
@@ -42,5 +46,6 @@ public abstract class BaseFragment extends Fragment implements IView {
     public void onStop() {
         super.onStop();
         if (presenter != null) presenter.onStop();
+        presenter = null;
     }
 }

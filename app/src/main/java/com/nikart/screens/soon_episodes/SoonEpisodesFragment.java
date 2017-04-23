@@ -16,11 +16,14 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nikart.myshows.R;
+import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.soon_episodes.SoonEpisodesPresenter;
 import com.nikart.screens.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Фрагмент для отображения списка серий
@@ -33,12 +36,14 @@ public class SoonEpisodesFragment extends BaseFragment {
     private FrameLayout progressLoadFrame;
     private List<Month> months;
 
+    @Inject
+    public SoonEpisodesPresenter presenter;
 
     // Приделан ExpandedRecyclerView!!!!!!
     @Override
     public void onStart() {
         super.onStart();
-        setPresenter(new SoonEpisodesPresenter(this));
+        setPresenter(presenter);
         getPresenter().loadData();
     }
 
@@ -65,6 +70,13 @@ public class SoonEpisodesFragment extends BaseFragment {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void injectPresenter() {
+        DaggerPresenterComponent.create().inject(this);
+        presenter.onCreate(this);
     }
 
     @Override

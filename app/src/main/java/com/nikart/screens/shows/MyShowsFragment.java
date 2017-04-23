@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.nikart.data.HelperFactory;
 import com.nikart.model.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.shows.ShowListPresenter;
 import com.nikart.screens.BaseFragment;
 import com.nikart.util.LayoutSwitcherDialog;
@@ -26,6 +27,8 @@ import com.nikart.util.LayoutSwitcherDialog;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 
 /**
@@ -43,10 +46,13 @@ public class MyShowsFragment extends BaseFragment
     private FrameLayout progressLoadFrame;
     private List<Show> shows;
 
+    @Inject
+    public ShowListPresenter presenter;
+
     @Override
     public void onStart() {
         super.onStart();
-        setPresenter(new ShowListPresenter(this));
+        setPresenter(presenter);
         getPresenter().loadData();
     }
 
@@ -76,6 +82,12 @@ public class MyShowsFragment extends BaseFragment
 
     public boolean isGridLayoutManager() {
         return layoutManager.getClass().equals(GridLayoutManager.class);
+    }
+
+    @Override
+    protected void injectPresenter() {
+        DaggerPresenterComponent.create().inject(this);
+        presenter.onCreate(this);
     }
 
     @Override

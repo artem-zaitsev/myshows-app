@@ -27,6 +27,11 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void injectPresenter() {
+        //do nothing
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
     }

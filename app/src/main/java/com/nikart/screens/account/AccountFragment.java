@@ -18,14 +18,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.nikart.data.HelperFactory;
 import com.nikart.model.dto.Show;
 import com.nikart.model.dto.UserProfile;
 import com.nikart.myshows.R;
+import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.account.AccountPresenter;
 import com.nikart.screens.BaseFragment;
+import com.nikart.screens.auth.signin.LoginActivity;
+import com.nikart.util.PreferencesWorker;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Фрагмент для отображения информации об аккаунте
@@ -44,10 +50,13 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
     private FrameLayout progressLayout;
     private List<Show> shows;
 
+    @Inject
+    public AccountPresenter presenter;
+
     @Override
     public void onStart() {
         super.onStart();
-        setPresenter(new AccountPresenter(this));
+        setPresenter(presenter);
         getPresenter().loadData();
     }
 
@@ -65,8 +74,24 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
                 Intent intent = new Intent(Intent.ACTION_VIEW, address);
                 startActivity(intent);
             }
+            case R.id.item_exit_from_account: {
+                //выход из профиля с очисткой базы
+                HelperFactory.getHelper().deleteAll();
+                PreferencesWorker.getInstance().saveLogin("");
+                PreferencesWorker.getInstance().savePassword("");
+                PreferencesWorker.getInstance().clearCookies();
+                PreferencesWorker.getInstance().saveSignedIn(false);
+                LoginActivity.start(this.getContext());
+                getActivity().finish();
+            }
         }
         return true;
+    }
+
+    @Override
+    protected void injectPresenter() {
+        DaggerPresenterComponent.create().inject(this);
+        presenter.onCreate(this);
     }
 
     @Override
@@ -146,7 +171,7 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
     //callback
     @Override
     public void rateUpdate(int showId, int rate) {
-        ((AccountPresenter) presenter).rateUpdate(showId, rate);
+        ((AccountPresenter) getPresenter()).rateUpdate(showId, rate);
     }
 
     @Override

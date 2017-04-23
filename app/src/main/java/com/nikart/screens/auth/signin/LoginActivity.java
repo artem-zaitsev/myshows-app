@@ -8,11 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.nikart.myshows.R;
+import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.Presenter;
 import com.nikart.presenter.login.LoginPresenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
+
+import javax.inject.Inject;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -20,9 +23,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText loginEditText;
     private EditText passwordEditText;
 
+    @Inject
+    public LoginPresenter presenter;
+
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void injectPresenter() {
+        DaggerPresenterComponent.create().inject(this);
+        presenter.onCreate(this);
     }
 
     @Override
@@ -32,8 +44,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        setPresenter(new LoginPresenter(this));
-        presenter.loadData();
+        setPresenter(presenter);
+        getPresenter().loadData();
     }
 
     @Override

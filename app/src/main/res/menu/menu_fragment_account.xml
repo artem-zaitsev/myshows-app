@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <item
         android:id="@+id/item_open_link"
         android:title="@string/open_site"
         app:showAsAction="never" />
+    <item android:id="@+id/item_exit_from_account"
+        android:title="@string/exit"
+        app:showAsAction="never"
+        />
+
 </menu>

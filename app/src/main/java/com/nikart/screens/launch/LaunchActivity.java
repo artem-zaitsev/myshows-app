@@ -35,6 +35,11 @@ public class LaunchActivity extends BaseActivity implements View.OnClickListener
     }
 
     @Override
+    protected void injectPresenter() {
+        //do nothing
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_launch;
     }

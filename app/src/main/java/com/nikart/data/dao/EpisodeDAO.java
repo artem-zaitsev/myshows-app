@@ -37,4 +37,10 @@ public class EpisodeDAO extends BaseDaoImpl<Episode, Integer> {
             }
         }
     }
+
+    /*delete all episodes*/
+    public void deleteAll() throws SQLException {
+            delete(getAllEpisodes());
+
+    }
 }

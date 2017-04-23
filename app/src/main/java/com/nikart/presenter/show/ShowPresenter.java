@@ -25,7 +25,8 @@ public class ShowPresenter extends BasePresenter {
     private Disposable disposable = Disposables.empty();
     int id;
 
-    public ShowPresenter(ShowActivity view) {
+    @Override
+    public void onCreate(IView view) {
         this.view = view;
     }
 

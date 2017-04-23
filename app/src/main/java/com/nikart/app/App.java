@@ -4,11 +4,7 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 import com.nikart.data.HelperFactory;
-import com.nikart.interactor.retrofit.DaggerNetworkComponent;
-import com.nikart.interactor.retrofit.NetworkHelper;
 import com.nikart.util.PreferencesWorker;
-
-import javax.inject.Inject;
 
 /**
  * Created by Artem on 07.03.2017.
@@ -30,8 +26,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         appInstance = (App) getApplicationContext();
-       // DaggerNetworkComponent.builder().build().inject(this);
-       // initRetrofit();
+        // DaggerNetworkComponent.builder().build().inject(this);
+        // initRetrofit();
         initDataBaseHelper();
         initPreferences();
         initStetho();

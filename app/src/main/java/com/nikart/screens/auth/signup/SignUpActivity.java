@@ -24,6 +24,12 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
         context.startActivity(intent);
     }
 
+
+    @Override
+    protected void injectPresenter() {
+        //do nothing
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_signup;

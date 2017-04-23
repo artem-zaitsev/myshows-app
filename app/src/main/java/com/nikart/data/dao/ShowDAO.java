@@ -33,4 +33,9 @@ public class ShowDAO extends BaseDaoImpl<Show, Integer> {
             }
         }
     }
+
+    /*delete all shows*/
+    public void deleteAll() throws SQLException {
+            this.delete(getAllShows());
+    }
 }

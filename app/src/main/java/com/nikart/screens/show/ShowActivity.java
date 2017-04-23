@@ -15,8 +15,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.nikart.model.dto.Show;
 import com.nikart.myshows.R;
+import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.show.ShowPresenter;
 import com.nikart.screens.BaseActivity;
+
+import javax.inject.Inject;
 
 
 public class ShowActivity extends BaseActivity {
@@ -29,10 +32,19 @@ public class ShowActivity extends BaseActivity {
     private TextView rateTextView;
     private ImageView showImageView;
 
+    @Inject
+    public ShowPresenter presenter;
+
     public static void start(Context context, int id) {
         Intent intent = new Intent(context, ShowActivity.class);
         intent.putExtra("ID", id);
         context.startActivity(intent);
+    }
+
+    @Override
+    protected void injectPresenter() {
+        DaggerPresenterComponent.create().inject(this);
+        presenter.onCreate(this);
     }
 
     @Override
@@ -42,7 +54,7 @@ public class ShowActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        setPresenter(new ShowPresenter(this));
+        setPresenter(presenter);
         getPresenter().loadData();
     }
 
@@ -67,8 +79,6 @@ public class ShowActivity extends BaseActivity {
         rateTextView = (TextView) findViewById(R.id.activity_show_rate_view);
 
         id = getIntent().getIntExtra("ID", 0);
-        presenter = new ShowPresenter(this);
-
     }
 
     public int getShowId() {

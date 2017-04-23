@@ -24,7 +24,8 @@ public class LoginPresenter extends BasePresenter {
     private Disposable disposable = Disposables.empty();
     private IView view;
 
-    public LoginPresenter(LoginActivity view) {
+    @Override
+    public void onCreate(IView view) {
         this.view = view;
     }
 

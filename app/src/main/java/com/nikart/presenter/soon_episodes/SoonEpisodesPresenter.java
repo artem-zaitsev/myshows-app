@@ -28,7 +28,8 @@ public class SoonEpisodesPresenter extends BasePresenter {
 
     private IView view;
 
-    public SoonEpisodesPresenter(IView view) {
+    @Override
+    public void onCreate(IView view) {
         this.view = view;
     }
 

@@ -3,6 +3,7 @@ package com.nikart.presenter;
 import com.nikart.model.DaggerModelComponent;
 import com.nikart.model.Model;
 import com.nikart.model.api.ApiRepository;
+import com.nikart.screens.IView;
 import com.nikart.util.PreferencesWorker;
 
 import javax.inject.Inject;
