@@ -2,9 +2,11 @@ package com.nikart.screens.auth.signin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.nikart.myshows.R;
 import com.nikart.presenter.DaggerPresenterComponent;
@@ -12,6 +14,15 @@ import com.nikart.presenter.login.LoginPresenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
+import com.vk.sdk.VKAccessToken;
+import com.vk.sdk.VKCallback;
+import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKApi;
+import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
+
+import org.json.JSONException;
 
 import javax.inject.Inject;
 
@@ -22,6 +33,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private Button signInButton;
     private EditText loginEditText;
     private EditText passwordEditText;
+    private ImageButton vkAuthButton;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -32,6 +44,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void injectPresenter() {
         DaggerPresenterComponent.create().inject(this);
         presenter.onCreate(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setPresenter(presenter);
     }
 
     @Override
@@ -41,21 +60,60 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View view) {
-        setPresenter(presenter);
-        getPresenter().loadData();
+        switch (view.getId()) {
+            case R.id.sign_in_btn:
+                getPresenter().loadData();
+                break;
+            case R.id.vk_auth_btn:
+                VKSdk.login(this);
+                break;
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
+            @Override
+            public void onResult(VKAccessToken res) {
+                // Пользователь успешно авторизовался
+                VKApi.users().get().executeWithListener(new VKRequest.VKRequestListener() {
+                    @Override
+                    public void onComplete(VKResponse response) {
+                        super.onComplete(response);
+                        try {
+                            presenter.signInByVk(res, response.json.getJSONArray("response").getJSONObject(0).getString("id"));
+                            findViewById(R.id.activity_login_progress).setVisibility(View.VISIBLE);
+                        } catch (JSONException e) {
+                            Log.d("VK", e.toString());
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onError(VKError error) {
+                // Произошла ошибка авторизации (например, пользователь запретил авторизацию)
+            }
+        })) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
     protected void initActivity() {
         signInButton = (Button) findViewById(R.id.sign_in_btn);
+        vkAuthButton = (ImageButton) findViewById(R.id.vk_auth_btn);
         loginEditText = (EditText) findViewById(R.id.login_edittext);
         passwordEditText = (EditText) findViewById(R.id.password_edittext);
         signInButton.setOnClickListener(this);
+        vkAuthButton.setOnClickListener(this);
     }
 
     public void startActivityIfSignedIn(Boolean isSuccessful) {
         PreferencesWorker.getInstance().saveSignedIn(isSuccessful);
         MainActivity.start(LoginActivity.this);
+        finish();
     }
 
     public String getLogin() {

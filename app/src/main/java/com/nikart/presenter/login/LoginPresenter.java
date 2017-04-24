@@ -7,6 +7,7 @@ import com.nikart.myshows.R;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.screens.auth.signin.LoginActivity;
+import com.vk.sdk.VKAccessToken;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -49,4 +50,16 @@ public class LoginPresenter extends BasePresenter {
         addDisposable(disposable);
     }
 
+    public void signInByVk(VKAccessToken res, String user_id) {
+        Disposable disposable = model.signInVk(res.accessToken, user_id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(isSuccessful -> {
+                            Log.d("RX_AUTH", String.valueOf(isSuccessful));
+                            view.showData(isSuccessful);
+                        },
+                        e -> Log.d("RX_AUTH", e.toString()),
+                        () -> Log.d("RX_AUTH", "Complete authorization"));
+        addDisposable(disposable);
+    }
 }

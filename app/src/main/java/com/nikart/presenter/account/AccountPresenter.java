@@ -9,7 +9,6 @@ import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.util.PreferencesWorker;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -52,11 +51,7 @@ public class AccountPresenter extends BasePresenter {
                 .onErrorResumeNext(
                         error -> {
                             Log.d("RX_ACCOUNT1", error.toString());
-                            try {
-                                view.showData(HelperFactory.getHelper().getShowDAO().getAllShows());
-                            } catch (SQLException e) {
-                                Log.d("RX_ACCOUNT", "Error load from db. " + e.toString());
-                            }
+                            return Observable.fromArray(HelperFactory.getHelper().getShowDAO().getAllShows());
                         }
                 )
                 .observeOn(AndroidSchedulers.mainThread())

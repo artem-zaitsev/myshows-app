@@ -25,7 +25,11 @@ public interface MyShowsApi {
 
     //Авторизация
     @GET("profile/login")
-    Observable<Response<ResponseBody>> signIn(@QueryMap Map<String,String> auth);
+    Observable<Response<ResponseBody>> signIn(@QueryMap Map<String, String> auth);
+
+    //Авторизация через VK
+    @GET("profile/login/vk")
+    Observable<Response<ResponseBody>> singInVk(@QueryMap Map<String, String> auth);
 
     //Список сериалов
     @GET("profile/shows/")

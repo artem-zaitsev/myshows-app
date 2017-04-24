@@ -16,11 +16,13 @@ import io.reactivex.Observable;
 
 public interface Model {
 
+    Observable<Boolean> signIn(String login, String password);
+
+    Observable<Boolean> signInVk(String token, String userId);
+
     Observable<List<Show>> getShows();
 
     Observable<Show> getShowById(int id);
-
-    Observable<Boolean> signIn(String login, String password);
 
     Observable<List<List<Episode>>> getNextEpisodes();
 

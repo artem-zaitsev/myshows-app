@@ -1,5 +1,7 @@
 package com.nikart.model.api;
 
+import android.util.Log;
+
 import com.nikart.data.HelperFactory;
 import com.nikart.interactor.retrofit.DaggerNetworkComponent;
 import com.nikart.interactor.retrofit.MyShowsApi;
@@ -66,6 +68,22 @@ public class ApiRepository implements Model {
                 });
     }
 
+    @Override
+    public Observable<Boolean> signInVk(String token, String userId) {
+        Map<String, String> query = new HashMap<>();
+        query.put("token", token);
+        query.put("userId", userId);
+        return api.singInVk(query)
+                .map(response -> {
+                    if (response.isSuccessful()) {
+                        PreferencesWorker.getInstance().saveLogin(userId);
+                        PreferencesWorker.getInstance().savePassword(token);
+                    }
+                    Log.d("API_RESPONSES", response.message() + " " + String.valueOf(response.isSuccessful()));
+                    return response.isSuccessful();
+                });
+    }
+
     public Observable<List<Show>> getShows() {
         return api.getShows()
                 .map(responseBody -> {
@@ -75,7 +93,7 @@ public class ApiRepository implements Model {
                         shows = parser.getParsedList(Show.class);
                         HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
                     } catch (IOException | JSONException | SQLException e) {
-                        e.printStackTrace();
+                        throw e;
                     }
                     return shows;
                 });
@@ -91,6 +109,11 @@ public class ApiRepository implements Model {
                             return episodes;
                         }
                 )
+                .onErrorResumeNext(throwable -> {
+                    Log.d("RX_EPISODES", throwable.toString());
+                    return Observable.fromArray(HelperFactory.getHelper().getEpisodeDAO().getAllEpisodes());
+
+                })
                 .map(episodes -> {
                     List<List<Episode>> groups = new ArrayList<>();
                     Date today = new Date();
