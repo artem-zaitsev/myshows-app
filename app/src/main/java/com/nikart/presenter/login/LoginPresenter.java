@@ -7,12 +7,16 @@ import com.nikart.myshows.R;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.screens.auth.signin.LoginActivity;
+import com.nikart.util.PreferencesWorker;
 import com.vk.sdk.VKAccessToken;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.nikart.util.PreferencesWorker.VK_SIGN_IN;
 
 /**
  * Created by Artem on 18.04.2017.
@@ -50,13 +54,15 @@ public class LoginPresenter extends BasePresenter {
         addDisposable(disposable);
     }
 
-    public void signInByVk(VKAccessToken res, String user_id) {
-        Disposable disposable = model.signInVk(res.accessToken, user_id)
-                .subscribeOn(Schedulers.newThread())
+    public void signInByVk(VKAccessToken res, String userId) {
+        Disposable disposable = model.signInVk(res.accessToken, userId)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disp -> Log.d("RX_AUTH", "onSubscribe!!!"))
                 .subscribe(isSuccessful -> {
                             Log.d("RX_AUTH", String.valueOf(isSuccessful));
                             view.showData(isSuccessful);
+                            PreferencesWorker.getInstance().setSignInFlag(VK_SIGN_IN);
                         },
                         e -> Log.d("RX_AUTH", e.toString()),
                         () -> Log.d("RX_AUTH", "Complete authorization"));

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.nikart.myshows.R;
 import com.nikart.screens.BaseActivity;
+import com.nikart.screens.launch.LaunchActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
 
@@ -82,5 +83,10 @@ public class SignUpActivity extends BaseActivity implements View.OnClickListener
     @Override
     public void showError(Throwable t) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        LaunchActivity.start(this);
     }
 }

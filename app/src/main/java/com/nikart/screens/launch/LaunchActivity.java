@@ -49,18 +49,19 @@ public class LaunchActivity extends BaseActivity implements View.OnClickListener
                 if (PreferencesWorker.getInstance().isSignedIn()) {
                     Log.d("PREFS", String.valueOf(PreferencesWorker.getInstance().isSignedIn()));
                     MainActivity.start(this);
-                    finish();
+
                 } else LoginActivity.start(this);
                 break;
             }
             case R.id.register_btn: {
                 if (PreferencesWorker.getInstance().isSignedIn()) {
                     MainActivity.start(this);
-                    finish();
+
                 } else SignUpActivity.start(this);
                 break;
             }
         }
+        finish();
     }
 
     protected void initActivity() {

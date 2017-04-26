@@ -25,12 +25,23 @@ public class SplashPresenter extends BasePresenter {
 
     @Override
     public void loadData() {
-        model.signIn(PreferencesWorker.getInstance().getLogin(), PreferencesWorker.getInstance().getPassword())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(isSuccessful -> view.showData(isSuccessful),
-                        e -> view.showError(e),
-                        () -> Log.d("RX_AUTH", "Complete authorization")
-                );
+        if (PreferencesWorker.getInstance().getSignInFlag() == PreferencesWorker.SELF_SIGN_IN) {
+            model.signIn(PreferencesWorker.getInstance().getLogin(), PreferencesWorker.getInstance().getPassword())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(isSuccessful -> view.showData(isSuccessful),
+                            e -> view.showError(e),
+                            () -> Log.d("RX_AUTH", "Complete authorization")
+                    );
+        } else {
+            //password == token, login == userId
+            model.signInVk(PreferencesWorker.getInstance().getPassword(), PreferencesWorker.getInstance().getLogin())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(isSuccessful -> view.showData(isSuccessful),
+                            e -> view.showError(e),
+                            () -> Log.d("RX_AUTH", "Complete authorization")
+                    );
+        }
     }
 }

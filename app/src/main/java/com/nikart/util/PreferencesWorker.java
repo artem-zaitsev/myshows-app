@@ -14,11 +14,18 @@ public class PreferencesWorker {
     public static final String PREFERENCES = "myshows.prefs";
     public static final String PREF_SIGN_IN = "sign in";
     public static final String PREF_COOKIES = "cookies";
+    //sign in flags
+    public static final int SELF_SIGN_IN = 1;
+    public static final int VK_SIGN_IN = 2;
+
+    private static final String PREF_SIGN_IN_FLAG = "sign_in_flag";
     private static final String PREF_LOGIN = "login";
     private static final String PREF_PASSWORD = "password";
     private static final String COOKIES_SESID = "PHPSESID";
     private static final String COOKIES_LOGIN = "cookies_login";
     private static final String COOKIES_PASS = "cookies_password";
+
+
 
     private static SharedPreferences sharedPreferences;
     private static PreferencesWorker preferencesWorker;
@@ -85,5 +92,14 @@ public class PreferencesWorker {
         cookies.add(getSharedPreferences().getString(COOKIES_PASS, null));
         cookies.add(getSharedPreferences().getString(COOKIES_SESID, null));
         return cookies;
+    }
+
+    public void setSignInFlag(int flag) {
+        edit.putInt(PREF_SIGN_IN_FLAG, flag)
+                .apply();
+    }
+
+    public int getSignInFlag() {
+        return getSharedPreferences().getInt(PREF_SIGN_IN_FLAG, SELF_SIGN_IN);
     }
 }

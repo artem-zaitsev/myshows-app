@@ -12,17 +12,21 @@ import com.nikart.myshows.R;
 import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.login.LoginPresenter;
 import com.nikart.screens.BaseActivity;
+import com.nikart.screens.launch.LaunchActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKApi;
+import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -77,12 +81,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onResult(VKAccessToken res) {
                 // Пользователь успешно авторизовался
-                VKApi.users().get().executeWithListener(new VKRequest.VKRequestListener() {
+                VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "screen_name"))
+                        .executeWithListener(new VKRequest.VKRequestListener() {
                     @Override
                     public void onComplete(VKResponse response) {
                         super.onComplete(response);
                         try {
-                            presenter.signInByVk(res, response.json.getJSONArray("response").getJSONObject(0).getString("id"));
+                            JSONObject fromVk = response.json.getJSONArray("response").getJSONObject(0);
+                            Log.d("VK", "screen_name: " + fromVk.get("screen_name") );
+                            presenter.signInByVk(res, fromVk.getString("id"));
                             findViewById(R.id.activity_login_progress).setVisibility(View.VISIBLE);
                         } catch (JSONException e) {
                             Log.d("VK", e.toString());
@@ -132,5 +139,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void showError(Throwable t) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        LaunchActivity.start(this);
+        finish();
     }
 }
