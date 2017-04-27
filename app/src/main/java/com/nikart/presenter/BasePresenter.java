@@ -25,7 +25,13 @@ public abstract class BasePresenter implements Presenter {
     }
 
     protected void signIn() {
-        model.signIn(PreferencesWorker.getInstance().getLogin(), PreferencesWorker.getInstance().getPassword());
+        switch (PreferencesWorker.getInstance().getSignInFlag()) {
+            case PreferencesWorker.VK_SIGN_IN: model.signInVk(PreferencesWorker.getInstance().getPassword(),
+                    PreferencesWorker.getInstance().getLogin());
+                break;
+            default:  model.signIn(PreferencesWorker.getInstance().getLogin(),
+                    PreferencesWorker.getInstance().getPassword());
+        }
     }
 
     protected void addDisposable(Disposable disposable) {

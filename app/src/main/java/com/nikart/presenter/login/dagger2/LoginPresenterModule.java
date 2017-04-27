@@ -1,4 +1,6 @@
-package com.nikart.presenter.login;
+package com.nikart.presenter.login.dagger2;
+
+import com.nikart.presenter.login.LoginPresenter;
 
 import dagger.Module;
 import dagger.Provides;

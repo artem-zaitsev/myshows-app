@@ -1,6 +1,6 @@
 package com.nikart.app;
 
-import com.nikart.interactor.retrofit.NetworkModule;
+import com.nikart.interactor.retrofit.dagger2.NetworkModule;
 import com.nikart.model.api.ApiRepository;
 
 import javax.inject.Singleton;

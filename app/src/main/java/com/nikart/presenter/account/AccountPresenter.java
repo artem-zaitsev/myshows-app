@@ -1,5 +1,7 @@
 package com.nikart.presenter.account;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.nikart.data.HelperFactory;
@@ -7,6 +9,8 @@ import com.nikart.model.dto.Show;
 import com.nikart.model.dto.UserProfile;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
+import com.nikart.screens.account.AccountFragment;
+import com.nikart.screens.auth.signin.LoginActivity;
 import com.nikart.util.PreferencesWorker;
 
 import java.util.List;
@@ -75,5 +79,22 @@ public class AccountPresenter extends BasePresenter {
                         () -> Log.d("RX_RATE_UPDATE", "Complete")
                 );
         addDisposable(rateDisposable);
+    }
+
+    public void openLink() {
+        Uri address = Uri.parse("https://myshows.me/profile/");
+        Intent intent = new Intent(Intent.ACTION_VIEW, address);
+        ((AccountFragment)view).startActivity(intent);
+    }
+
+    public void exitFromAccount() {
+        HelperFactory.getHelper().deleteAll();
+        PreferencesWorker.getInstance().saveLogin("");
+        PreferencesWorker.getInstance().savePassword("");
+        PreferencesWorker.getInstance().clearCookies();
+        PreferencesWorker.getInstance().saveSignedIn(false);
+        PreferencesWorker.getInstance().setSignInFlag(0);
+        LoginActivity.start(((AccountFragment)view).getContext());
+        ((AccountFragment)view).getActivity().finish();
     }
 }

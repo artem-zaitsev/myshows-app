@@ -1,5 +1,6 @@
-package com.nikart.model;
+package com.nikart.model.dagger2;
 
+import com.nikart.model.Model;
 import com.nikart.model.api.ApiRepository;
 
 import dagger.Module;

@@ -1,4 +1,4 @@
-package com.nikart.interactor.retrofit;
+package com.nikart.interactor.retrofit.dagger2;
 
 import com.nikart.app.App;
 import com.nikart.model.api.ApiRepository;

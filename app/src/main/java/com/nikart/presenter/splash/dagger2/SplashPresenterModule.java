@@ -1,4 +1,6 @@
-package com.nikart.presenter.splash;
+package com.nikart.presenter.splash.dagger2;
+
+import com.nikart.presenter.splash.SplashPresenter;
 
 import dagger.Module;
 import dagger.Provides;

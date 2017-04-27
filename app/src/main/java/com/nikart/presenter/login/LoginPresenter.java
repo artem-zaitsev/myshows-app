@@ -58,7 +58,6 @@ public class LoginPresenter extends BasePresenter {
         Disposable disposable = model.signInVk(res.accessToken, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(disp -> Log.d("RX_AUTH", "onSubscribe!!!"))
                 .subscribe(isSuccessful -> {
                             Log.d("RX_AUTH", String.valueOf(isSuccessful));
                             view.showData(isSuccessful);

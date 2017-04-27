@@ -1,4 +1,6 @@
-package com.nikart.presenter.account;
+package com.nikart.presenter.account.dagger2;
+
+import com.nikart.presenter.account.AccountPresenter;
 
 import dagger.Module;
 import dagger.Provides;

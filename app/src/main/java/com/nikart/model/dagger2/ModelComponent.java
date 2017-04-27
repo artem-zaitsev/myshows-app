@@ -1,4 +1,4 @@
-package com.nikart.model;
+package com.nikart.model.dagger2;
 
 import com.nikart.presenter.BasePresenter;
 

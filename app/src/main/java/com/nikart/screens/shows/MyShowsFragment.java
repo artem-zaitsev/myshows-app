@@ -22,7 +22,7 @@ import com.nikart.myshows.R;
 import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.shows.ShowListPresenter;
 import com.nikart.screens.BaseFragment;
-import com.nikart.util.LayoutSwitcherDialog;
+import com.nikart.screens.util.LayoutSwitcherDialog;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

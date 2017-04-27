@@ -1,7 +1,6 @@
 package com.nikart.screens.account;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,15 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.nikart.data.HelperFactory;
 import com.nikart.model.dto.Show;
 import com.nikart.model.dto.UserProfile;
 import com.nikart.myshows.R;
 import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.account.AccountPresenter;
 import com.nikart.screens.BaseFragment;
-import com.nikart.screens.auth.signin.LoginActivity;
-import com.nikart.util.PreferencesWorker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +37,7 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
 
     @Inject
     public AccountPresenter presenter;
+
     private RecyclerView recyclerView;
     private AccountShowAdapter showsAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -69,19 +66,11 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
         switch (item.getItemId()) {
             case R.id.item_open_link: {
                 // открываем профиль на сайте
-                Uri address = Uri.parse("https://myshows.me/profile/");
-                Intent intent = new Intent(Intent.ACTION_VIEW, address);
-                startActivity(intent);
+                presenter.openLink();
             }
             case R.id.item_exit_from_account: {
                 //выход из профиля с очисткой базы
-                HelperFactory.getHelper().deleteAll();
-                PreferencesWorker.getInstance().saveLogin("");
-                PreferencesWorker.getInstance().savePassword("");
-                PreferencesWorker.getInstance().clearCookies();
-                PreferencesWorker.getInstance().saveSignedIn(false);
-                LoginActivity.start(this.getContext());
-                getActivity().finish();
+                presenter.exitFromAccount();
             }
         }
         return true;

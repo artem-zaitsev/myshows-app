@@ -47,7 +47,6 @@ public class LaunchActivity extends BaseActivity implements View.OnClickListener
         switch (view.getId()) {
             case R.id.login_btn: {
                 if (PreferencesWorker.getInstance().isSignedIn()) {
-                    Log.d("PREFS", String.valueOf(PreferencesWorker.getInstance().isSignedIn()));
                     MainActivity.start(this);
 
                 } else LoginActivity.start(this);

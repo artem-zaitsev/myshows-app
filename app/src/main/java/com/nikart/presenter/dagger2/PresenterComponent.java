@@ -1,11 +1,11 @@
-package com.nikart.presenter;
+package com.nikart.presenter.dagger2;
 
-import com.nikart.presenter.account.AccountPresenterModule;
-import com.nikart.presenter.login.LoginPresenterModule;
-import com.nikart.presenter.show.ShowPresenterModule;
-import com.nikart.presenter.shows.ShowListPresenterModule;
-import com.nikart.presenter.soon_episodes.SoonEpisodesPresenterModule;
-import com.nikart.presenter.splash.SplashPresenterModule;
+import com.nikart.presenter.account.dagger2.AccountPresenterModule;
+import com.nikart.presenter.login.dagger2.LoginPresenterModule;
+import com.nikart.presenter.show.dagger2.ShowPresenterModule;
+import com.nikart.presenter.shows.dagger2.ShowListPresenterModule;
+import com.nikart.presenter.soon_episodes.dagger2.SoonEpisodesPresenterModule;
+import com.nikart.presenter.splash.dagger2.SplashPresenterModule;
 import com.nikart.screens.account.AccountFragment;
 import com.nikart.screens.auth.signin.LoginActivity;
 import com.nikart.screens.show.ShowActivity;

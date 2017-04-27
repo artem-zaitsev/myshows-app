@@ -1,4 +1,6 @@
-package com.nikart.presenter.shows;
+package com.nikart.presenter.shows.dagger2;
+
+import com.nikart.presenter.shows.ShowListPresenter;
 
 import dagger.Module;
 import dagger.Provides;
