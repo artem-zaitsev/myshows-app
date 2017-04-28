@@ -1,7 +1,7 @@
 package com.nikart.presenter;
 
-import com.nikart.model.DaggerModelComponent;
 import com.nikart.model.Model;
+import com.nikart.model.dagger2.DaggerModelComponent;
 import com.nikart.util.PreferencesWorker;
 
 import javax.inject.Inject;

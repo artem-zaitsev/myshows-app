@@ -13,7 +13,6 @@ import com.vk.sdk.VKAccessToken;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.nikart.util.PreferencesWorker.VK_SIGN_IN;
@@ -61,7 +60,6 @@ public class LoginPresenter extends BasePresenter {
                 .subscribe(isSuccessful -> {
                             Log.d("RX_AUTH", String.valueOf(isSuccessful));
                             view.showData(isSuccessful);
-                            PreferencesWorker.getInstance().setSignInFlag(VK_SIGN_IN);
                         },
                         e -> Log.d("RX_AUTH", e.toString()),
                         () -> Log.d("RX_AUTH", "Complete authorization"));

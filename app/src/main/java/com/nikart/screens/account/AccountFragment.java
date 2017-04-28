@@ -20,8 +20,8 @@ import com.bumptech.glide.Glide;
 import com.nikart.model.dto.Show;
 import com.nikart.model.dto.UserProfile;
 import com.nikart.myshows.R;
-import com.nikart.presenter.DaggerPresenterComponent;
 import com.nikart.presenter.account.AccountPresenter;
+import com.nikart.presenter.dagger2.DaggerPresenterComponent;
 import com.nikart.screens.BaseFragment;
 
 import java.util.ArrayList;
@@ -67,10 +67,12 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
             case R.id.item_open_link: {
                 // открываем профиль на сайте
                 presenter.openLink();
+                break;
             }
             case R.id.item_exit_from_account: {
                 //выход из профиля с очисткой базы
                 presenter.exitFromAccount();
+                break;
             }
         }
         return true;

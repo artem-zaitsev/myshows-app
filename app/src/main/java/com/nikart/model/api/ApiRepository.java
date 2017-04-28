@@ -3,9 +3,9 @@ package com.nikart.model.api;
 import android.util.Log;
 
 import com.nikart.data.HelperFactory;
-import com.nikart.interactor.retrofit.DaggerNetworkComponent;
 import com.nikart.interactor.retrofit.MyShowsApi;
 import com.nikart.interactor.retrofit.NetworkHelper;
+import com.nikart.interactor.retrofit.dagger2.DaggerNetworkComponent;
 import com.nikart.model.Model;
 import com.nikart.model.dto.Episode;
 import com.nikart.model.dto.Show;
@@ -29,6 +29,8 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
+
+import static com.nikart.util.PreferencesWorker.VK_SIGN_IN;
 
 /**
  * Created by Artem on 16.04.2017.
@@ -63,6 +65,7 @@ public class ApiRepository implements Model {
                     if (response.isSuccessful()) {
                         PreferencesWorker.getInstance().saveLogin(login);
                         PreferencesWorker.getInstance().savePassword(password);
+                        PreferencesWorker.getInstance().setSignInFlag(PreferencesWorker.SELF_SIGN_IN);
                     }
                     return response.isSuccessful();
                 });
@@ -78,6 +81,7 @@ public class ApiRepository implements Model {
                     if (response.isSuccessful()) {
                         PreferencesWorker.getInstance().saveLogin(userId);
                         PreferencesWorker.getInstance().savePassword(token);
+                        PreferencesWorker.getInstance().setSignInFlag(PreferencesWorker.VK_SIGN_IN);
                     }
                     Log.d("API_RESPONSES", response.message() + " " + String.valueOf(response.isSuccessful()));
                     return response.isSuccessful();

@@ -3,7 +3,7 @@ package com.nikart.screens.splash;
 import android.util.Log;
 
 import com.nikart.myshows.R;
-import com.nikart.presenter.DaggerPresenterComponent;
+import com.nikart.presenter.dagger2.DaggerPresenterComponent;
 import com.nikart.presenter.splash.SplashPresenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.launch.LaunchActivity;

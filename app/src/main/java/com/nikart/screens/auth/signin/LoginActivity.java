@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.nikart.myshows.R;
-import com.nikart.presenter.DaggerPresenterComponent;
+import com.nikart.presenter.dagger2.DaggerPresenterComponent;
 import com.nikart.presenter.login.LoginPresenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.launch.LaunchActivity;
@@ -83,19 +83,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 // Пользователь успешно авторизовался
                 VKApi.users().get(VKParameters.from(VKApiConst.FIELDS, "screen_name"))
                         .executeWithListener(new VKRequest.VKRequestListener() {
-                    @Override
-                    public void onComplete(VKResponse response) {
-                        super.onComplete(response);
-                        try {
-                            JSONObject fromVk = response.json.getJSONArray("response").getJSONObject(0);
-                            Log.d("VK", "screen_name: " + fromVk.get("screen_name") );
-                            presenter.signInByVk(res, fromVk.getString("id"));
-                            findViewById(R.id.activity_login_progress).setVisibility(View.VISIBLE);
-                        } catch (JSONException e) {
-                            Log.d("VK", e.toString());
-                        }
-                    }
-                });
+                            @Override
+                            public void onComplete(VKResponse response) {
+                                super.onComplete(response);
+                                try {
+                                    JSONObject fromVk = response.json.getJSONArray("response").getJSONObject(0);
+                                    presenter.signInByVk(res, fromVk.getString("id"));
+                                    findViewById(R.id.activity_login_progress).setVisibility(View.VISIBLE);
+                                } catch (JSONException e) {
+                                    Log.d("VK", e.toString());
+                                }
+                            }
+                        });
             }
 
             @Override

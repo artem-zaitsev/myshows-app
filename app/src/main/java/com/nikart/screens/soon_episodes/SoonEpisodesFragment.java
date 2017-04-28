@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nikart.myshows.R;
-import com.nikart.presenter.DaggerPresenterComponent;
+import com.nikart.presenter.dagger2.DaggerPresenterComponent;
 import com.nikart.presenter.soon_episodes.SoonEpisodesPresenter;
 import com.nikart.screens.BaseFragment;
 

@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.nikart.model.dto.Show;
 import com.nikart.myshows.R;
-import com.nikart.presenter.DaggerPresenterComponent;
+import com.nikart.presenter.dagger2.DaggerPresenterComponent;
 import com.nikart.presenter.show.ShowPresenter;
 import com.nikart.screens.BaseActivity;
 
