@@ -9,4 +9,5 @@
     <color name="secondary_text_material_dark">#01579b</color>
     <color name="primary_text_material_dark">#000000</color>
     <color name = "colorButtonNormal"> #ffffff</color>
+    <color name="colorSearch">#dddddd</color>
 </resources>

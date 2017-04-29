@@ -55,6 +55,8 @@
 
         <activity android:name="com.nikart.screens.show.ShowActivity" />
 
+        <activity android:name="com.nikart.screens.search.SearchActivity"/>
+
     </application>
 
 

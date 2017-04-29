@@ -171,4 +171,20 @@ public class ApiRepository implements Model {
                     return sh;
                 });
     }
+
+    @Override
+    public Observable<List<Show>> findShowByName(String title) {
+        return api.findShowByName(title)
+                .map(responseBody -> {
+                    JsonParser<Show> parser = new JsonParser<>(responseBody);
+                    List<Show> shows = null;
+                    try {
+                        shows = parser.getParsedList(Show.class);
+                        HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
+                    } catch (IOException | JSONException | SQLException e) {
+                        throw e;
+                    }
+                    return shows;
+                });
+    }
 }

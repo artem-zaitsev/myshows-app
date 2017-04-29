@@ -3,6 +3,7 @@ package com.nikart.interactor.retrofit;
 import com.nikart.model.dto.Show;
 import com.nikart.model.dto.UserProfile;
 
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -10,6 +11,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -45,6 +47,11 @@ public interface MyShowsApi {
     @GET("shows/{id}")
     Observable<Show> getShowById(@Path("id") int id);
 
+    //Поиск сериала
+    @GET("shows/search/")
+    Observable<ResponseBody> findShowByName(@Query("q") String title);
+
+    //Поставить рейтинг сериалу
     @GET("profile/shows/{id}/rate/{rate}")
     Observable<retrofit2.Response<ResponseBody>> updateShowRate(@Path("id") int id, @Path("rate") int rate);
 

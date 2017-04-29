@@ -67,15 +67,15 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
             case R.id.item_open_link: {
                 // открываем профиль на сайте
                 presenter.openLink();
-                break;
+                return true;
             }
             case R.id.item_exit_from_account: {
                 //выход из профиля с очисткой базы
                 presenter.exitFromAccount();
-                break;
+                return true;
             }
+            default: return false;
         }
-        return true;
     }
 
     @Override

@@ -13,6 +13,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:colorButtonNormal">@color/colorButtonNormal</item>
-
+        <item name="android:searchViewStyle" > @color/colorSearch</item>
     </style>
+
 </resources>

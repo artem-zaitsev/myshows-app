@@ -31,14 +31,11 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
     // Используется статическое поле IS_GRID для смены layout'ов
 
     public ShowsAdapter(List<Show> showsList) {
-        Log.d("TEST", "Constructor");
         this.showsList = showsList;
     }
 
     @Override
     public ShowsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-        Log.d("TEST", String.valueOf(MyShowsFragment.IS_GRID));
         context = parent.getContext();
 
         View view = LayoutInflater.from(parent.getContext()).inflate(
@@ -56,8 +53,7 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
         if (MyShowsFragment.IS_GRID) {
             holder.container.setRadius(5);
         }
-        Glide
-                .with(context)
+        Glide.with(context)
                 .load(show.getImageUrl())
                 .centerCrop()
                 .into(holder.image);
@@ -86,8 +82,6 @@ public class ShowsAdapter extends RecyclerView.Adapter<ShowsAdapter.ShowsViewHol
 
         public ShowsViewHolder(View itemView) {
             super(itemView);
-            Log.d("TEST", "ShowsVH");
-
             root = (LinearLayout) itemView.findViewById(R.id.item_show_root);
             if (MyShowsFragment.IS_GRID) {
                 container = (CardView) itemView.findViewById(R.id.show_container);

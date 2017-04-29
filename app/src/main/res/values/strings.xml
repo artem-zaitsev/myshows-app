@@ -51,6 +51,7 @@
     <string name="grid">Grid</string>
     <string name="linear">Linear</string>
     <string name="exit">Exit</string>
+    <string name="search_shows">Search shows</string>
 
     <plurals name="days_left">
         <item quantity="zero">Today</item>

@@ -22,6 +22,7 @@ import com.nikart.myshows.R;
 import com.nikart.presenter.dagger2.DaggerPresenterComponent;
 import com.nikart.presenter.shows.ShowListPresenter;
 import com.nikart.screens.BaseFragment;
+import com.nikart.screens.search.SearchActivity;
 import com.nikart.screens.util.LayoutSwitcherDialog;
 
 import java.sql.SQLException;
@@ -57,6 +58,10 @@ public class MyShowsFragment extends BaseFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.show_search: {
+                SearchActivity.start(this.getContext());
+                return true;
+            }
             case R.id.switch_layout_style: {
                 LayoutSwitcherDialog switcherDialog = new LayoutSwitcherDialog();
                 switcherDialog.setListener(this);
@@ -71,11 +76,6 @@ public class MyShowsFragment extends BaseFragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fragment_my_shows, menu);
-        menu.getItem(0).setIcon(
-                !isGridLayoutManager()
-                        ? R.drawable.grid_layout_manager
-                        : R.drawable.linear_layout_manager
-        );
     }
 
     public boolean isGridLayoutManager() {

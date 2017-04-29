@@ -88,4 +88,5 @@
     <string name="grid">Сеткой</string>
     <string name="linear">Списком</string>
     <string name="exit">Выход</string>
+    <string name="search_shows">Поиск сериалов</string>
 </resources>

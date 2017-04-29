@@ -24,6 +24,8 @@ public interface Model {
 
     Observable<Show> getShowById(int id);
 
+    Observable<List<Show>> findShowByName(String title);
+
     Observable<List<List<Episode>>> getNextEpisodes();
 
     Observable<UserProfile> getUserInfo();
