@@ -1,10 +1,11 @@
 package com.nikart.data.dao;
 
+import android.util.Log;
+
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
 import com.nikart.model.dto.Show;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,18 +25,28 @@ public class ShowDAO extends BaseDaoImpl<Show, Integer> {
     }
 
     /*Create a notes in base*/
-    public void createInDataBase(List<Show> shows) throws IOException {
-        for (Show s : shows) {
+    public <T extends Show> void createInDataBase(List<T> shows) {
+        for (T s : shows) {
             try {
                 this.createIfNotExists(s);
             } catch (SQLException e) {
-                e.printStackTrace();
+                Log.d("DB", e.toString());
+            }
+        }
+    }
+
+    public void create(List<Show> shows) {
+        for (Show s : shows) {
+            try {
+                this.create(s);
+            } catch (SQLException e) {
+                Log.d("DB", e.toString());
             }
         }
     }
 
     /*delete all shows*/
     public void deleteAll() throws SQLException {
-            this.delete(getAllShows());
+        this.delete(getAllShows());
     }
 }

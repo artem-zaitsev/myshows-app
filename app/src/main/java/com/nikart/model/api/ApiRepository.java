@@ -9,6 +9,7 @@ import com.nikart.interactor.retrofit.dagger2.DaggerNetworkComponent;
 import com.nikart.model.Model;
 import com.nikart.model.dto.Episode;
 import com.nikart.model.dto.Show;
+import com.nikart.model.dto.ShowTmp;
 import com.nikart.model.dto.UserProfile;
 import com.nikart.util.JsonParser;
 import com.nikart.util.Md5Converter;
@@ -29,8 +30,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import retrofit2.Response;
-
-import static com.nikart.util.PreferencesWorker.VK_SIGN_IN;
 
 /**
  * Created by Artem on 16.04.2017.
@@ -162,9 +161,12 @@ public class ApiRepository implements Model {
     public Observable<Show> getShowById(int id) {
         return api.getShowById(id)
                 .map(sh -> {
-                    Show tmpShow = null;
-                    tmpShow = HelperFactory.getHelper().getShowDAO().queryForId(id);
-                    String watchStatus = tmpShow.getWatchStatus();
+                    ShowTmp tmpShow = null;
+                    tmpShow = HelperFactory.getHelper().getShowTmpDAO().queryForId(id);
+                    Show s = HelperFactory.getHelper().getShowDAO().queryForId(id);
+                    String watchStatus =  s !=  null
+                            ? s.getWatchStatus()
+                            :"not watching";
                     sh.setId(id);
                     sh.setWatchStatus(watchStatus);
                     HelperFactory.getHelper().getShowDAO().update(sh);
@@ -173,17 +175,13 @@ public class ApiRepository implements Model {
     }
 
     @Override
-    public Observable<List<Show>> findShowByName(String title) {
+    public Observable<List<ShowTmp>> findShowByName(String title) {
         return api.findShowByName(title)
                 .map(responseBody -> {
-                    JsonParser<Show> parser = new JsonParser<>(responseBody);
-                    List<Show> shows = null;
-                    try {
-                        shows = parser.getParsedList(Show.class);
-                        HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
-                    } catch (IOException | JSONException | SQLException e) {
-                        throw e;
-                    }
+                    JsonParser<ShowTmp> parser = new JsonParser<>(responseBody);
+                    List<ShowTmp> shows = null;
+                    shows = parser.getParsedList(ShowTmp.class);
+                    HelperFactory.getHelper().getShowTmpDAO().createInDataBase(shows);
                     return shows;
                 });
     }

@@ -2,6 +2,7 @@ package com.nikart.model;
 
 import com.nikart.model.dto.Episode;
 import com.nikart.model.dto.Show;
+import com.nikart.model.dto.ShowTmp;
 import com.nikart.model.dto.UserProfile;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public interface Model {
 
     Observable<Show> getShowById(int id);
 
-    Observable<List<Show>> findShowByName(String title);
+    Observable<List<ShowTmp>> findShowByName(String title);
 
     Observable<List<List<Episode>>> getNextEpisodes();
 

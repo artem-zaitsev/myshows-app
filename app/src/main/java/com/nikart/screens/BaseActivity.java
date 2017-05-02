@@ -19,8 +19,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IView {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        injectPresenter();
         initActivity();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        injectPresenter();
     }
 
     protected abstract void injectPresenter();

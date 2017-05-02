@@ -9,8 +9,10 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import com.nikart.data.dao.EpisodeDAO;
 import com.nikart.data.dao.ShowDAO;
+import com.nikart.data.dao.ShowTmpDAO;
 import com.nikart.model.dto.Episode;
 import com.nikart.model.dto.Show;
+import com.nikart.model.dto.ShowTmp;
 
 import java.sql.SQLException;
 
@@ -28,6 +30,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private ShowDAO showDAO = null;
     private EpisodeDAO episodeDAO = null;
+    private ShowTmpDAO showTmpDAO = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,10 +40,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
             TableUtils.createTable(connectionSource, Show.class);
+            TableUtils.createTable(connectionSource, ShowTmp.class);
             TableUtils.createTable(connectionSource, Episode.class);
         } catch (SQLException e) {
             Log.d("DATABASE_LOG", "error creating db " + DATABASE_NAME);
-            e.printStackTrace();
         }
 
     }
@@ -49,18 +52,19 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(connectionSource, Show.class, true);
+            TableUtils.dropTable(connectionSource, ShowTmp.class, true);
             TableUtils.dropTable(connectionSource, Episode.class, true);
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             Log.d("DATABASE_LOG", "error upgrading db "
                     + DATABASE_NAME + " ver. " + DATABASE_VERSION);
-            e.printStackTrace();
         }
     }
 
     public void deleteAll() {
         try {
             getShowDAO().deleteAll();
+            getShowTmpDAO().deleteAll();
             getEpisodeDAO().deleteAll();
         } catch (SQLException e) {
             Log.d("DATABASE", e.toString());
@@ -76,6 +80,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return showDAO;
     }
 
+    /*ShowTmp*/
+    public ShowTmpDAO getShowTmpDAO() throws SQLException {
+        if (showTmpDAO == null) {
+            showTmpDAO = new ShowTmpDAO(getConnectionSource(), ShowTmp.class);
+        }
+        return showTmpDAO;
+    }
+
     /*Episode*/
     public EpisodeDAO getEpisodeDAO() throws SQLException {
         if (episodeDAO == null) {
@@ -87,6 +99,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void close() {
         showDAO = null;
+        showTmpDAO = null;
         episodeDAO = null;
         super.close();
     }

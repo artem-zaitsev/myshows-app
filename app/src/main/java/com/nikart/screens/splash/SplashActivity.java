@@ -22,21 +22,9 @@ public class SplashActivity extends BaseActivity {
     @Inject
     public SplashPresenter presenter;
 
-
     @Override
-    protected void injectPresenter() {
-        DaggerPresenterComponent.create().inject(this);
-        presenter.onCreate(this);
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_splash;
-    }
-
-    @Override
-    protected void initActivity() {
-        setPresenter(presenter);
+    protected void onStart() {
+        super.onStart();
         String login = PreferencesWorker.getInstance().getLogin();
         String password = PreferencesWorker.getInstance().getPassword();
         if (login != null
@@ -46,6 +34,23 @@ public class SplashActivity extends BaseActivity {
         } else {
             LaunchActivity.start(this);
         }
+
+    }
+
+    @Override
+    protected void injectPresenter() {
+        DaggerPresenterComponent.create().inject(this);
+        presenter.onCreate(this);
+        setPresenter(presenter);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    protected void initActivity() {
     }
 
     @Override

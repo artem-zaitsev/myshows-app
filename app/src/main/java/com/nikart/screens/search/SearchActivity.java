@@ -5,14 +5,18 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 
+import com.nikart.data.HelperFactory;
 import com.nikart.model.dto.Show;
+import com.nikart.model.dto.ShowTmp;
 import com.nikart.myshows.R;
 import com.nikart.presenter.dagger2.DaggerPresenterComponent;
 import com.nikart.presenter.search.SearchPresenter;
 import com.nikart.screens.BaseActivity;
 import com.nikart.screens.search.adapter.SearchShowAdapter;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,7 @@ public class SearchActivity extends BaseActivity {
     private SearchView searchView;
     private RecyclerView resultRecycler;
     private RecyclerView.LayoutManager layoutManager;
-    private List<Show> list;
+    private List<ShowTmp> list;
 
     @Inject
     public SearchPresenter presenter;
@@ -39,7 +43,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     public <T> void showData(T data) {
-        updateRecycler((List<Show>)data);
+        updateRecycler((List<ShowTmp>)data);
     }
 
     @Override
@@ -66,12 +70,14 @@ public class SearchActivity extends BaseActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                getPresenter().loadData();
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                return false;
+                presenter.setSearchQuery(newText);
+                return true;
             }
         });
         resultRecycler = (RecyclerView) findViewById(R.id.activity_search_result_rv);
@@ -86,8 +92,21 @@ public class SearchActivity extends BaseActivity {
         resultRecycler.setLayoutManager(layoutManager);
     }
 
-    private void updateRecycler(List<Show> list) {
+    private void updateRecycler(List<ShowTmp> list) {
         this.list.clear();
         this.list.addAll(list);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        //позже перенесу в презентер и в поток другой
+        try {
+            HelperFactory.getHelper().getShowTmpDAO().deleteAll();
+        } catch (SQLException e) {
+            Log.d("DB", "Delete incomplete");
+        }
+        ;
     }
 }

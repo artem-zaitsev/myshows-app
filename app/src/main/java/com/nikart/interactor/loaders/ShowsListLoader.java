@@ -52,7 +52,7 @@ public class ShowsListLoader extends BaseLoader<Answer> {
     private void createShowsInDb(List<Show> shows) {
         try {
             HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
-        } catch (IOException | SQLException e) {
+        } catch ( SQLException e) {
             e.printStackTrace();
         }
     }

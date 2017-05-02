@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.nikart.model.dto.Show;
+import com.nikart.model.dto.ShowTmp;
 import com.nikart.myshows.R;
 import com.nikart.screens.show.ShowActivity;
 
@@ -19,10 +20,10 @@ import java.util.List;
 
 public class SearchShowAdapter extends RecyclerView.Adapter<SearchResultViewHolder> {
 
-    private List<Show> searchList;
+    private List<ShowTmp> searchList;
     private Context context;
 
-    public SearchShowAdapter(List<Show> searchList) {
+    public SearchShowAdapter(List<ShowTmp> searchList) {
         this.searchList = searchList;
     }
 
@@ -36,13 +37,15 @@ public class SearchShowAdapter extends RecyclerView.Adapter<SearchResultViewHold
 
     @Override
     public void onBindViewHolder(SearchResultViewHolder holder, int position) {
-        Show show = searchList.get(position);
+        ShowTmp show = searchList.get(position);
 
         Glide.with(context)
                 .load(show.getImageUrl())
                 .centerCrop()
                 .into(holder.image);
-        holder.title.setText(show.getTitle());
+        holder.title.setText(show.getTitle() != null && !show.getTitle().equals("")
+                ? show.getTitle()
+                : show.getTitleOriginal());
         holder.root.setOnClickListener(view -> ShowActivity.start(context, show.getId()));
 
     }

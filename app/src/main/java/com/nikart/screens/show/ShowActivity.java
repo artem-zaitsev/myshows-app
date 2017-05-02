@@ -61,7 +61,7 @@ public class ShowActivity extends BaseActivity {
     private void setShowWatching() {
         show.setWatchStatus(isShowWatching()
                 ? "not watching"
-                : "watching");//???????
+                : "watching");
     }
 
     private boolean isShowWatching() {
@@ -101,12 +101,12 @@ public class ShowActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             descriptionTextView.setText(Html.fromHtml(show.getDescription() != null
                             ? show.getDescription()
-                            : "No connection, sorry.",
+                            : "",
                     Html.FROM_HTML_MODE_COMPACT));
         } else {
             descriptionTextView.setText(Html.fromHtml(show.getDescription() != null
                     ? show.getDescription()
-                    : "No connection, sorry."));
+                    : ""));
         }
         // спорное решение
         watchingFab.setImageResource(isShowWatching()
@@ -129,4 +129,13 @@ public class ShowActivity extends BaseActivity {
     public void showError(Throwable t) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(!isShowWatching()) {
+            presenter.deleteShow();
+        }
+    }
+
 }

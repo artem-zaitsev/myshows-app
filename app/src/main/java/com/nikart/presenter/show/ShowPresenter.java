@@ -10,6 +10,7 @@ import com.nikart.util.PreferencesWorker;
 
 import java.sql.SQLException;
 
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.disposables.Disposables;
@@ -39,11 +40,7 @@ public class ShowPresenter extends BasePresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(throwable -> {
                             Log.d("RX_SHOW_BY_ID", throwable.toString());
-                            try {
-                                view.showData(HelperFactory.getHelper().getShowDAO().queryForId(id));
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
+                            return Observable.fromArray(HelperFactory.getHelper().getShowDAO().queryForId(id));
                         }
                 )
                 .subscribe(show -> {
@@ -54,5 +51,13 @@ public class ShowPresenter extends BasePresenter {
                         () -> Log.d("RX_SHOW_BY_ID", "Complete")
                 );
         addDisposable(disposable);
+    }
+
+    public void deleteShow() {
+        try {
+            HelperFactory.getHelper().getShowDAO().deleteById(((ShowActivity)view).getShowId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
