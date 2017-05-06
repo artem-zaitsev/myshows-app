@@ -8,7 +8,6 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 
 import com.nikart.data.HelperFactory;
-import com.nikart.model.dto.Show;
 import com.nikart.model.dto.ShowTmp;
 import com.nikart.myshows.R;
 import com.nikart.presenter.dagger2.DaggerPresenterComponent;
@@ -28,22 +27,23 @@ import javax.inject.Inject;
 
 public class SearchActivity extends BaseActivity {
 
+    @Inject
+    public SearchPresenter presenter;
     private SearchView searchView;
     private RecyclerView resultRecycler;
     private RecyclerView.LayoutManager layoutManager;
+    private SearchShowAdapter adapter;
     private List<ShowTmp> list;
 
-    @Inject
-    public SearchPresenter presenter;
-
-   public static void start(Context context) {
+    public static void start(Context context, String query) {
         Intent starter = new Intent(context, SearchActivity.class);
+        starter.putExtra("QUERY", query);
         context.startActivity(starter);
     }
 
     @Override
     public <T> void showData(T data) {
-        updateRecycler((List<ShowTmp>)data);
+        updateRecycler((List<ShowTmp>) data);
     }
 
     @Override
@@ -56,7 +56,11 @@ public class SearchActivity extends BaseActivity {
         DaggerPresenterComponent.create()
                 .inject(this);
         presenter.onCreate(this);
+
+        Intent intent = getIntent();
+        presenter.setSearchQuery(intent.getStringExtra("QUERY"));
         setPresenter(presenter);
+        getPresenter().loadData();
     }
 
     @Override
@@ -71,13 +75,13 @@ public class SearchActivity extends BaseActivity {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 getPresenter().loadData();
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 presenter.setSearchQuery(newText);
-                return true;
+                return false;
             }
         });
         resultRecycler = (RecyclerView) findViewById(R.id.activity_search_result_rv);
@@ -86,7 +90,7 @@ public class SearchActivity extends BaseActivity {
 
     private void initRecycler() {
         list = new ArrayList<>();
-        SearchShowAdapter adapter = new SearchShowAdapter(list);
+        adapter = new SearchShowAdapter(list);
         layoutManager = new LinearLayoutManager(this);
         resultRecycler.setAdapter(adapter);
         resultRecycler.setLayoutManager(layoutManager);
@@ -95,6 +99,7 @@ public class SearchActivity extends BaseActivity {
     private void updateRecycler(List<ShowTmp> list) {
         this.list.clear();
         this.list.addAll(list);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -107,6 +112,5 @@ public class SearchActivity extends BaseActivity {
         } catch (SQLException e) {
             Log.d("DB", "Delete incomplete");
         }
-        ;
     }
 }

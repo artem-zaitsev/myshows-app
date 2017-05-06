@@ -4,8 +4,9 @@
     <item
         android:id="@+id/show_search"
         android:icon="@android:drawable/ic_menu_search"
-        app:showAsAction="always"
-        android:title="@string/search_shows" />
+        android:title="@string/search_shows"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/switch_layout_style"
         android:title="@string/menu_layout_switch"
