@@ -71,6 +71,7 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void initActivity() {
         searchView = (SearchView) findViewById(R.id.activity_search_input);
+        searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
