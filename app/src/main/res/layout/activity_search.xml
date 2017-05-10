@@ -14,9 +14,8 @@
             android:id="@+id/activity_search_input"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:iconifiedByDefault="false"
             app:defaultQueryHint="Input query..."
-            app:theme="@style/AppTheme.NoActionBar" />
+            />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
