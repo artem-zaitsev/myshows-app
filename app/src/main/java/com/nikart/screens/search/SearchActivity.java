@@ -27,6 +27,8 @@ import javax.inject.Inject;
 
 public class SearchActivity extends BaseActivity {
 
+    public static final String ACTION_QUERY = "QUERY";
+
     @Inject
     public SearchPresenter presenter;
     private SearchView searchView;
@@ -37,7 +39,7 @@ public class SearchActivity extends BaseActivity {
 
     public static void start(Context context, String query) {
         Intent starter = new Intent(context, SearchActivity.class);
-        starter.putExtra("QUERY", query);
+        starter.putExtra(ACTION_QUERY, query);
         context.startActivity(starter);
     }
 
@@ -58,7 +60,7 @@ public class SearchActivity extends BaseActivity {
         presenter.onCreate(this);
 
         Intent intent = getIntent();
-        presenter.setSearchQuery(intent.getStringExtra("QUERY"));
+        presenter.setSearchQuery(intent.getStringExtra(ACTION_QUERY));
         setPresenter(presenter);
         getPresenter().loadData();
     }

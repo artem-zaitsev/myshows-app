@@ -13,7 +13,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="android:colorButtonNormal">@color/colorButtonNormal</item>
-        <item name="android:actionMenuTextColor">@color/colorPrimary</item>
+        <item name="actionMenuTextColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
     <style name="SearchTheme" parent="Widget.AppCompat.Light.SearchView">
