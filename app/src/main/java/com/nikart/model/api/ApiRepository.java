@@ -2,10 +2,10 @@ package com.nikart.model.api;
 
 import android.util.Log;
 
-import com.nikart.data.HelperFactory;
-import com.nikart.interactor.retrofit.MyShowsApi;
-import com.nikart.interactor.retrofit.NetworkHelper;
-import com.nikart.interactor.retrofit.dagger2.DaggerNetworkComponent;
+import com.nikart.database.HelperFactory;
+import com.nikart.model.retrofit.MyShowsApi;
+import com.nikart.model.retrofit.NetworkHelper;
+import com.nikart.model.retrofit.dagger2.DaggerNetworkComponent;
 import com.nikart.model.Model;
 import com.nikart.model.dto.Episode;
 import com.nikart.model.dto.Show;
@@ -161,8 +161,6 @@ public class ApiRepository implements Model {
     public Observable<Show> getShowById(int id) {
         return api.getShowById(id)
                 .map(sh -> {
-                    ShowTmp tmpShow = null;
-                    tmpShow = HelperFactory.getHelper().getShowTmpDAO().queryForId(id);
                     Show s = HelperFactory.getHelper().getShowDAO().queryForId(id);
                     String watchStatus =  s !=  null
                             ? s.getWatchStatus()

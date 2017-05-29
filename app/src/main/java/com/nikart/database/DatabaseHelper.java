@@ -1,4 +1,4 @@
-package com.nikart.data;
+package com.nikart.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,9 +7,9 @@ import android.util.Log;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.nikart.data.dao.EpisodeDAO;
-import com.nikart.data.dao.ShowDAO;
-import com.nikart.data.dao.ShowTmpDAO;
+import com.nikart.database.dao.EpisodeDAO;
+import com.nikart.database.dao.ShowDAO;
+import com.nikart.database.dao.ShowTmpDAO;
 import com.nikart.model.dto.Episode;
 import com.nikart.model.dto.Show;
 import com.nikart.model.dto.ShowTmp;

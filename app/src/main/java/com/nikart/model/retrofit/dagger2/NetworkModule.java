@@ -1,9 +1,7 @@
-package com.nikart.interactor.retrofit.dagger2;
+package com.nikart.model.retrofit.dagger2;
 
-import com.nikart.interactor.retrofit.MyShowsApi;
-import com.nikart.interactor.retrofit.NetworkHelper;
-
-import javax.inject.Singleton;
+import com.nikart.model.retrofit.MyShowsApi;
+import com.nikart.model.retrofit.NetworkHelper;
 
 import dagger.Module;
 import dagger.Provides;

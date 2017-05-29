@@ -1,8 +1,8 @@
-package com.nikart.data.dao;
+package com.nikart.database.dao;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
-import com.nikart.data.HelperFactory;
+import com.nikart.database.HelperFactory;
 import com.nikart.model.dto.Episode;
 import com.nikart.model.dto.Show;
 

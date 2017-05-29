@@ -3,7 +3,7 @@ package com.nikart.app;
 import android.app.Application;
 
 import com.facebook.stetho.Stetho;
-import com.nikart.data.HelperFactory;
+import com.nikart.database.HelperFactory;
 import com.nikart.util.PreferencesWorker;
 import com.vk.sdk.VKSdk;
 

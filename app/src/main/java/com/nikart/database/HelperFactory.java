@@ -1,4 +1,4 @@
-package com.nikart.data;
+package com.nikart.database;
 
 import android.content.Context;
 

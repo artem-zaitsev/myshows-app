@@ -1,9 +1,7 @@
-package com.nikart.interactor.retrofit;
+package com.nikart.model.retrofit;
 
 import com.nikart.interactor.interceptors.AddCookiesInterceptor;
 import com.nikart.interactor.interceptors.ReceivedCookieInterceptor;
-
-import javax.inject.Singleton;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

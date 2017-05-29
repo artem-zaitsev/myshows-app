@@ -1,9 +1,6 @@
 package com.nikart.screens.shows;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.nikart.data.HelperFactory;
+import com.nikart.database.HelperFactory;
 import com.nikart.model.dto.Show;
 import com.nikart.myshows.R;
 import com.nikart.presenter.dagger2.DaggerPresenterComponent;

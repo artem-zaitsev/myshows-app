@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 
-import com.nikart.data.HelperFactory;
+import com.nikart.database.HelperFactory;
 import com.nikart.model.dto.ShowTmp;
 import com.nikart.myshows.R;
 import com.nikart.presenter.dagger2.DaggerPresenterComponent;

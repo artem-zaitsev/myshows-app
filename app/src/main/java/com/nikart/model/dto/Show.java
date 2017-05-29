@@ -93,7 +93,7 @@ public class Show {
 
     @DatabaseField(columnName = FIELD_NAME_WATCH_STATUS)
     @SerializedName("watchStatus")
-    private String watchStatus;
+    private String watchStatus; //watching || remove || not watching
 
     @DatabaseField(columnName = FIELD_NAME_TOTAL_EPISODES)
     @SerializedName("totalEpisodes")

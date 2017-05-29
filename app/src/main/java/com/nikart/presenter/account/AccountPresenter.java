@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
-import com.nikart.data.HelperFactory;
+import com.nikart.database.HelperFactory;
 import com.nikart.model.dto.Show;
 import com.nikart.model.dto.UserProfile;
 import com.nikart.presenter.BasePresenter;

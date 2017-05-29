@@ -1,4 +1,4 @@
-package com.nikart.data.dao;
+package com.nikart.database.dao;
 
 import android.util.Log;
 

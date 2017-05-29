@@ -2,19 +2,11 @@ package com.nikart.interactor.loaders;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.nikart.app.App;
-import com.nikart.base.BaseLoader;
+import com.nikart.interactor.loaders.base.BaseLoader;
 import com.nikart.interactor.Answer;
-import com.nikart.util.Md5Converter;
-import com.nikart.util.PreferencesWorker;
-
-import java.io.IOException;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by Artem on 11.03.2017.

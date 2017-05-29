@@ -2,7 +2,7 @@ package com.nikart.presenter.show;
 
 import android.util.Log;
 
-import com.nikart.data.HelperFactory;
+import com.nikart.database.HelperFactory;
 import com.nikart.presenter.BasePresenter;
 import com.nikart.screens.IView;
 import com.nikart.screens.show.ShowActivity;

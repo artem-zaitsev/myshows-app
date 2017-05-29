@@ -1,10 +1,7 @@
-package com.nikart.base;
+package com.nikart.interactor.loaders.base;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-
-
-import java.util.List;
 
 /**
  * Created by Artem on 09.03.2017.

@@ -1,9 +1,8 @@
-package com.nikart.interactor.retrofit;
+package com.nikart.model.retrofit;
 
 import com.nikart.model.dto.Show;
 import com.nikart.model.dto.UserProfile;
 
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;

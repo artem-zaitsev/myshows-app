@@ -1,14 +1,12 @@
-package com.nikart.data.dao;
+package com.nikart.database.dao;
 
 import android.util.Log;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.support.ConnectionSource;
-import com.nikart.model.dto.Show;
 import com.nikart.model.dto.ShowTmp;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

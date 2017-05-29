@@ -3,7 +3,7 @@ package com.nikart.interactor.loaders;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.nikart.base.BaseLoader;
+import com.nikart.interactor.loaders.base.BaseLoader;
 import com.nikart.model.dto.Show;
 import com.nikart.interactor.Answer;
 
