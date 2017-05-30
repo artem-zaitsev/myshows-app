@@ -7,6 +7,8 @@
     <color name="primary_text">#fafafa</color>
     <color name="secondary_text">#bdbdbd</color>
     <color name="secondary_text_material_dark">#01579b</color>
+    <color name="text_color_secondary_base">@color/secondary_text</color>
     <color name="primary_text_material_dark">#000000</color>
-    <color name = "colorButtonNormal"> #ffffff</color>
+    <color name ="colorButtonNormal"> #ffffff</color>
+    <color name="colorSearch">#dddddd</color>
 </resources>

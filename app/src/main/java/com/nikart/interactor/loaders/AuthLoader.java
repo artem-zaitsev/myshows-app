@@ -2,19 +2,11 @@ package com.nikart.interactor.loaders;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.nikart.app.App;
-import com.nikart.base.BaseLoader;
+import com.nikart.interactor.loaders.base.BaseLoader;
 import com.nikart.interactor.Answer;
-import com.nikart.util.Md5Converter;
-import com.nikart.util.PreferencesWorker;
-
-import java.io.IOException;
 
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by Artem on 11.03.2017.
@@ -46,10 +38,10 @@ public class AuthLoader extends BaseLoader<Answer> {
 
     @Override
     public Answer loadInBackground() {
-        Answer answer = new Answer();
+        /*Answer answer = new Answer();
         client = App.getInstance().getClient();
 
-        /*Подставляем логин и пароль из EditText'ов*/
+        *//*Подставляем логин и пароль из EditText'ов*//*
         Request request = new Request.Builder()
                 .url("https://api.myshows.me/profile/login?login=" + login + "&password=" +
                         Md5Converter.Md5Hash(password))
@@ -67,7 +59,7 @@ public class AuthLoader extends BaseLoader<Answer> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        answer.setAnswer(response);
-        return answer;
+        answer.setAnswer(response);*/
+        return null;
     }
 }

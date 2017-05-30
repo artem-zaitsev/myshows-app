@@ -3,9 +3,9 @@ package com.nikart.interactor.loaders;
 import android.content.Context;
 import android.util.Log;
 
-import com.nikart.base.BaseLoader;
-import com.nikart.data.HelperFactory;
-import com.nikart.data.dto.Show;
+import com.nikart.interactor.loaders.base.BaseLoader;
+import com.nikart.database.HelperFactory;
+import com.nikart.model.dto.Show;
 import com.nikart.interactor.Answer;
 
 import java.sql.SQLException;

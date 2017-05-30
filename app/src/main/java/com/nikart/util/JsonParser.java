@@ -40,7 +40,7 @@ public class JsonParser<T> {
                     currentDynamicValue = result.getJSONObject(currentDynamicKey);
                     Log.d("JSON", "Current: " + currentDynamicValue + " key " + currentDynamicKey);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Log.d("JSON_PARSER", e.toString());
                 }
                 T t = new Gson().fromJson(currentDynamicValue.toString(), c);
                 list.add(t);
@@ -51,6 +51,7 @@ public class JsonParser<T> {
 
     @Nullable
     private JSONObject getJSONObject() throws IOException, JSONException {
+        Log.d("JSON_PARSER", String.valueOf(responseBody.contentLength()));
         return responseBody != null ? new JSONObject(responseBody.string()) : null;
     }
 }

@@ -72,7 +72,7 @@
         <item>Июнь</item>
         <item>Июль</item>
         <item>Август</item>
-        <item>Сентябрьr</item>
+        <item>Сентябрь</item>
         <item>Октябрь</item>
         <item>Ноябрь</item>
         <item>Декабрь</item>
@@ -87,4 +87,6 @@
     <string name="empty_fields">Заполните все поля!</string>
     <string name="grid">Сеткой</string>
     <string name="linear">Списком</string>
+    <string name="exit">Выход</string>
+    <string name="search_shows">Поиск сериалов</string>
 </resources>

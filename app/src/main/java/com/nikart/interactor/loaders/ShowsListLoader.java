@@ -2,12 +2,11 @@ package com.nikart.interactor.loaders;
 
 import android.content.Context;
 
-import com.nikart.base.BaseLoader;
-import com.nikart.data.HelperFactory;
-import com.nikart.data.dto.Show;
+import com.nikart.interactor.loaders.base.BaseLoader;
+import com.nikart.database.HelperFactory;
+import com.nikart.model.dto.Show;
 import com.nikart.interactor.Answer;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +51,7 @@ public class ShowsListLoader extends BaseLoader<Answer> {
     private void createShowsInDb(List<Show> shows) {
         try {
             HelperFactory.getHelper().getShowDAO().createInDataBase(shows);
-        } catch (IOException | SQLException e) {
+        } catch ( SQLException e) {
             e.printStackTrace();
         }
     }

@@ -9,10 +9,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.nikart.myshows.R;
+import com.nikart.screens.BaseActivity;
+import com.nikart.screens.launch.LaunchActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends BaseActivity implements View.OnClickListener {
 
     private Button signUpButton, nextButton, backButton;
     private SignUpView firstSignUpView, secondSignUpView;
@@ -23,11 +25,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         context.startActivity(intent);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
 
+    @Override
+    protected void injectPresenter() {
+        //do nothing
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_signup;
+    }
+
+    @Override
+    protected void initActivity() {
         signUpButton = (Button) findViewById(R.id.sign_up_btn);
         signUpButton.setOnClickListener(this);
         nextButton = (Button) findViewById(R.id.sign_up_next_btn);
@@ -38,7 +48,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         firstSignUpView = (SignUpView) findViewById(R.id.first_sign_up_view);
         secondSignUpView = (SignUpView) findViewById(R.id.second_sign_up_view);
         linearLayoutWithButtons = (LinearLayout) findViewById(R.id.sign_up_bttns);
-
     }
 
     @Override
@@ -64,5 +73,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             }
         }
+    }
+
+    @Override
+    public <T> void showData(T data) {
+
+    }
+
+    @Override
+    public void showError(Throwable t) {
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        LaunchActivity.start(this);
     }
 }

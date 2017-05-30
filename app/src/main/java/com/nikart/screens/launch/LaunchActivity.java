@@ -2,24 +2,23 @@ package com.nikart.screens.launch;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.nikart.myshows.R;
+import com.nikart.screens.BaseActivity;
 import com.nikart.screens.auth.signin.LoginActivity;
 import com.nikart.screens.auth.signup.SignUpActivity;
 import com.nikart.screens.main.MainActivity;
 import com.nikart.util.PreferencesWorker;
 
-public class LaunchActivity extends AppCompatActivity implements View.OnClickListener {
+public class LaunchActivity extends BaseActivity implements View.OnClickListener {
 
     static private final int NUM_PAGES = 2;
     private Button registerButton;
@@ -34,11 +33,13 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch);
-        Log.d("PREFERENCES", "LaunchActivity. Cookie from prefs:" + PreferencesWorker.getInstance().getCookies());
-        initActivity();
+    protected void injectPresenter() {
+        //do nothing
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_launch;
     }
 
     @Override
@@ -46,23 +47,23 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         switch (view.getId()) {
             case R.id.login_btn: {
                 if (PreferencesWorker.getInstance().isSignedIn()) {
-                    Log.d("PREFS", String.valueOf(PreferencesWorker.getInstance().isSignedIn()));
                     MainActivity.start(this);
-                    finish();
+
                 } else LoginActivity.start(this);
                 break;
             }
             case R.id.register_btn: {
                 if (PreferencesWorker.getInstance().isSignedIn()) {
                     MainActivity.start(this);
-                    finish();
+
                 } else SignUpActivity.start(this);
                 break;
             }
         }
+        finish();
     }
 
-    private void initActivity() {
+    protected void initActivity() {
         registerButton = (Button) findViewById(R.id.register_btn);
         loginButton = (Button) findViewById(R.id.login_btn);
 
@@ -72,6 +73,16 @@ public class LaunchActivity extends AppCompatActivity implements View.OnClickLis
         pager = (ViewPager) findViewById(R.id.launch_pager);
         pagerAdapter = new WelcomePagesSlideAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
+    }
+
+    @Override
+    public <T> void showData(T data) {
+
+    }
+
+    @Override
+    public void showError(Throwable t) {
+
     }
 
     // Делаем внутренний класс для адаптера фрагментов.

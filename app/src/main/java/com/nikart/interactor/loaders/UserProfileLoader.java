@@ -2,7 +2,7 @@ package com.nikart.interactor.loaders;
 
 import android.content.Context;
 
-import com.nikart.base.BaseLoader;
+import com.nikart.interactor.loaders.base.BaseLoader;
 import com.nikart.interactor.Answer;
 
 /**
