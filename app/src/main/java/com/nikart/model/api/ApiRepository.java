@@ -41,8 +41,6 @@ public class ApiRepository implements Model {
     private static ApiRepository apiRepository;
 
     @Inject
-    public NetworkHelper helper;
-    @Inject
     public MyShowsApi api;
 
     public ApiRepository() {

@@ -54,7 +54,7 @@ public class AccountPresenter extends BasePresenter {
                 .observeOn(Schedulers.io())
                 .onErrorResumeNext(
                         error -> {
-                            Log.d("RX_ACCOUNT1", error.toString());
+                            Log.d("RX_ACCOUNT", error.toString());
                             return Observable.fromArray(HelperFactory.getHelper().getShowDAO().getAllShows());
                         }
                 )

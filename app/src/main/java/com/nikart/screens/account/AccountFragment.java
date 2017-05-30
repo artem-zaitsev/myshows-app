@@ -74,7 +74,8 @@ public class AccountFragment extends BaseFragment implements AccountShowAdapter.
                 presenter.exitFromAccount();
                 return true;
             }
-            default: return false;
+            default:
+                return false;
         }
     }
 

@@ -14,5 +14,5 @@ public interface NetworkComponent {
 
     void inject(ApiRepository model);
 
-    void inject(App app);
+//    void inject(App app);
 }

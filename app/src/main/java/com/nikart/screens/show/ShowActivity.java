@@ -133,7 +133,7 @@ public class ShowActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(!isShowWatching()) {
+        if (show != null && !isShowWatching()) {
             presenter.deleteShow();
         }
     }

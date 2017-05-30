@@ -27,9 +27,7 @@ public class SplashActivity extends BaseActivity {
         super.onStart();
         String login = PreferencesWorker.getInstance().getLogin();
         String password = PreferencesWorker.getInstance().getPassword();
-        if (login != null
-                && password != null
-                && PreferencesWorker.getInstance().isSignedIn()) {
+        if (login != null && password != null && PreferencesWorker.getInstance().isSignedIn()) {
             getPresenter().loadData();
         } else {
             LaunchActivity.start(this);
